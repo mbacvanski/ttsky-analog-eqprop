@@ -1,0 +1,149 @@
+{
+  "parent_gds_sha256": "2ff6bb34d055799fa6d188924a1dc54ed6dd4a886092837138098d8da098d5cd",
+  "source_schematic_sha256": "229fb5826271a05a3803c2e57057c049497bcaa4fde53c8e0d85e059e2d1fc82",
+  "placed_gds_sha256": "2ae2036113fb42914b21f1d38f9cbfe8e9d3dcd14c2fe1784a53a7e689387cb0",
+  "target_sha256": "ba0be4a732c888b02819ae41de1d5119c04af842ead19145c06964ae07077036",
+  "parent_macro_instances": 59,
+  "placed_macro_instances": 63,
+  "die_um": [
+    334.88,
+    225.76
+  ],
+  "placements": {
+    "H1": {
+      "master": "sx_reset_tg",
+      "transform": "r180 80650,166500",
+      "bbox_um": [
+        76.35,
+        158.5,
+        80.65,
+        166.5
+      ],
+      "pins": {
+        "a": "H1",
+        "b": "ref",
+        "en": "weak",
+        "en_b": "weak_b",
+        "vdd": "vdd",
+        "vss": "vss"
+      }
+    },
+    "H2": {
+      "master": "sx_reset_tg",
+      "transform": "r0 203850,144250",
+      "bbox_um": [
+        203.85,
+        144.25,
+        208.15,
+        152.25
+      ],
+      "pins": {
+        "a": "H2",
+        "b": "ref",
+        "en": "weak",
+        "en_b": "weak_b",
+        "vdd": "vdd",
+        "vss": "vss"
+      }
+    },
+    "Z": {
+      "master": "sx_reset_tg",
+      "transform": "r270 2955,91260",
+      "bbox_um": [
+        2.955,
+        86.96,
+        10.955,
+        91.26
+      ],
+      "pins": {
+        "a": "Z",
+        "b": "ref",
+        "en": "weak",
+        "en_b": "weak_b",
+        "vdd": "vdd",
+        "vss": "vss"
+      }
+    },
+    "SELECT": {
+      "master": "ne_res_hold_select",
+      "transform": "r180 74800,166325",
+      "bbox_um": [
+        70.2,
+        162.675,
+        74.8,
+        166.325
+      ],
+      "pins": {
+        "res_sel": "res_sel",
+        "six": "six",
+        "weak": "weak",
+        "weak_b": "weak_b",
+        "vdd": "vdd",
+        "vss": "vss"
+      }
+    }
+  },
+  "original_pin_receipts": {
+    "H1": [
+      "H1:h",
+      "m4",
+      110.67,
+      170.8
+    ],
+    "H2": [
+      "H2:h",
+      "m4",
+      238.03,
+      140.06
+    ],
+    "Z": [
+      "Z:h",
+      "m4",
+      8.38,
+      85.7
+    ],
+    "ref": [
+      "H1:ref",
+      "m3",
+      75.67,
+      170.8
+    ],
+    "vdd": [
+      "H1:vdd",
+      "m2",
+      116.35,
+      116.55
+    ],
+    "vss": [
+      "H1:vss",
+      "m2",
+      116.265,
+      99.5
+    ],
+    "six": [
+      "DEC_MODE:six",
+      "m2",
+      127.96,
+      174.92
+    ],
+    "res_sel": [
+      "TT:uio_in[6]",
+      "m4",
+      99.82,
+      225.26
+    ]
+  },
+  "unrouted_branches": {
+    "H1": 1,
+    "H2": 1,
+    "Z": 1,
+    "ref": 3,
+    "vdd": 4,
+    "vss": 4,
+    "six": 1,
+    "res_sel": 1,
+    "weak": 3,
+    "weak_b": 3
+  },
+  "scope": "Placed overlay. Full-chip metal routing and subsequent electrical qualification are evaluated independently."
+}

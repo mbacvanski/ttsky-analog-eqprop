@@ -1,0 +1,192 @@
+{
+  "native_chip_sha256": "5685af2f3b381c8b2b30365c83d33d7563cac13ab9f1c41d26978211679174fa",
+  "reference_sha256": "84f322142db06e0295089b16ae8929251943127d3c60c7ccd61b30811ee737eb",
+  "frozen_device_library_sha256": "044ca8cbdc58aa5a5a45a24d47b9e884abf5091fc83048dc1af299b052cad197",
+  "explicit_physical_dummy_devices": [
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=70.34",
+      6,
+      "neuron_res x3"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=46.84",
+      4,
+      "weight-bank arrays of H1 and H2"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=35.09",
+      2,
+      "weight-bank array of Z"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=70.34",
+      2,
+      "rw_res"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=70.34",
+      2,
+      "rsense"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_2p85",
+      "L=1.42",
+      12,
+      "reference ladder edge dummies"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=17.4",
+      1,
+      "second output's sense resistor (obs2_mux)"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=11.56",
+      4,
+      "pw4_nrn_h"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=11.56",
+      4,
+      "pw4_units3d"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=11.56",
+      2,
+      "pw4_nrn_z"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=10.6",
+      1,
+      "pw4_units5"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=11.56",
+      1,
+      "pw4_units5"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_1p41",
+      "L=70.34",
+      4,
+      "two native rw_res copies, two grounded edges per array"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=11.56",
+      4,
+      "ne_help"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=1.49",
+      2,
+      "ne_r1"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=4.12",
+      2,
+      "ne_r2"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=26.15",
+      2,
+      "ne_g1"
+    ],
+    [
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "L=22.4",
+      2,
+      "ne_g2"
+    ]
+  ],
+  "ports": [
+    "clk",
+    "ena",
+    "rst_n",
+    "ua[0]",
+    "ua[1]",
+    "ua[2]",
+    "ua[3]",
+    "ua[4]",
+    "ua[5]",
+    "ua[6]",
+    "ua[7]",
+    "ui_in[0]",
+    "ui_in[1]",
+    "ui_in[2]",
+    "ui_in[3]",
+    "ui_in[4]",
+    "ui_in[5]",
+    "ui_in[6]",
+    "ui_in[7]",
+    "uio_in[0]",
+    "uio_in[1]",
+    "uio_in[2]",
+    "uio_in[3]",
+    "uio_in[4]",
+    "uio_in[5]",
+    "uio_in[6]",
+    "uio_in[7]",
+    "uo_out[0]",
+    "uo_out[1]",
+    "uo_out[2]",
+    "uo_out[3]",
+    "uo_out[4]",
+    "uo_out[5]",
+    "uo_out[6]",
+    "uo_out[7]",
+    "VGND",
+    "VDPWR"
+  ],
+  "explicit_board_pin_map": {
+    "bit_a": "ui_in[0]",
+    "bit_b": "ui_in[1]",
+    "reset": "ui_in[2]",
+    "hold_in": "ui_in[3]",
+    "ref_reset": "ui_in[4]",
+    "obs_sel0": "ui_in[5]",
+    "obs_sel1": "ui_in[6]",
+    "obs_sel2": "ui_in[7]",
+    "ext_en1": "uio_in[0]",
+    "ext_en2": "uio_in[1]",
+    "pad": "ua[0]",
+    "ext_bias": "ua[1]",
+    "vdd": "VDPWR",
+    "vss": "VGND",
+    "uo_out0": "uo_out[0]",
+    "uo_out1": "uo_out[1]",
+    "uo_out2": "uo_out[2]",
+    "uo_out3": "uo_out[3]",
+    "uo_out4": "uo_out[4]",
+    "uo_out5": "uo_out[5]",
+    "uo_out6": "uo_out[6]",
+    "uo_out7": "uo_out[7]",
+    "pad2": "ua[2]",
+    "obs2_sel0": "uio_in[2]",
+    "obs2_sel1": "uio_in[3]",
+    "bias_prog": "uio_in[4]",
+    "write": "uio_in[5]",
+    "res_sel": "uio_in[6]",
+    "weight_prog": "uio_in[7]"
+  },
+  "instance_classes": {
+    "dev": 641,
+    "cell": 14,
+    "std": 143
+  },
+  "blackboxes": [],
+  "fault": null
+}

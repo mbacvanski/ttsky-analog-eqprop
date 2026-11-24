@@ -1,0 +1,1015 @@
+{
+  "scope": "Placement of all 32 original and all new circuit macros. Inter-macro signal/power routes and whole-chip LVS remain pending.",
+  "gds_sha256": "6864c5c6a2c36b618eb965fa65609b67ca8bb12cdfd49b131af76e715f186423",
+  "frozen_gds_sha256": "4161a93647aba3dfd9799bf1255d7b7104d26d5cd5153aa0329316bd9a240d9b",
+  "candidate_schematic_sha256": "c5554a58fa7d128c18185dd1f5825c9cba79dd4629cd8095ec77fa5924a65075",
+  "groups": 52,
+  "macro_instances": 59,
+  "original_instances": 32,
+  "all_53_pin_names_and_58_lands": true,
+  "all_7_long_power_lands_kept": true,
+  "minimum_group_gap_nm": 1600,
+  "die_nm": [
+    0,
+    0,
+    334880,
+    225760
+  ],
+  "floorplan": {
+    "frozen_gds_sha256": "4161a93647aba3dfd9799bf1255d7b7104d26d5cd5153aa0329316bd9a240d9b",
+    "schematic_sha256": "c5554a58fa7d128c18185dd1f5825c9cba79dd4629cd8095ec77fa5924a65075",
+    "all_costed_instances": [
+      "H1",
+      "H2",
+      "Z",
+      "OBS2",
+      "OBS",
+      "PINRES",
+      "LEAN",
+      "RW",
+      "BUF_REF",
+      "PADBUF",
+      "RSENSE",
+      "SEL1",
+      "DEC",
+      "RBLOCK",
+      "BUF2",
+      "ECHO",
+      "BUF_BIAS1",
+      "MID",
+      "REFINV",
+      "EXT2",
+      "EXT1",
+      "LADDER",
+      "BUF_BIAS2",
+      "SEL2",
+      "BIAS",
+      "ROWS_A",
+      "ROWS_B",
+      "RW_A",
+      "RW_B",
+      "MID_A",
+      "MID_B",
+      "END_A",
+      "END_B",
+      "RAW_BUS",
+      "LEAF_A",
+      "LEAF_B",
+      "HELP_1",
+      "HELP_2",
+      "HELP_SW_1_1",
+      "HELP_SW_1_2",
+      "HELP_SW_1_3",
+      "HELP_SW_2_1",
+      "HELP_SW_2_2",
+      "HELP_SW_2_3",
+      "R_FIXED1",
+      "R_FIXED2",
+      "G_FIXED1",
+      "G_FIXED2",
+      "FIXED_SW",
+      "THRESH1",
+      "THRESH2",
+      "DEC_MODE"
+    ],
+    "floorplan_only": true,
+    "trial_seed": 1186,
+    "trial": 207,
+    "hold_fixed_groups": [],
+    "gap_nm": 1600,
+    "outer_inset_nm": 2400,
+    "placements": {
+      "Z": {
+        "x_nm": 2400,
+        "y_nm": 2400,
+        "rotation": 0,
+        "bbox_nm": [
+          2400,
+          2400,
+          116650,
+          85900
+        ]
+      },
+      "H1": {
+        "x_nm": 2400,
+        "y_nm": 87500,
+        "rotation": 0,
+        "bbox_nm": [
+          2400,
+          87500,
+          116650,
+          171000
+        ]
+      },
+      "H2": {
+        "x_nm": 129760,
+        "y_nm": 139860,
+        "rotation": 0,
+        "bbox_nm": [
+          129760,
+          139860,
+          244010,
+          223360
+        ]
+      },
+      "BUF_REF": {
+        "x_nm": 270680,
+        "y_nm": 2400,
+        "rotation": 2,
+        "bbox_nm": [
+          270680,
+          2400,
+          332480,
+          82980
+        ]
+      },
+      "PADBUF": {
+        "x_nm": 270680,
+        "y_nm": 84580,
+        "rotation": 2,
+        "bbox_nm": [
+          270680,
+          84580,
+          332480,
+          144505
+        ]
+      },
+      "ROWS_A": {
+        "x_nm": 2400,
+        "y_nm": 172600,
+        "rotation": 0,
+        "bbox_nm": [
+          2400,
+          172600,
+          115800,
+          187500
+        ]
+      },
+      "LEAN": {
+        "x_nm": 264480,
+        "y_nm": 146105,
+        "rotation": 2,
+        "bbox_nm": [
+          264480,
+          146105,
+          332480,
+          198505
+        ]
+      },
+      "RBLOCK": {
+        "x_nm": 2400,
+        "y_nm": 208460,
+        "rotation": 2,
+        "bbox_nm": [
+          2400,
+          208460,
+          115800,
+          223360
+        ]
+      },
+      "LADDER": {
+        "x_nm": 215630,
+        "y_nm": 75660,
+        "rotation": 2,
+        "bbox_nm": [
+          215630,
+          75660,
+          267930,
+          138260
+        ]
+      },
+      "ROWS_B": {
+        "x_nm": 2400,
+        "y_nm": 189100,
+        "rotation": 2,
+        "bbox_nm": [
+          2400,
+          189100,
+          115800,
+          204000
+        ]
+      },
+      "RW_A": {
+        "x_nm": 250060,
+        "y_nm": 144560,
+        "rotation": 2,
+        "bbox_nm": [
+          250060,
+          144560,
+          262880,
+          223360
+        ]
+      },
+      "BUF_BIAS1": {
+        "x_nm": 215015,
+        "y_nm": 31540,
+        "rotation": 0,
+        "bbox_nm": [
+          215015,
+          31540,
+          259745,
+          74060
+        ]
+      },
+      "RW_B": {
+        "x_nm": 118250,
+        "y_nm": 2400,
+        "rotation": 0,
+        "bbox_nm": [
+          118250,
+          2400,
+          131070,
+          81200
+        ]
+      },
+      "BUF2": {
+        "x_nm": 132670,
+        "y_nm": 2400,
+        "rotation": 0,
+        "bbox_nm": [
+          132670,
+          2400,
+          185200,
+          27850
+        ]
+      },
+      "BUF_BIAS2": {
+        "x_nm": 169300,
+        "y_nm": 75660,
+        "rotation": 0,
+        "bbox_nm": [
+          169300,
+          75660,
+          214030,
+          118180
+        ]
+      },
+      "RW": {
+        "x_nm": 132670,
+        "y_nm": 59460,
+        "rotation": 2,
+        "bbox_nm": [
+          132670,
+          59460,
+          145490,
+          138260
+        ]
+      },
+      "SEL1": {
+        "x_nm": 232880,
+        "y_nm": 2400,
+        "rotation": 2,
+        "bbox_nm": [
+          232880,
+          2400,
+          269080,
+          29420
+        ]
+      },
+      "RSENSE": {
+        "x_nm": 120840,
+        "y_nm": 82800,
+        "rotation": 0,
+        "bbox_nm": [
+          120840,
+          82800,
+          128160,
+          161600
+        ]
+      },
+      "OBS": {
+        "x_nm": 157230,
+        "y_nm": 119780,
+        "rotation": 0,
+        "bbox_nm": [
+          157230,
+          119780,
+          214030,
+          135380
+        ]
+      },
+      "BIAS": {
+        "x_nm": 147090,
+        "y_nm": 29450,
+        "rotation": 2,
+        "bbox_nm": [
+          147090,
+          29450,
+          159090,
+          97450
+        ]
+      },
+      "SEL2": {
+        "x_nm": 195080,
+        "y_nm": 2400,
+        "rotation": 2,
+        "bbox_nm": [
+          195080,
+          2400,
+          231280,
+          29420
+        ]
+      },
+      "DEC_MODE": {
+        "x_nm": 120180,
+        "y_nm": 172600,
+        "rotation": 3,
+        "bbox_nm": [
+          120180,
+          172600,
+          128160,
+          219590
+        ]
+      },
+      "G_FIXED1": {
+        "x_nm": 298170,
+        "y_nm": 206850,
+        "rotation": 0,
+        "bbox_nm": [
+          298170,
+          206850,
+          332480,
+          223360
+        ]
+      },
+      "OBS2": {
+        "x_nm": 264480,
+        "y_nm": 200105,
+        "rotation": 2,
+        "bbox_nm": [
+          264480,
+          200105,
+          293680,
+          218705
+        ]
+      },
+      "G_FIXED2": {
+        "x_nm": 160690,
+        "y_nm": 29450,
+        "rotation": 2,
+        "bbox_nm": [
+          160690,
+          29450,
+          191250,
+          39320
+        ]
+      },
+      "DEC": {
+        "x_nm": 297980,
+        "y_nm": 200105,
+        "rotation": 2,
+        "bbox_nm": [
+          297980,
+          200105,
+          332480,
+          204145
+        ]
+      },
+      "HELP_1": {
+        "x_nm": 147980,
+        "y_nm": 108310,
+        "rotation": 2,
+        "bbox_nm": [
+          147980,
+          108310,
+          167700,
+          118180
+        ]
+      },
+      "PINRES": {
+        "x_nm": 132670,
+        "y_nm": 29450,
+        "rotation": 0,
+        "bbox_nm": [
+          132670,
+          29450,
+          141880,
+          52110
+        ]
+      },
+      "EXT1": {
+        "x_nm": 192850,
+        "y_nm": 59860,
+        "rotation": 0,
+        "bbox_nm": [
+          192850,
+          59860,
+          207850,
+          74060
+        ]
+      },
+      "THRESH2": {
+        "x_nm": 198415,
+        "y_nm": 44060,
+        "rotation": 0,
+        "bbox_nm": [
+          198415,
+          44060,
+          213415,
+          58260
+        ]
+      },
+      "EXT2": {
+        "x_nm": 181815,
+        "y_nm": 44060,
+        "rotation": 0,
+        "bbox_nm": [
+          181815,
+          44060,
+          196815,
+          58260
+        ]
+      },
+      "HELP_2": {
+        "x_nm": 192850,
+        "y_nm": 31020,
+        "rotation": 0,
+        "bbox_nm": [
+          192850,
+          31020,
+          212570,
+          40890
+        ]
+      },
+      "THRESH1": {
+        "x_nm": 160690,
+        "y_nm": 59860,
+        "rotation": 0,
+        "bbox_nm": [
+          160690,
+          59860,
+          175690,
+          74060
+        ]
+      },
+      "ECHO": {
+        "x_nm": 152140,
+        "y_nm": 99050,
+        "rotation": 0,
+        "bbox_nm": [
+          152140,
+          99050,
+          167700,
+          103210
+        ]
+      },
+      "R_FIXED1": {
+        "x_nm": 118250,
+        "y_nm": 166110,
+        "rotation": 0,
+        "bbox_nm": [
+          118250,
+          166110,
+          127900,
+          171000
+        ]
+      },
+      "R_FIXED2": {
+        "x_nm": 177290,
+        "y_nm": 59860,
+        "rotation": 2,
+        "bbox_nm": [
+          177290,
+          59860,
+          189570,
+          64750
+        ]
+      },
+      "MID_B": {
+        "x_nm": 184580,
+        "y_nm": 69850,
+        "rotation": 2,
+        "bbox_nm": [
+          184580,
+          69850,
+          191250,
+          74060
+        ]
+      },
+      "RAW_BUS": {
+        "x_nm": 178770,
+        "y_nm": 67390,
+        "rotation": 1,
+        "bbox_nm": [
+          178770,
+          67390,
+          182980,
+          74060
+        ]
+      },
+      "HELP_SW_1_2": {
+        "x_nm": 160690,
+        "y_nm": 75660,
+        "rotation": 0,
+        "bbox_nm": [
+          160690,
+          75660,
+          167360,
+          79870
+        ]
+      },
+      "MID_A": {
+        "x_nm": 163490,
+        "y_nm": 81470,
+        "rotation": 1,
+        "bbox_nm": [
+          163490,
+          81470,
+          167700,
+          88140
+        ]
+      },
+      "HELP_SW_2_3": {
+        "x_nm": 160690,
+        "y_nm": 89740,
+        "rotation": 0,
+        "bbox_nm": [
+          160690,
+          89740,
+          167360,
+          93950
+        ]
+      },
+      "HELP_SW_2_2": {
+        "x_nm": 151420,
+        "y_nm": 131590,
+        "rotation": 1,
+        "bbox_nm": [
+          151420,
+          131590,
+          155630,
+          138260
+        ]
+      },
+      "END_A": {
+        "x_nm": 147090,
+        "y_nm": 119780,
+        "rotation": 2,
+        "bbox_nm": [
+          147090,
+          119780,
+          153760,
+          123990
+        ]
+      },
+      "LEAF_A": {
+        "x_nm": 147090,
+        "y_nm": 125590,
+        "rotation": 2,
+        "bbox_nm": [
+          147090,
+          125590,
+          153760,
+          129800
+        ]
+      },
+      "HELP_SW_1_3": {
+        "x_nm": 186810,
+        "y_nm": 2400,
+        "rotation": 2,
+        "bbox_nm": [
+          186810,
+          2400,
+          193480,
+          6610
+        ]
+      },
+      "HELP_SW_1_1": {
+        "x_nm": 189270,
+        "y_nm": 8210,
+        "rotation": 1,
+        "bbox_nm": [
+          189270,
+          8210,
+          193480,
+          14880
+        ]
+      },
+      "HELP_SW_2_1": {
+        "x_nm": 186800,
+        "y_nm": 16480,
+        "rotation": 0,
+        "bbox_nm": [
+          186800,
+          16480,
+          193470,
+          20690
+        ]
+      },
+      "MID": {
+        "x_nm": 186800,
+        "y_nm": 23640,
+        "rotation": 2,
+        "bbox_nm": [
+          186800,
+          23640,
+          193470,
+          27850
+        ]
+      },
+      "FIXED_SW": {
+        "x_nm": 173545,
+        "y_nm": 40920,
+        "rotation": 2,
+        "bbox_nm": [
+          173545,
+          40920,
+          180215,
+          45130
+        ]
+      },
+      "LEAF_B": {
+        "x_nm": 160690,
+        "y_nm": 40920,
+        "rotation": 3,
+        "bbox_nm": [
+          160690,
+          40920,
+          164900,
+          47590
+        ]
+      },
+      "END_B": {
+        "x_nm": 167735,
+        "y_nm": 40920,
+        "rotation": 1,
+        "bbox_nm": [
+          167735,
+          40920,
+          171945,
+          47590
+        ]
+      },
+      "REFINV": {
+        "x_nm": 264480,
+        "y_nm": 140345,
+        "rotation": 0,
+        "bbox_nm": [
+          264480,
+          140345,
+          268540,
+          144505
+        ]
+      }
+    },
+    "omitted": [],
+    "complete": true,
+    "scope": "Constructive envelope packing with real donor shapes; all 53 package pin coordinates and seven original supply/ground stripes. Rectangles can rotate as groups. Signal and supply connections between groups require new routing."
+  },
+  "physical_instances": {
+    "Z": {
+      "group": "Z",
+      "cell": "aj_neuron_z",
+      "transform": "m90 116650,2400",
+      "bbox_nm": "(2400,2400;116650,85900)"
+    },
+    "NRN_Z": {
+      "group": "Z",
+      "cell": "pw4_nrn_z",
+      "transform": "m90 48450,56900",
+      "bbox_nm": "(31305,56775;48575,67745)"
+    },
+    "U3_Z": {
+      "group": "Z",
+      "cell": "pw4_units5",
+      "transform": "m90 26050,58000",
+      "bbox_nm": "(8905,57875;26175,68905)"
+    },
+    "DACG": {
+      "group": "Z",
+      "cell": "pw4_dacgate",
+      "transform": "r0 38650,73400",
+      "bbox_nm": "(38650,73400;48300,85400)"
+    },
+    "H1": {
+      "group": "H1",
+      "cell": "aj_neuron_h",
+      "transform": "r0 2400,87500",
+      "bbox_nm": "(2400,87500;116650,171000)"
+    },
+    "NRN_H1": {
+      "group": "H1",
+      "cell": "pw4_nrn_h",
+      "transform": "r0 70600,141920",
+      "bbox_nm": "(70475,141795;87745,151975)"
+    },
+    "U3_H1": {
+      "group": "H1",
+      "cell": "pw4_units3d",
+      "transform": "r0 89550,143100",
+      "bbox_nm": "(89550,143100;115350,153900)"
+    },
+    "H2": {
+      "group": "H2",
+      "cell": "aj_neuron_h",
+      "transform": "m0 129760,223360",
+      "bbox_nm": "(129760,139860;244010,223360)"
+    },
+    "NRN_H2": {
+      "group": "H2",
+      "cell": "pw4_nrn_h",
+      "transform": "m0 197960,169140",
+      "bbox_nm": "(197835,159085;215105,169265)"
+    },
+    "U3_H2": {
+      "group": "H2",
+      "cell": "pw4_units3d",
+      "transform": "m0 216910,167960",
+      "bbox_nm": "(216910,157160;242710,167960)"
+    },
+    "BUF_REF": {
+      "group": "BUF_REF",
+      "cell": "az_ref4",
+      "transform": "r180 332480,82980",
+      "bbox_nm": "(270680,2400;332480,82980)"
+    },
+    "PADBUF": {
+      "group": "PADBUF",
+      "cell": "az_pad",
+      "transform": "m90 332480,84580",
+      "bbox_nm": "(270680,84580;332480,144505)"
+    },
+    "ROWS_A": {
+      "group": "ROWS_A",
+      "cell": "pw4_rblock4",
+      "transform": "r0 2400,172600",
+      "bbox_nm": "(2400,172600;115800,187500)"
+    },
+    "LEAN": {
+      "group": "LEAN",
+      "cell": "lean_block",
+      "transform": "r180 332480,198505",
+      "bbox_nm": "(264480,146105;332480,198505)"
+    },
+    "RBLOCK": {
+      "group": "RBLOCK",
+      "cell": "pw4_rblock4",
+      "transform": "r180 115800,223360",
+      "bbox_nm": "(2400,208460;115800,223360)"
+    },
+    "LADDER": {
+      "group": "LADDER",
+      "cell": "aj_ladder",
+      "transform": "m90 267930,75660",
+      "bbox_nm": "(215630,75660;267930,138260)"
+    },
+    "ROWS_B": {
+      "group": "ROWS_B",
+      "cell": "pw4_rblock4",
+      "transform": "r180 115800,204000",
+      "bbox_nm": "(2400,189100;115800,204000)"
+    },
+    "RW_A": {
+      "group": "RW_A",
+      "cell": "ne_rw_native",
+      "transform": "r180 262880,223360",
+      "bbox_nm": "(250060,144560;262880,223360)"
+    },
+    "BUF_BIAS1": {
+      "group": "BUF_BIAS1",
+      "cell": "az_ref1",
+      "transform": "m90 259745,31540",
+      "bbox_nm": "(215015,31540;259745,74060)"
+    },
+    "RW_B": {
+      "group": "RW_B",
+      "cell": "ne_rw_native",
+      "transform": "r0 118250,2400",
+      "bbox_nm": "(118250,2400;131070,81200)"
+    },
+    "BUF2": {
+      "group": "BUF2",
+      "cell": "buf2",
+      "transform": "r0 132670,2400",
+      "bbox_nm": "(132670,2400;185200,27850)"
+    },
+    "BUF_BIAS2": {
+      "group": "BUF_BIAS2",
+      "cell": "az_ref1",
+      "transform": "r0 169300,75660",
+      "bbox_nm": "(169300,75660;214030,118180)"
+    },
+    "RW": {
+      "group": "RW",
+      "cell": "rw_res",
+      "transform": "m90 145490,59460",
+      "bbox_nm": "(132670,59460;145490,138260)"
+    },
+    "SEL1": {
+      "group": "SEL1",
+      "cell": "bias_sel",
+      "transform": "r180 269080,29420",
+      "bbox_nm": "(232880,2400;269080,29420)"
+    },
+    "RSENSE": {
+      "group": "RSENSE",
+      "cell": "rsense",
+      "transform": "r0 120840,82800",
+      "bbox_nm": "(120840,82800;128160,161600)"
+    },
+    "OBS": {
+      "group": "OBS",
+      "cell": "obs_mux",
+      "transform": "r0 157230,119780",
+      "bbox_nm": "(157230,119780;214030,135380)"
+    },
+    "BIAS": {
+      "group": "BIAS",
+      "cell": "pw4_bias",
+      "transform": "r180 159090,97450",
+      "bbox_nm": "(147090,29450;159090,97450)"
+    },
+    "SEL2": {
+      "group": "SEL2",
+      "cell": "bias_sel",
+      "transform": "r180 231280,29420",
+      "bbox_nm": "(195080,2400;231280,29420)"
+    },
+    "DEC_MODE": {
+      "group": "DEC_MODE",
+      "cell": "ne_mode_bank_gates",
+      "transform": "r270 120180,219590",
+      "bbox_nm": "(120180,172600;128160,219590)"
+    },
+    "G_FIXED1": {
+      "group": "G_FIXED1",
+      "cell": "ne_g1",
+      "transform": "r0 298170,206850",
+      "bbox_nm": "(298170,206850;332480,223360)"
+    },
+    "OBS2": {
+      "group": "OBS2",
+      "cell": "obs2_mux",
+      "transform": "r180 293680,218705",
+      "bbox_nm": "(264480,200105;293680,218705)"
+    },
+    "G_FIXED2": {
+      "group": "G_FIXED2",
+      "cell": "ne_g2",
+      "transform": "r180 191250,39320",
+      "bbox_nm": "(160690,29450;191250,39320)"
+    },
+    "DEC": {
+      "group": "DEC",
+      "cell": "pw4_decoder",
+      "transform": "r180 332480,204125",
+      "bbox_nm": "(297980,200105;332480,204145)"
+    },
+    "HELP_1": {
+      "group": "HELP_1",
+      "cell": "ne_help",
+      "transform": "r180 167700,118180",
+      "bbox_nm": "(147980,108310;167700,118180)"
+    },
+    "PINRES": {
+      "group": "PINRES",
+      "cell": "pin_res",
+      "transform": "r0 132680,29460",
+      "bbox_nm": "(132670,29450;141880,52110)"
+    },
+    "EXT1": {
+      "group": "EXT1",
+      "cell": "ext_sw",
+      "transform": "r0 192850,59860",
+      "bbox_nm": "(192850,59860;207850,74060)"
+    },
+    "THRESH2": {
+      "group": "THRESH2",
+      "cell": "ext_sw",
+      "transform": "r0 198415,44060",
+      "bbox_nm": "(198415,44060;213415,58260)"
+    },
+    "EXT2": {
+      "group": "EXT2",
+      "cell": "ext_sw",
+      "transform": "r0 181815,44060",
+      "bbox_nm": "(181815,44060;196815,58260)"
+    },
+    "HELP_2": {
+      "group": "HELP_2",
+      "cell": "ne_help",
+      "transform": "r0 192850,31020",
+      "bbox_nm": "(192850,31020;212570,40890)"
+    },
+    "THRESH1": {
+      "group": "THRESH1",
+      "cell": "ext_sw",
+      "transform": "r0 160690,59860",
+      "bbox_nm": "(160690,59860;175690,74060)"
+    },
+    "ECHO": {
+      "group": "ECHO",
+      "cell": "echo",
+      "transform": "m90 167510,99050",
+      "bbox_nm": "(152140,99050;167700,103210)"
+    },
+    "R_FIXED1": {
+      "group": "R_FIXED1",
+      "cell": "ne_r1",
+      "transform": "r0 118250,166110",
+      "bbox_nm": "(118250,166110;127900,171000)"
+    },
+    "R_FIXED2": {
+      "group": "R_FIXED2",
+      "cell": "ne_r2",
+      "transform": "r180 189570,64750",
+      "bbox_nm": "(177290,59860;189570,64750)"
+    },
+    "MID_B": {
+      "group": "MID_B",
+      "cell": "pw4_mid",
+      "transform": "r180 191125,73935",
+      "bbox_nm": "(184580,69850;191250,74060)"
+    },
+    "RAW_BUS": {
+      "group": "RAW_BUS",
+      "cell": "pw4_mid",
+      "transform": "r90 182855,67515",
+      "bbox_nm": "(178770,67390;182980,74060)"
+    },
+    "HELP_SW_1_2": {
+      "group": "HELP_SW_1_2",
+      "cell": "pw4_mid",
+      "transform": "r0 160815,75785",
+      "bbox_nm": "(160690,75660;167360,79870)"
+    },
+    "MID_A": {
+      "group": "MID_A",
+      "cell": "pw4_mid",
+      "transform": "r90 167575,81595",
+      "bbox_nm": "(163490,81470;167700,88140)"
+    },
+    "HELP_SW_2_3": {
+      "group": "HELP_SW_2_3",
+      "cell": "pw4_mid",
+      "transform": "r0 160815,89865",
+      "bbox_nm": "(160690,89740;167360,93950)"
+    },
+    "HELP_SW_2_2": {
+      "group": "HELP_SW_2_2",
+      "cell": "pw4_mid",
+      "transform": "r90 155505,131715",
+      "bbox_nm": "(151420,131590;155630,138260)"
+    },
+    "END_A": {
+      "group": "END_A",
+      "cell": "pw4_mid",
+      "transform": "r180 153635,123865",
+      "bbox_nm": "(147090,119780;153760,123990)"
+    },
+    "LEAF_A": {
+      "group": "LEAF_A",
+      "cell": "pw4_mid",
+      "transform": "r180 153635,129675",
+      "bbox_nm": "(147090,125590;153760,129800)"
+    },
+    "HELP_SW_1_3": {
+      "group": "HELP_SW_1_3",
+      "cell": "pw4_mid",
+      "transform": "r180 193355,6485",
+      "bbox_nm": "(186810,2400;193480,6610)"
+    },
+    "HELP_SW_1_1": {
+      "group": "HELP_SW_1_1",
+      "cell": "pw4_mid",
+      "transform": "r90 193355,8335",
+      "bbox_nm": "(189270,8210;193480,14880)"
+    },
+    "HELP_SW_2_1": {
+      "group": "HELP_SW_2_1",
+      "cell": "pw4_mid",
+      "transform": "r0 186925,16605",
+      "bbox_nm": "(186800,16480;193470,20690)"
+    },
+    "MID": {
+      "group": "MID",
+      "cell": "pw4_mid",
+      "transform": "r180 193345,27725",
+      "bbox_nm": "(186800,23640;193470,27850)"
+    },
+    "FIXED_SW": {
+      "group": "FIXED_SW",
+      "cell": "pw4_mid",
+      "transform": "r180 180090,45005",
+      "bbox_nm": "(173545,40920;180215,45130)"
+    },
+    "LEAF_B": {
+      "group": "LEAF_B",
+      "cell": "pw4_mid",
+      "transform": "r270 160815,47465",
+      "bbox_nm": "(160690,40920;164900,47590)"
+    },
+    "END_B": {
+      "group": "END_B",
+      "cell": "pw4_mid",
+      "transform": "r90 171820,41045",
+      "bbox_nm": "(167735,40920;171945,47590)"
+    },
+    "REFINV": {
+      "group": "REFINV",
+      "cell": "ref_inv",
+      "transform": "m0 264670,144505",
+      "bbox_nm": "(264480,140345;268540,144505)"
+    }
+  }
+}

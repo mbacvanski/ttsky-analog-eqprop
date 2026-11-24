@@ -1,0 +1,72 @@
+{
+ "version": 4,
+ "made_by": "make_variant_v4.py",
+ "made_from": "variant_reference.spice (version 3)",
+ "version3_sha256": "6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf",
+ "version4_sha256": "3e28c62019f182bb6de4f99152b65299868b2ef1cd03eb366fc8e57e90c83bb4",
+ "change": "H1 six-weight bias network made H2's (design lead, 2026-11-23 19:20): trim XR1 48275.86207 ohm, chain 4 x 257142.85714 ohm, XPROG1 W 1 L 3.5; nothing else",
+ "check": "instance by instance against version 3 (nets, model, parameters incl. RVALUE): only XR1, XG11..XG14 and XPROG1 differ, XG15..XG18 removed; XPROG1 parameters equal XPROG2's: PASS",
+ "changed_lines": [
+  {
+   "version3_lines": [
+    1223,
+    1223
+   ],
+   "old": [
+    "XR1 ref bias1 vss pdk_rbias2 RVALUE=18181.81818"
+   ],
+   "new": [
+    "* version 4: H1 trim as H2 (48.28 kohm, was 18.18 kohm), so that p1 still sees 5.000 uS",
+    "XR1 ref bias1 vss pdk_rbias2 RVALUE=48275.86207"
+   ],
+   "version4_lines": [
+    1223,
+    1224
+   ]
+  },
+  {
+   "version3_lines": [
+    1225,
+    1232
+   ],
+   "old": [
+    "XG11 p1 a1 vss pdk_rbias2 RVALUE=300k",
+    "XG12 a1 a2 vss pdk_rbias2 RVALUE=300k",
+    "XG13 a2 a3 vss pdk_rbias2 RVALUE=300k",
+    "XG14 a3 a4 vss pdk_rbias2 RVALUE=300k",
+    "XG15 a4 a5 vss pdk_rbias2 RVALUE=300k",
+    "XG16 a5 a6 vss pdk_rbias2 RVALUE=300k",
+    "XG17 a6 a7 vss pdk_rbias2 RVALUE=300k",
+    "XG18 a7 end1 vss pdk_rbias2 RVALUE=300k"
+   ],
+   "new": [
+    "* version 4: H1 chain as H2 (4 x 257142.85714 ohm = 1.029 Mohm, was 8 x 300k = 2.4 Mohm)",
+    "XG11 p1 a1 vss pdk_rbias2 RVALUE=257142.85714",
+    "XG12 a1 a2 vss pdk_rbias2 RVALUE=257142.85714",
+    "XG13 a2 a3 vss pdk_rbias2 RVALUE=257142.85714",
+    "XG14 a3 end1 vss pdk_rbias2 RVALUE=257142.85714"
+   ],
+   "version4_lines": [
+    1226,
+    1230
+   ]
+  },
+  {
+   "version3_lines": [
+    1424,
+    1424
+   ],
+   "old": [
+    "XPROG1 ret1 bg1 vss vss sky130_fd_pr__nfet_01v8 L=3.2 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1"
+   ],
+   "new": [
+    "* version 4: XPROG1 the size of XPROG2 (W 1, L 3.5; was W 0.42, L 3.2)",
+    "XPROG1 ret1 bg1 vss vss sky130_fd_pr__nfet_01v8 L=3.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1"
+   ],
+   "version4_lines": [
+    1422,
+    1423
+   ]
+  }
+ ]
+}

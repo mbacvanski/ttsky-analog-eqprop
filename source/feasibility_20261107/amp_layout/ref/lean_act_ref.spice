@@ -1,0 +1,17 @@
+* LVS reference for lean_act: hidden-neuron activation (lean_act as XACT1/XACT2).
+* Flattened from ref/aj2_native.spice (sha256 99916c6cfb41aedb6a615786339f8362e70f8df6a0ff6b7e9ce72f12a07aaea8),
+* lean_act no parameters; values evaluated from the deck.
+.subckt lean_act inp inn act ref vbn vdd vss
+XM1 o1n inp s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=12
+XM2 o1p inn s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=12
+XMT1 s1 vbn vss vss sky130_fd_pr__nfet_01v8 L=4 W=8 m=1
+XR1A_XDEVICE_XR0 o1n x vss sky130_fd_pr__res_xhigh_po_0p35 L=20.02
+XR1B_XDEVICE_XR0 o1p x vss sky130_fd_pr__res_xhigh_po_0p35 L=20.02
+XRX_XDEVICE_XR0 x vdd vss sky130_fd_pr__res_xhigh_po_1p41 L=38.61
+XM3 pm o1p s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XM4 act o1n s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XMT2 s2 vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 m=1
+XM5 pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 m=2
+XM6 act pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 m=2
+XRL_XDEVICE_XR0 ref act vss sky130_fd_pr__res_xhigh_po_1p41 L=35.09
+.ends lean_act

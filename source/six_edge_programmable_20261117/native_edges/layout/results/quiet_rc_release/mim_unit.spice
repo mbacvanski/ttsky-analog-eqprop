@@ -1,0 +1,10 @@
+* NGSPICE file created from ne_rc_mim.ext - technology: sky130A
+
+
+* Top level circuit ne_rc_mim
+
+X0 C1 C2 sky130_fd_pr__cap_mim_m3_1 l=15.7 w=15.7
+C0 C1 C2 22.0705f
+C1 C2 VSUBS 8.58433f
+.end
+

@@ -1,0 +1,61 @@
+{
+ "gds_sha256": "5c5dfd43e737b3b68a14ce2e2e48ed1101f673e7037ca79a42e95670e79d071b",
+ "source_sha256": "cfc0e02f03141889013c84c6cb083ebc4963ac5ab0a810238b7ee3edca3d79fa",
+ "board_spice_sha256": "4ce4731c6effee67f18c15e750b55506132cdf5b7bf18768a2a668fd45214d8f",
+ "model": "sky130_fd_pr__cap_mim_m3_1",
+ "electrode": "ref",
+ "added_count": 2,
+ "metal_plate_width_length_um": 15.7,
+ "actual_two_terminal_extracted_labels": [
+  {
+   "C1": "nr_reservoir_15p7_0.C1",
+   "C2": "nr_reservoir_15p7_0.C2",
+   "positive_canonical": "aj_neuron_z_0.ref",
+   "negative_canonical": "pw4_decoder_0.XWP_XSTD.VNB"
+  },
+  {
+   "C1": "nr_reservoir_15p7_1.C1",
+   "C2": "nr_reservoir_15p7_1.C2",
+   "positive_canonical": "aj_neuron_z_0.ref",
+   "negative_canonical": "pw4_decoder_0.XWP_XSTD.VNB"
+  }
+ ],
+ "actual_part_negative_control": {
+  "removed_card": "XRESERVOIR2 ref vss sky130_fd_pr__cap_mim_m3_1 W=15.7 L=15.7 MF=1 m=1",
+  "full_logical_fault_sha256": "80d5d8953c1412aac34d06eee39204d737108663b2735284772f0ac466a11e43",
+  "compared_reference_sha256": "39af2c7449f430bfaeb774a34e658bf2e62a2be8ea9904506fe10d72158dd454",
+  "report_sha256": "bab3fec84e4cbaa55b83a8068a36b00a49840afe2d7ef0f70d5faffc50e23e85",
+  "reported_verdict": "Circuits match uniquely.",
+  "property_difference": true,
+  "compared_parallel_capacitor_multiplicities": [
+   2,
+   1
+  ]
+ },
+ "parent_all_original_device_counts": {
+  "sky130_fd_pr__nfet_01v8": 900,
+  "sky130_fd_pr__res_xhigh_po_1p41": 93,
+  "sky130_fd_pr__pfet_01v8_hvt": 218,
+  "sky130_fd_pr__cap_mim_m3_1": 104,
+  "sky130_fd_pr__nfet_03v3_nvt": 104,
+  "sky130_fd_pr__pfet_01v8": 323,
+  "sky130_fd_pr__pfet_01v8_lvt": 70,
+  "sky130_fd_pr__res_xhigh_po_0p35": 201,
+  "sky130_fd_pr__res_xhigh_po_2p85": 87,
+  "sky130_fd_pr__res_generic_po": 1,
+  "sky130_fd_pr__nfet_g5v0d10v5": 18
+ },
+ "physically_counted_new_model_counts": {
+  "sky130_fd_pr__nfet_01v8": 900,
+  "sky130_fd_pr__res_xhigh_po_1p41": 93,
+  "sky130_fd_pr__pfet_01v8_hvt": 218,
+  "sky130_fd_pr__cap_mim_m3_1": 106,
+  "sky130_fd_pr__nfet_03v3_nvt": 104,
+  "sky130_fd_pr__pfet_01v8": 323,
+  "sky130_fd_pr__pfet_01v8_lvt": 70,
+  "sky130_fd_pr__res_xhigh_po_0p35": 201,
+  "sky130_fd_pr__res_xhigh_po_2p85": 87,
+  "sky130_fd_pr__res_generic_po": 1,
+  "sky130_fd_pr__nfet_g5v0d10v5": 18
+ }
+}

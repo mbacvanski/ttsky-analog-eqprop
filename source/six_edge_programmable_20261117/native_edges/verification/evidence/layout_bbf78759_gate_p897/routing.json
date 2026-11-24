@@ -1,0 +1,51 @@
+{
+ "paths": [
+  {
+   "net": "weak_b",
+   "new_parallel_to_wafer_travel_um": 1.98,
+   "by_layer_um": {
+    "m4": 1.98
+   },
+   "via_count": {
+    "v3": 1,
+    "v2": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     3,
+     246950,
+     210870
+    ],
+    [
+     1,
+     246950,
+     208890
+    ]
+   ]
+  },
+  {
+   "net": "vss",
+   "new_parallel_to_wafer_travel_um": 0.88,
+   "by_layer_um": {
+    "m3": 0.66,
+    "m2": 0.22
+   },
+   "via_count": {
+    "v2": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     2,
+     253770,
+     221430
+    ],
+    [
+     1,
+     254430,
+     221650
+    ]
+   ]
+  }
+ ],
+ "scope": "Length of each added grid path between actual existing GDS contact-metal regions. Includes detours, separate conductor layers and via counts. The pre-existing terminal metal and device interiors are outside these new lengths."
+}

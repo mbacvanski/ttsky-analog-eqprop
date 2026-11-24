@@ -1,0 +1,23 @@
+* LVS reference for az_pad: pad buffer (pdk_amp in xor_readout, READ_MATCH=1).
+* Flattened from feasibility_20261107/results/ah_sf3_strict/native.spice (sha256 b01e9aaceefae7af43ac0831217db066cf56b4ce25e7d9ed9c1baeb97063ca33),
+* pdk_amp COMP=4e-12 DRIVE=4 IN_SCALE=1 P_SCALE=1 BIAS_R=220000; values evaluated from the deck.
+* Layout addition: XRBIAS_DUMMY, the grounded second strip of the RBIAS array (rule rpm.1).
+.subckt az_pad plus minus vdd vss out
+XAMP_XMNBIAS bias bias vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XAMP_XMNTAIL XAMP_tail bias vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=4
+XAMP_XMNMINUS XAMP_pmirror minus XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMNPLUS XAMP_gain1 plus XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMPREF XAMP_pmirror XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPMIRROR XAMP_gain1 XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPOUT out XAMP_gain1 vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=32
+XAMP_XMNLOAD out bias vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=64
+XAMP_XRZERO_XDEVICE_XRPO XAMP_comp XAMP_gain1 sky130_fd_pr__res_generic_po L=19.64 W=1
+XAMP_XCMILLER_XCMIM0 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM1 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM2 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM3 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM4 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM5 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XRBIAS_XDEVICE_XR0 bias vdd vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+XRBIAS_DUMMY vss vss vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+.ends az_pad

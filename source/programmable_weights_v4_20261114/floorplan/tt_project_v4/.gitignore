@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+.vscode
+*.vcd
+runs
+tt_submission
+# the staged layout is a draft: floorplan/scripts/chip_checks.sh puts it here again
+gds/*.gds
+src/user_config.tcl
+test/sim_build
+test/__pycache__/
+test/results.xml
+test/gate_level_netlist.v

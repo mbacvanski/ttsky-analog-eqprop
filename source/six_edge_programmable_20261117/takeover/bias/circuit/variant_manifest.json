@@ -1,0 +1,81 @@
+{
+ "version": 3,
+ "reference": "native_edges/verification/evidence/layout_bbf78759_gate_p897/reference.spice.gz",
+ "reference_sha256_decompressed": "6a4914949436474a194d8c3b3386713eb179511f5ee10c41911b647b57e85a3d",
+ "variant_sha256": "6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf",
+ "xprog": {
+  "1": {
+   "W": 0.42,
+   "L": 3.2
+  },
+  "2": {
+   "W": 1.0,
+   "L": 3.5
+  }
+ },
+ "cstore_um": 8.97,
+ "changed_lines": [
+  {
+   "reference_line": 1222,
+   "old": ".subckt native_fixed_offsets ref bias1 bias2 p1 p2 six vss",
+   "new": [
+    ".subckt native_fixed_offsets ref bias1 bias2 p1 p2 six vss ret1 ret2"
+   ]
+  },
+  {
+   "reference_line": 1237,
+   "old": "XRETURN end1 end2 vss vss six vss native_ground_return",
+   "new": [
+    "* variant: the sources of the two mode switches go to ret1, ret2 (the programmable transistors below them)",
+    "XRETURN end1 end2 ret1 ret2 six vss native_ground_return"
+   ]
+  },
+  {
+   "reference_line": 1397,
+   "old": "XSTATIC ref fixed1 fixed2 p1 p2 six vss native_fixed_offsets",
+   "new": [
+    "XSTATIC ref fixed1 fixed2 p1 p2 six vss ret1 ret2 native_fixed_offsets"
+   ]
+  },
+  {
+   "reference_line": 1403,
+   "old": "XH2FEEDBACK f2 p2 q2 ref six vss native_hidden_feedback",
+   "new": [
+    "XH2FEEDBACK f2 p2 q2 ref six vss native_hidden_feedback",
+    "* ---- variant: programmable hidden offsets (takeover/bias/SPEC.md), one instance per new layout cell",
+    "XOPROG ret1 ret2 bg1 bg2 vss native_offset_prog",
+    "XOWORD1 bg1 ext_in bstb1 ref vdd vss native_offset_word",
+    "XOWORD2 bg2 ext_in bstb2 ref vdd vss native_offset_word",
+    "XOSTROBE bit_a bit_b we0 we1 bstb1 bstb2 vdd vss native_offset_strobe"
+   ]
+  }
+ ],
+ "new_subckts": [
+  "native_offset_prog",
+  "native_offset_word",
+  "native_offset_strobe"
+ ],
+ "new_nets": {
+  "xor_chip_native_six": [
+   "ret1",
+   "ret2",
+   "bg1",
+   "bg2",
+   "bstb1",
+   "bstb2"
+  ],
+  "native_fixed_offsets": [
+   "ret1",
+   "ret2"
+  ],
+  "native_offset_word (each)": [
+   "wm",
+   "bstbb"
+  ],
+  "native_offset_strobe": [
+   "nab",
+   "nwe0",
+   "nwe1"
+  ]
+ }
+}

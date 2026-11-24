@@ -1,0 +1,41 @@
+{
+ "parent_GDS": "5dd21c7163f4b8b119669090c4fa9834be422aaff571bd2990243136b4eaa71f",
+ "leaf": "19149a2910226583741646bc623e6083c5b102a355b704cf890e241150109584",
+ "electrode": "ref",
+ "source_sha256": "cfc0e02f03141889013c84c6cb083ebc4963ac5ab0a810238b7ee3edca3d79fa",
+ "positive_plates": 2,
+ "capacitors": [
+  {
+   "transform": "r90 320795,157705",
+   "positive_nm": [
+    320795,
+    156825
+   ],
+   "ground_nm": [
+    320795,
+    166375
+   ],
+   "pre_route_distance_to_connected_positive_net_um": 0.0,
+   "pre_route_distance_to_connected_VSS_um": 1.97,
+   "upper_mask_bounds": "(312745,148775;328845,166635)"
+  },
+  {
+   "transform": "r270 289625,152575",
+   "positive_nm": [
+    289625,
+    153455
+   ],
+   "ground_nm": [
+    289625,
+    143905
+   ],
+   "pre_route_distance_to_connected_positive_net_um": 3.565,
+   "pre_route_distance_to_connected_VSS_um": 0.225,
+   "upper_mask_bounds": "(281575,143645;297675,161505)"
+  }
+ ],
+ "pre_route_named_groups": {
+  "ref": 3,
+  "vss": 3
+ }
+}

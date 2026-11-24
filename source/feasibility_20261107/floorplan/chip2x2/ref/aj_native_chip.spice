@@ -1,0 +1,1199 @@
+** sch_path: xor_matched_tb.sch
+**.subckt xor_matched_tb
+XDUT bit_a bit_b reset hold_in pad vdd vss obs_sel0 obs_sel1 ref_reset obs_sel2 ext_en1 ext_en2 ext_bias uo_out0 uo_out1 uo_out2
++ uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 pad2 obs2_sel0 obs2_sel1 xor_chip_staged CORE_MATCH=1 READ_MATCH=1
+VA bit_a 0 PWL(0 0 0.00061249 0 0.00061251 {VDD} 0.00118249 {VDD} 0.00118251 0 0.00175249 0 0.00175251 {VDD})
+VB bit_b 0 PWL(0 {VDD} 0.00118249 {VDD} 0.00118251 0)
+VRESET reset 0 PWL(0 {VDD} 5.499e-05 {VDD} 5.501e-05 0 0.00060999 0 0.00061001 {VDD} 0.00062499 {VDD} 0.00062501 0 0.00117999 0 0.00118001
++ {VDD} 0.00119499 {VDD} 0.00119501 0 0.00174999 0 0.00175001 {VDD} 0.00176499 {VDD} 0.00176501 0)
+VHOLD hold_in 0 PWL(0 {VDD} 5.999e-05 {VDD} 6.001e-05 0 0.00060999 0 0.00061001 {VDD} 0.00062999 {VDD} 0.00063001 0 0.00117999 0 0.00118001
++ {VDD} 0.00119999 {VDD} 0.00120001 0 0.00174999 0 0.00175001 {VDD} 0.00176999 {VDD} 0.00177001 0)
+VDD_SRC vdd 0 PWL(0 0 5u {VDD})
+VGND vss 0 0
+RPAD pad out 60
+CPAD pad 0 5p
+CLOAD out 0 15p
+RLOAD out 0 10Meg
+VREFRESET ref_reset 0 PWL(0 {VDD} 2.499e-05 {VDD} 2.501e-05 0 0.00060999 0 0.00061001 {VDD} 0.00061499 {VDD} 0.00061501 0 0.00117999
++ 0 0.00118001 {VDD} 0.00118499 {VDD} 0.00118501 0 0.00174999 0 0.00175001 {VDD} 0.00175499 {VDD} 0.00175501 0)
+C_EXT_PAD ext_bias 0 5p
+R_EXT_PAD ext_bias ext_board 500
+R_EXT_PULL ext_board 0 10Meg
+**** begin user architecture code
+.lib $PDK_ROOT/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.param VDD=1.8 VREF={VDD/2} VUNIT={VDD/18}
+.param TAU_R=6.5Meg STATE_C=6.5p CORE_SCALE=1 MODEL_TAU=43.5u OBS_SEL0=0 OBS_SEL1=0 TSTEP=100n
+.param OBS_SEL2=0 EXT_EN1=0 EXT_EN2=0 UO_LOAD=0.2p
+.param ACT_SLOPE=11.5 ACT_LIMIT=0.99
+
+.include $PDK_ROOT/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice
+* Independent ideal ODE observer: no connection drives any DUT analog node.
+V_IDEAL_REF ideal_ref 0 {VREF}
+V_NOMINAL nominal_vdd 0 {VDD}
+B_IA ideal_a 0 V={VREF+VUNIT*(v(bit_a)>VDD/2)}
+B_IB ideal_b 0 V={VREF+VUNIT*(v(bit_b)>VDD/2)}
+B_IN1 ideal_n1 0 V={VREF+min(VUNIT,max(-VUNIT,8*(v(ideal_h1)-VREF)))}
+B_IN2 ideal_n2 0 V={VREF-min(VUNIT,max(-VUNIT,8*(v(ideal_h2)-VREF)))}
+B_IF1 ideal_f1 0 V={v(reset)>VDD/2 ? VREF : v(ideal_n1)}
+B_IF2 ideal_f2 0 V={v(reset)>VDD/2 ? VREF : v(ideal_n2)}
+B_IZ ideal_z 0 V={v(reset)>VDD/2 ? VREF : v(ideal_hz)}
+B_ID1 ideal_d1 0 V={VREF+(v(ideal_a)-VREF)+(v(ideal_b)-VREF)+0.5*(v(ideal_z)-VREF)-0.75*VUNIT}
+B_ID2 ideal_d2 0 V={VREF+(v(ideal_a)-VREF)+(v(ideal_b)-VREF)+0.5*(v(ideal_z)-VREF)-1.75*VUNIT}
+B_IDZ ideal_dz 0 V={VREF+0.5*(v(ideal_f1)-VREF)+0.5*(v(ideal_f2)-VREF)}
+R_I1 ideal_d1 ideal_h1 100k
+R_I2 ideal_d2 ideal_h2 100k
+R_IZ ideal_dz ideal_hz 100k
+C_I1 ideal_h1 ideal_ref {MODEL_TAU/100k}
+C_I2 ideal_h2 ideal_ref {MODEL_TAU/100k}
+C_IZ ideal_hz ideal_ref {MODEL_TAU/100k}
+B_IHOLD ideal_hold 0 V={(v(reset)>VDD/2 || v(hold_in)>VDD/2) ? VDD : 0}
+S_I1 ideal_h1 ideal_ref ideal_hold 0 IDEAL_RESET
+S_I2 ideal_h2 ideal_ref ideal_hold 0 IDEAL_RESET
+S_IZ ideal_hz ideal_ref ideal_hold 0 IDEAL_RESET
+.model IDEAL_RESET sw(Ron=0.01 Roff=1e15 Vt=0.9 Vh=0)
+* Second ideal ODE observer: the same network with the lean activation's smooth curve (instruments only).
+B_JN1 lean_n1 0 V={VREF+ACT_LIMIT*VUNIT*tanh(ACT_SLOPE*(v(lean_h1)-VREF)/(ACT_LIMIT*VUNIT))}
+B_JN2 lean_n2 0 V={VREF-ACT_LIMIT*VUNIT*tanh(ACT_SLOPE*(v(lean_h2)-VREF)/(ACT_LIMIT*VUNIT))}
+B_JF1 lean_f1 0 V={v(reset)>VDD/2 ? VREF : v(lean_n1)}
+B_JF2 lean_f2 0 V={v(reset)>VDD/2 ? VREF : v(lean_n2)}
+B_JZ lean_z 0 V={v(reset)>VDD/2 ? VREF : v(lean_hz)}
+B_JD1 lean_d1 0 V={VREF+(v(ideal_a)-VREF)+(v(ideal_b)-VREF)+0.5*(v(lean_z)-VREF)-0.75*VUNIT}
+B_JD2 lean_d2 0 V={VREF+(v(ideal_a)-VREF)+(v(ideal_b)-VREF)+0.5*(v(lean_z)-VREF)-1.75*VUNIT}
+B_JDZ lean_dz 0 V={VREF+0.5*(v(lean_f1)-VREF)+0.5*(v(lean_f2)-VREF)}
+R_J1 lean_d1 lean_h1 100k
+R_J2 lean_d2 lean_h2 100k
+R_JZ lean_dz lean_hz 100k
+C_J1 lean_h1 ideal_ref {MODEL_TAU/100k}
+C_J2 lean_h2 ideal_ref {MODEL_TAU/100k}
+C_JZ lean_hz ideal_ref {MODEL_TAU/100k}
+S_J1 lean_h1 ideal_ref ideal_hold 0 IDEAL_RESET
+S_J2 lean_h2 ideal_ref ideal_hold 0 IDEAL_RESET
+S_JZ lean_hz ideal_ref ideal_hold 0 IDEAL_RESET
+B_EXPECT expected_level 0 V={VREF+VUNIT*((v(bit_a)>VDD/2)!=(v(bit_b)>VDD/2))}
+V_READ read_valid 0 PWL(0 0 0.000559999 0 0.000560001 1 0.000609999 1 0.000610001 0 0.001129999 0 0.001130001 1 0.001179999 1 0.001180001 0 0.001699999 0 0.001700001 1 0.001749999 1 0.001750001 0 0.002269999 0 0.002270001 1 0.002319999 1 0.002320001 0)
+
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8 method=gear maxord=2
+.options pivrel=0.1
+.save v(ref_reset) v(xdut.xnet.h1) v(xdut.xnet.h2) v(xdut.xnet.hz) v(xdut.xnet.f1) v(xdut.xnet.f2) v(xdut.xnet.z) v(xdut.xnet.natural1) v(xdut.xnet.natural2) v(out) v(pad) v(out2) v(pad2) v(obs2_sel0) v(obs2_sel1) v(xdut.ref) v(xdut.vbn) v(xdut.xref.xlb.vr) v(xdut.bias1) v(xdut.bias2) v(vdd) v(bit_a) v(bit_b) v(reset) v(hold_in) v(read_valid) v(nominal_vdd) v(ideal_ref) v(expected_level) v(ideal_h1) v(ideal_h2) v(ideal_hz) v(ideal_f1) v(ideal_f2) v(lean_h1) v(lean_h2) v(lean_hz) v(lean_n1) v(lean_n2) v(ideal_n1) v(ideal_n2) v(xdut.xnet.xh1.m) v(xdut.xnet.xh1.o) v(xdut.xnet.xh2.m) v(xdut.xnet.xh2.o) v(xdut.xnet.xz.m) v(xdut.xnet.xz.o) v(xdut.xnet.xh1.az) v(xdut.xnet.xh1.xu3.nul) i(VDD_SRC) v(xdut.xnet.xh1.p) v(xdut.xnet.xh1.q) v(xdut.xnet.xh1.cmd) v(xdut.xnet.xh1.xu1.nul) v(xdut.xnet.xh1.xu3.nul) v(xdut.xnet.xh2.p) v(xdut.xnet.xh2.q) v(xdut.xnet.xh2.cmd) v(xdut.xnet.xh2.xu1.nul) v(xdut.xnet.xh2.xu3.nul) v(xdut.xnet.xz.p) v(xdut.xnet.xz.q) v(xdut.xnet.xz.cmd) v(xdut.xnet.xz.xu1.nul) v(xdut.xnet.xz.xu3.nul) v(xdut.xnet.xact1.o1p) v(xdut.xnet.xact1.o1n) v(xdut.xnet.xact2.o1p) v(xdut.xnet.xact2.o1n) v(xdut.xnet.xact1.pm) v(xdut.xnet.xact2.pm) v(obs_sel2) v(ext_en1) v(ext_en2) v(ext_bias) v(ext_board) v(xdut.sel1_ladder) v(xdut.bias1_in) v(xdut.sel2_ladder) v(xdut.bias2_in) v(uo_out0) v(uo_out1) v(uo_out2) v(uo_out3) v(uo_out4) v(uo_out5) v(uo_out6) v(uo_out7)
+.tran {TSTEP} 0.00231996 0 {TSTEP}
+.control
+set noaskquit
+set wr_vecnames
+set wr_singlescale
+set numdgt=16
+run
+let A_logic = v(bit_a)/v(nominal_vdd)
+let B_logic = v(bit_b)/v(nominal_vdd)+2
+let RESET_logic = v(reset)/v(nominal_vdd)+4
+let HOLD_logic = v(hold_in)/v(nominal_vdd)+6
+let READ_window = v(read_valid)/2-0.5
+let h1_state = v(xdut.xnet.h1)-v(xdut.ref)
+let h2_state = v(xdut.xnet.h2)-v(xdut.ref)
+let z_state = v(xdut.xnet.hz)-v(xdut.ref)
+let h1_ideal = v(ideal_h1)-v(ideal_ref)
+let h2_ideal = v(ideal_h2)-v(ideal_ref)
+let z_ideal = v(ideal_hz)-v(ideal_ref)
+let h1_error_mV = 1000*(h1_state-h1_ideal)
+let h2_error_mV = 1000*(h2_state-h2_ideal)
+let z_error_mV = 1000*(z_state-z_ideal)
+let H1_activation = v(xdut.xnet.f1)-v(xdut.ref)
+let H2_activation = v(xdut.xnet.f2)-v(xdut.ref)
+let H1_natural = v(xdut.xnet.natural1)-v(xdut.ref)
+let H2_natural = v(xdut.xnet.natural2)-v(xdut.ref)
+let H1_act_ideal = v(ideal_f1)-v(ideal_ref)
+let H2_act_ideal = v(ideal_f2)-v(ideal_ref)
+let output_measured = v(out)-v(xdut.ref)
+let expected_bit = v(expected_level)-v(ideal_ref)
+let read_marker = v(read_valid)*0.1
+let ref_error_mV = 1000*(v(xdut.ref)-v(vdd)/2)
+let bias1_error_mV = 1000*(v(xdut.bias1)-v(xdut.ref)-((v(bit_a) gt v(vdd)/2)+(v(bit_b) gt v(vdd)/2)-.75)*v(vdd)/18)
+let bias2_error_mV = 1000*(v(xdut.bias2)-v(xdut.ref)-((v(bit_a) gt v(vdd)/2)+(v(bit_b) gt v(vdd)/2)-1.75)*v(vdd)/18)
+let unit = v(nominal_vdd)/18
+* free = 1 while the network runs free. The 10 percent threshold closes this window before the reset
+* logic of the chip (it switches near half the supply) starts to clear the states, so the error plots
+* show no spike at a reset edge. No apostrophes in these comments: one makes Xschem wrap the netlist lines after it.
+let free = (1-(v(reset) gt v(nominal_vdd)/10))*(1-(v(hold_in) gt v(nominal_vdd)/10))
+let H1 = (v(xdut.xnet.h1)-v(xdut.ref))/unit
+let H2 = (v(xdut.xnet.h2)-v(xdut.ref))/unit
+let Z = (v(xdut.xnet.hz)-v(xdut.ref))/unit
+let H1_clip = (v(ideal_h1)-v(ideal_ref))/unit
+let H2_clip = (v(ideal_h2)-v(ideal_ref))/unit
+let Z_clip = (v(ideal_hz)-v(ideal_ref))/unit
+let H1_lean = (v(lean_h1)-v(ideal_ref))/unit
+let H2_lean = (v(lean_h2)-v(ideal_ref))/unit
+let Z_lean = (v(lean_hz)-v(ideal_ref))/unit
+let F1 = (v(xdut.xnet.natural1)-v(xdut.ref))/unit
+let F2 = (v(xdut.xnet.natural2)-v(xdut.ref))/unit
+let F1_clip = (v(ideal_n1)-v(ideal_ref))/unit
+let F2_clip = (v(ideal_n2)-v(ideal_ref))/unit
+let F1_lean = (v(lean_n1)-v(ideal_ref))/unit
+let F2_lean = (v(lean_n2)-v(ideal_ref))/unit
+let pad_out = (v(out)-v(xdut.ref))/unit
+let expected_out = (v(expected_level)-v(ideal_ref))/unit
+let H1_minus_lean = free*(H1-H1_lean)
+let H2_minus_lean = free*(H2-H2_lean)
+let Z_minus_lean = free*(Z-Z_lean)
+let H1_minus_clip = free*(H1-H1_clip)
+let H2_minus_clip = free*(H2-H2_clip)
+let Z_minus_clip = free*(Z-Z_clip)
+let A_in = v(bit_a)/v(nominal_vdd)
+let B_in = v(bit_b)/v(nominal_vdd)
+let RESET_in = v(reset)/v(nominal_vdd)
+let HOLD_in = v(hold_in)/v(nominal_vdd)
+let READ_mark = v(read_valid)
+write xor_matched_tb.raw
+wrdata xor_matched_tb.dat v(ref_reset) v(xdut.xnet.h1) v(xdut.xnet.h2) v(xdut.xnet.hz) v(xdut.xnet.f1) v(xdut.xnet.f2) v(xdut.xnet.z) v(xdut.xnet.natural1) v(xdut.xnet.natural2) v(out) v(pad) v(out2) v(pad2) v(obs2_sel0) v(obs2_sel1) v(xdut.ref) v(xdut.vbn) v(xdut.xref.xlb.vr) v(xdut.bias1) v(xdut.bias2) v(vdd) v(bit_a) v(bit_b) v(reset) v(hold_in) v(read_valid) v(nominal_vdd) v(ideal_ref) v(expected_level) v(ideal_h1) v(ideal_h2) v(ideal_hz) v(ideal_f1) v(ideal_f2) v(lean_h1) v(lean_h2) v(lean_hz) v(lean_n1) v(lean_n2) v(ideal_n1) v(ideal_n2) v(xdut.xnet.xh1.m) v(xdut.xnet.xh1.o) v(xdut.xnet.xh2.m) v(xdut.xnet.xh2.o) v(xdut.xnet.xz.m) v(xdut.xnet.xz.o) v(xdut.xnet.xh1.az) v(xdut.xnet.xh1.xu3.nul) i(VDD_SRC) v(xdut.xnet.xh1.p) v(xdut.xnet.xh1.q) v(xdut.xnet.xh1.cmd) v(xdut.xnet.xh1.xu1.nul) v(xdut.xnet.xh1.xu3.nul) v(xdut.xnet.xh2.p) v(xdut.xnet.xh2.q) v(xdut.xnet.xh2.cmd) v(xdut.xnet.xh2.xu1.nul) v(xdut.xnet.xh2.xu3.nul) v(xdut.xnet.xz.p) v(xdut.xnet.xz.q) v(xdut.xnet.xz.cmd) v(xdut.xnet.xz.xu1.nul) v(xdut.xnet.xz.xu3.nul) v(xdut.xnet.xact1.o1p) v(xdut.xnet.xact1.o1n) v(xdut.xnet.xact2.o1p) v(xdut.xnet.xact2.o1n) v(xdut.xnet.xact1.pm) v(xdut.xnet.xact2.pm) v(obs_sel2) v(ext_en1) v(ext_en2) v(ext_bias) v(ext_board) v(xdut.sel1_ladder) v(xdut.bias1_in) v(xdut.sel2_ladder) v(xdut.bias2_in) v(uo_out0) v(uo_out1) v(uo_out2) v(uo_out3) v(uo_out4) v(uo_out5) v(uo_out6) v(uo_out7)
+echo DEMO_COMPLETE
+quit
+.endc
+
+V_OBS0 obs_sel0 0 {VDD*OBS_SEL0}
+V_OBS1 obs_sel1 0 {VDD*OBS_SEL1}
+
+* Variant AI test pins, all off: SEL2=0, EXT_BIAS1=EXT_BIAS2=0.
+V_OBS2 obs_sel2 0 {VDD*OBS_SEL2}
+V_EXTEN1 ext_en1 0 {VDD*EXT_EN1}
+V_EXTEN2 ext_en2 0 {VDD*EXT_EN2}
+* uo_out loads: assumed 0.2 pF each (wire to the Tiny Tapeout mux and its input).
+C_UO0 uo_out0 0 {UO_LOAD}
+C_UO1 uo_out1 0 {UO_LOAD}
+C_UO2 uo_out2 0 {UO_LOAD}
+C_UO3 uo_out3 0 {UO_LOAD}
+C_UO4 uo_out4 0 {UO_LOAD}
+C_UO5 uo_out5 0 {UO_LOAD}
+C_UO6 uo_out6 0 {UO_LOAD}
+C_UO7 uo_out7 0 {UO_LOAD}
+
+* Second analog output: its two select pins and the pad model on ua[2]
+* (60 ohm switch, 5 pF pad, then a 10 Mohm, 15 pF probe). 00 = REF.
+.param OBS2_SEL0=0 OBS2_SEL1=0
+V_OBS2S0 obs2_sel0 0 {VDD*OBS2_SEL0}
+V_OBS2S1 obs2_sel1 0 {VDD*OBS2_SEL1}
+R_PAD2 pad2 out2 60
+C_PAD2 pad2 0 5p
+C_LOAD2 out2 0 15p
+R_LOAD2 out2 0 10Meg
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  xor_chip_staged.sym # of pins=25
+** sym_path: $SOURCE/variants/lean_neuron/xor_chip_staged.sym
+** sch_path: xor_matched_tb.sch
+.subckt xor_chip_staged bit_a bit_b reset hold_in pad vdd vss obs_sel0 obs_sel1 ref_reset obs_sel2 ext_en1 ext_en2 ext_bias uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 pad2 obs2_sel0 obs2_sel1  CORE_MATCH=1 READ_MATCH=1
+*.iopin bit_a
+*.iopin bit_b
+*.iopin reset
+*.iopin hold_in
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin ref_reset
+*.iopin obs_sel2
+*.iopin ext_bias
+*.iopin ext_en1
+*.iopin ext_en2
+*.iopin uo_out0
+*.iopin uo_out1
+*.iopin uo_out2
+*.iopin uo_out3
+*.iopin uo_out4
+*.iopin uo_out5
+*.iopin uo_out6
+*.iopin uo_out7
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XREF vdd vss vbn bias2 bias1 ref ref_reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in xor_references_stiff
+XNET reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 xor_network CORE_MATCH={CORE_MATCH} READ_MATCH={READ_MATCH}
+XEXT1 sel1_ladder ext_in ext_en1 bias1_in vdd vss ext_bias_switch
+XEXT2 sel2_ladder ext_in ext_en2 bias2_in vdd vss ext_bias_switch
+XECHO bit_a bit_b reset hold_in ref_reset obs_sel0 obs_sel1 obs_sel2 uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 vdd vss echo_buffers
+XRPIN1 ext_bias ext_in vss pdk_rpin_h RVALUE=10k
+.ends
+
+
+* expanding   symbol:  xor_references_stiff.sym # of pins=13
+** sym_path: $SOURCE/variants/lean_neuron/xor_references_stiff.sym
+** sch_path: xor_matched_tb.sch
+.subckt xor_references_stiff vdd vss vbn bias2 bias1 ref reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in
+*.iopin vdd
+*.iopin vss
+*.iopin vbn
+*.iopin bias2
+*.iopin bias1
+*.iopin ref
+*.iopin reset
+*.iopin bit_a
+*.iopin bit_b
+*.iopin sel1_ladder
+*.iopin bias1_in
+*.iopin sel2_ladder
+*.iopin bias2_in
+XRL0 vdd d3_tap vss pdk_ladder_31_v RVALUE=34875
+XRL1 d3_tap hi_tap vss pdk_ladder_1_v RVALUE=1125
+XRL2 hi_tap d2_tap vss pdk_ladder_3_v RVALUE=3375
+XRL3 d2_tap ref_tap vss pdk_ladder_1_v RVALUE=1125
+XRL4 ref_tap d1_tap vss pdk_ladder_3_v RVALUE=3375
+XRL5 d1_tap lo_tap vss pdk_ladder_1_v RVALUE=1125
+XRL6 lo_tap d0_tap vss pdk_ladder_3_v RVALUE=3375
+XRL7 d0_tap vss vss pdk_ladder_29_v RVALUE=32625
+XBUF1 bias2_in bias2 bias2 az az_b ref_tap vdd vss cd_ref_az COMP=1.2p DRIVE=1 RZERO=5k HEADROOM=1
+XBUF2 bias1_in bias1 bias1 az az_b ref_tap vdd vss cd_ref_az COMP=1.2p DRIVE=1 RZERO=5k HEADROOM=1
+XBUF3 ref_tap ref ref az az_b ref_tap vdd vss cd_ref_az COMP=4p DRIVE=4 RZERO=1k HEADROOM=1
+XCBYPASS ref vss pdk_mim CVALUE=4p
+XBIAS1 d1_tap d2_tap d3_tap sel1_ladder bit_a bit_b vdd vss bias_selector
+XBIAS2 d0_tap d1_tap d2_tap sel2_ladder bit_a bit_b vdd vss bias_selector
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+XLB ref d0_tap vbn vdd vss lean_bias
+.ends
+
+
+* expanding   symbol:  xor_network.sym # of pins=15
+** sym_path: $SOURCE/variants/lean_neuron/xor_network.sym
+** sch_path: xor_matched_tb.sch
+.subckt xor_network reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1  CORE_MATCH=1 READ_MATCH=1
+*.iopin reset
+*.iopin hold_in
+*.iopin bias1
+*.iopin bias2
+*.iopin vbn
+*.iopin ref
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin obs_sel2
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XACT1 h1 ref natural1 ref vbn vdd vss lean_act
+XACT2 ref h2 natural2 ref vbn vdd vss lean_act
+XH1 natural1 bias1 reset hold_in f1 h1 ref vdd vss cd_core_two_az DPROG=0.5
+XH2 natural2 bias2 reset hold_in f2 h2 ref vdd vss cd_core_two_az DPROG=0.5
+XZ hz ref reset hold_in z hz ref vdd vss cd_core_two_az DPROG=1
+XREAD net1 pad vdd vss xor_readout MATCH={READ_MATCH}
+XRW4 z f1 vss pdk_rfixed2_h RVALUE=200k
+XRW5 z f2 vss pdk_rfixed2_h RVALUE=200k
+XOBS z h1 h2 ref f1 f2 bias1 bias2 obs_sel0 obs_sel1 obs_sel2 vdd vss net1 observe_mux
+XOBS2 ref z h1 h2 obs2_sel0 obs2_sel1 vdd vss obs2 second_observer
+XREAD2 obs2 pad2 reset ref vdd vss second_readout
+.ends
+
+
+* expanding   symbol:  ext_bias_switch.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/ext_bias_switch.sym
+** sch_path: xor_matched_tb.sch
+.subckt ext_bias_switch ladder ext en out vdd vss
+*.iopin ladder
+*.iopin ext
+*.iopin en
+*.iopin out
+*.iopin vdd
+*.iopin vss
+XSN ladder out en_b en vdd vss transmission_gate UNITS=1
+XSE ext out en en_b vdd vss transmission_gate UNITS=1
+XINV en en_b vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  echo_buffers.sym # of pins=18
+** sym_path: $SOURCE/variants/lean_neuron/echo_buffers.sym
+** sch_path: xor_matched_tb.sch
+.subckt echo_buffers in0 in1 in2 in3 in4 in5 in6 in7 out0 out1 out2 out3 out4 out5 out6 out7 vdd vss
+*.iopin in0
+*.iopin out0
+*.iopin in1
+*.iopin out1
+*.iopin in2
+*.iopin out2
+*.iopin in3
+*.iopin out3
+*.iopin in4
+*.iopin out4
+*.iopin in5
+*.iopin out5
+*.iopin in6
+*.iopin out6
+*.iopin in7
+*.iopin out7
+*.iopin vdd
+*.iopin vss
+XB0 in0 vss vss vdd vdd out0 sky130_fd_sc_hd__buf_1
+XB1 in1 vss vss vdd vdd out1 sky130_fd_sc_hd__buf_1
+XB2 in2 vss vss vdd vdd out2 sky130_fd_sc_hd__buf_1
+XB3 in3 vss vss vdd vdd out3 sky130_fd_sc_hd__buf_1
+XB4 in4 vss vss vdd vdd out4 sky130_fd_sc_hd__buf_1
+XB5 in5 vss vss vdd vdd out5 sky130_fd_sc_hd__buf_1
+XB6 in6 vss vss vdd vdd out6 sky130_fd_sc_hd__buf_1
+XB7 in7 vss vss vdd vdd out7 sky130_fd_sc_hd__buf_1
+.ends
+
+
+* expanding   symbol:  pdk_rpin_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rpin_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rpin_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rpin RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_ladder_31_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_31_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_31_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_31 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_ladder_1_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_1_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_1_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_1 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_ladder_3_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_3_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_3_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_3 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_ladder_29_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_29_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_29_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_29 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  cd_ref_az.sym # of pins=8
+** sym_path: $SOURCE/variants/lean_neuron/cd_ref_az.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_ref_az plus minus out az az_b ref vdd vss  COMP=1p DRIVE=1 RZERO=5k HEADROOM=1
+*.iopin plus
+*.iopin minus
+*.iopin out
+*.iopin az
+*.iopin az_b
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XAMP plus mi vdd vss out net1 nul ref cd_amp_aux AUX_TAIL_UNITS=1 IN_WIDTH={5*HEADROOM} IN_LENGTH=1 IN_UNITS=4 N_WIDTH={4*HEADROOM} N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO={RZERO}
+XRBIAS vdd net1 vss pdk_rbias_v RVALUE=220k
+XSA plus mi az az_b vdd vss cd_tg_small
+XSN minus mi az_b az vdd vss transmission_gate UNITS=4
+XSH out nul az az_b vdd vss transmission_gate UNITS=1
+XCAZ nul vss pdk_mim CVALUE=1p
+.ends
+
+
+* expanding   symbol:  pdk_mim.sym # of pins=2
+** sym_path: $SOURCE/variants/lean_neuron/pdk_mim.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_mim p n  CVALUE=10p
+*.iopin p
+*.iopin n
+XCMIM0 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM1 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM2 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM3 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM4 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM5 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+.ends
+
+
+* expanding   symbol:  bias_selector.sym # of pins=8
+** sym_path: $SOURCE/variants/lean_neuron/bias_selector.sym
+** sch_path: xor_matched_tb.sch
+.subckt bias_selector v0 v1 v2 out a b vdd vss
+*.iopin v0
+*.iopin v1
+*.iopin v2
+*.iopin out
+*.iopin a
+*.iopin b
+*.iopin vdd
+*.iopin vss
+X00 v0 net1 a_b a vdd vss transmission_gate UNITS=4
+X10 v1 net1 a a_b vdd vss transmission_gate UNITS=4
+X01 v1 net2 a_b a vdd vss transmission_gate UNITS=4
+X11 v2 net2 a a_b vdd vss transmission_gate UNITS=4
+XB0 net1 out b_b b vdd vss transmission_gate UNITS=4
+XB1 net2 out b b_b vdd vss transmission_gate UNITS=4
+XINV_a a a_b vdd vss cmos_inv
+XINV_b b b_b vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  cmos_inv.sym # of pins=4
+** sym_path: $SOURCE/variants/lean_neuron/cmos_inv.sym
+** sch_path: xor_matched_tb.sch
+.subckt cmos_inv a y vdd vss
+*.iopin a
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a vss vss vdd vdd y sky130_fd_sc_hd__inv_1
+.ends
+
+
+* expanding   symbol:  lean_bias.sym # of pins=5
+** sym_path: $SOURCE/variants/lean_neuron/lean_bias.sym
+** sch_path: xor_matched_tb.sch
+.subckt lean_bias ref tap vbn vdd vss
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+*.iopin tap
+*.iopin vbn
+XRB vdd nb vss pdk_rbias_v RVALUE=220k
+XMNB nb nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=4 m=4
+XMTO st nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMA pm vr st vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=8 m=8
+XMB vbn tap st vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=8 m=8
+XMPA pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMPB vbn pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMR vr vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XRU ref vr vss pdk_rfixed_v RVALUE=87.5k
+XCVBN vbn vss sky130_fd_pr__cap_mim_m3_1 W=30 L=12.29 MF=1 m=1
+.ends
+
+
+* expanding   symbol:  lean_act.sym # of pins=7
+** sym_path: $SOURCE/variants/lean_neuron/lean_act.sym
+** sch_path: xor_matched_tb.sch
+.subckt lean_act inp inn act ref vbn vdd vss
+*.iopin ref
+*.iopin vbn
+*.iopin vdd
+*.iopin vss
+*.iopin inp
+*.iopin inn
+*.iopin act
+XM1 o1n inp s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=12 m=12
+XM2 o1p inn s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=12 m=12
+XMT1 s1 vbn vss vss sky130_fd_pr__nfet_01v8 L=4 W=8 nf=1 ad=2.32 as=2.32 pd=16.58 ps=16.58 nrd=0.03625 nrs=0.03625 sa=0 sb=0 sd=0 mult=1 m=1
+XR1A x o1n vss pdk_rbias_v RVALUE=115k
+XR1B x o1p vss pdk_rbias_v RVALUE=115k
+XRX vdd x vss pdk_rfixed_v RVALUE=55k
+XM3 pm o1p s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=4 m=4
+XM4 act o1n s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=4 m=4
+XMT2 s2 vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XM5 pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=2 m=2
+XM6 act pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=2 m=2
+XRL act ref vss pdk_rfixed_v RVALUE=50k
+.ends
+
+
+* expanding   symbol:  cd_core_two_az.sym # of pins=9
+** sym_path: $SOURCE/variants/lean_neuron/cd_core_two_az.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_core_two_az natural bpin reset hold_in y h ref vdd vss  DPROG=2.5
+*.iopin natural
+*.iopin bpin
+*.iopin reset
+*.iopin hold_in
+*.iopin y
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XCTRL natural ref vss reset hold_in cmd h ref vdd vss xor_control
+XU1 cmd y m az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR1 y m vss pdk_rfixed_h RVALUE=100k
+XR4 y p vss pdk_rbank2_h RVALUE={100k/(1+DPROG)}
+XR3 bpin p vss pdk_rfixed2_v RVALUE=200k
+XR5 ref p vss pdk_rfixed2_v RVALUE=200k
+XU3 p q o az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR6 m q vss pdk_rfixed_h RVALUE=100k
+XR7 q ref vss pdk_rbank2_v RVALUE={100k/(1+DPROG)}
+XR8 q o vss pdk_rfixed_h RVALUE=100k
+XRTAU o h vss pdk_rtau_h RVALUE={TAU_R}
+XCSTATE h ref pdk_mim_state W=29.70 L=27.05
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  xor_readout.sym # of pins=4
+** sym_path: $SOURCE/variants/lean_neuron/xor_readout.sym
+** sch_path: xor_matched_tb.sch
+.subckt xor_readout inp pad vdd vss  MATCH=1
+*.iopin inp
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+XRSENSE inp sense vss pdk_rfixed_h RVALUE=100k
+XBUF sense buffered vdd vss buffered pdk_amp COMP={4p*MATCH*MATCH} DRIVE=4 IN_SCALE={MATCH} P_SCALE={MATCH} BIAS_R=220k
+XROUT buffered pad vss pdk_rpin_h RVALUE=3k
+.ends
+
+
+* expanding   symbol:  pdk_rfixed2_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed2_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed2_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed2 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  observe_mux.sym # of pins=14
+** sym_path: $SOURCE/variants/lean_neuron/observe_mux.sym
+** sch_path: xor_matched_tb.sch
+.subckt observe_mux z h1 h2 ref f1 f2 bias1 bias2 sel0 sel1 sel2 vdd vss out
+*.iopin z
+*.iopin h1
+*.iopin h2
+*.iopin ref
+*.iopin f1
+*.iopin f2
+*.iopin bias1
+*.iopin bias2
+*.iopin out
+*.iopin sel0
+*.iopin sel1
+*.iopin sel2
+*.iopin vdd
+*.iopin vss
+XSEL0 sel0 sel0_b vdd vss cmos_inv
+XSEL1 sel1 sel1_b vdd vss cmos_inv
+XSEL2 sel2 sel2_b vdd vss cmos_inv
+XSW0 z out net1 net2 vdd vss cd_tg_small
+XDEC0 sel0 sel1 sel2 net1 vdd vss cmos_nor3
+XENB0 net1 net2 vdd vss cmos_inv
+XSW1 h1 out net3 net4 vdd vss cd_tg_small
+XDEC1 sel0_b sel1 sel2 net3 vdd vss cmos_nor3
+XENB1 net3 net4 vdd vss cmos_inv
+XSW2 h2 out net5 net6 vdd vss cd_tg_small
+XDEC2 sel0 sel1_b sel2 net5 vdd vss cmos_nor3
+XENB2 net5 net6 vdd vss cmos_inv
+XSW3 ref out net7 net8 vdd vss cd_tg_small
+XDEC3 sel0_b sel1_b sel2 net7 vdd vss cmos_nor3
+XENB3 net7 net8 vdd vss cmos_inv
+XSW4 f1 out net9 net10 vdd vss cd_tg_small
+XDEC4 sel0 sel1 sel2_b net9 vdd vss cmos_nor3
+XENB4 net9 net10 vdd vss cmos_inv
+XSW5 f2 out net11 net12 vdd vss cd_tg_small
+XDEC5 sel0_b sel1 sel2_b net11 vdd vss cmos_nor3
+XENB5 net11 net12 vdd vss cmos_inv
+XSW6 bias1 out net13 net14 vdd vss cd_tg_small
+XDEC6 sel0 sel1_b sel2_b net13 vdd vss cmos_nor3
+XENB6 net13 net14 vdd vss cmos_inv
+XSW7 bias2 out net15 net16 vdd vss cd_tg_small
+XDEC7 sel0_b sel1_b sel2_b net15 vdd vss cmos_nor3
+XENB7 net15 net16 vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  second_observer.sym # of pins=9
+** sym_path: $SOURCE/variants/lean_neuron/second_observer.sym
+** sch_path: xor_matched_tb.sch
+.subckt second_observer ref z h1 h2 sel0 sel1 vdd vss out
+*.iopin vdd
+*.iopin vss
+*.iopin sel0
+*.iopin sel1
+*.iopin ref
+*.iopin z
+*.iopin h1
+*.iopin h2
+*.iopin out
+XSEL0 sel0 sel0_b vdd vss cmos_inv
+XSEL1 sel1 sel1_b vdd vss cmos_inv
+XSW0 ref out en0 en0_b vdd vss cd_tg_small
+XDEC0 sel0 sel1 en0 vdd vss cmos_nor2
+XENB0 en0 en0_b vdd vss cmos_inv
+XSW1 z out en1 en1_b vdd vss cd_tg_small
+XDEC1 sel0_b sel1 en1 vdd vss cmos_nor2
+XENB1 en1 en1_b vdd vss cmos_inv
+XSW2 h1 out en2 en2_b vdd vss cd_tg_small
+XDEC2 sel0 sel1_b en2 vdd vss cmos_nor2
+XENB2 en2 en2_b vdd vss cmos_inv
+XSW3 h2 out en3 en3_b vdd vss cd_tg_small
+XDEC3 sel0_b sel1_b en3 vdd vss cmos_nor2
+XENB3 en3 en3_b vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  second_readout.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/second_readout.sym
+** sch_path: xor_matched_tb.sch
+.subckt second_readout inp pad reset ref vdd vss
+*.iopin vdd
+*.iopin vss
+*.iopin ref
+*.iopin inp
+*.iopin pad
+*.iopin reset
+XRS inp sense vss pdk_rbias_h RVALUE=100k
+XAMP sense buf buf az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM=1
+XRO buf pad vss pdk_rpin_h RVALUE=5k
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+
+* expanding   symbol:  transmission_gate.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/transmission_gate.sym
+** sch_path: xor_matched_tb.sch
+.subckt transmission_gate a b en en_b vdd vss  UNITS=1
+*.iopin a
+*.iopin b
+*.iopin en
+*.iopin en_b
+*.iopin vdd
+*.iopin vss
+XMN a en b vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult={UNITS} m={UNITS}
+XMP a en_b b vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult={UNITS} m={UNITS}
+.ends
+
+
+* expanding   symbol:  pdk_rpin.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rpin.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rpin p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_2p85 L={0.01*floor(((RVALUE/1-131.232879039705)*2.85/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_ladder_31.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_31.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_31 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 net3 net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR3 net4 net3 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR4 net5 net4 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR5 net6 net5 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR6 net7 net6 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR7 net8 net7 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR8 net9 net8 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR9 net10 net9 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR10 net11 net10 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR11 net12 net11 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR12 net13 net12 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR13 net14 net13 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR14 net15 net14 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR15 net16 net15 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR16 net17 net16 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR17 net18 net17 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR18 net19 net18 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR19 net20 net19 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR20 net21 net20 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR21 net22 net21 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR22 net23 net22 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR23 net24 net23 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR24 net25 net24 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR25 net26 net25 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR26 net27 net26 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR27 net28 net27 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR28 net29 net28 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR29 net30 net29 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR30 n net30 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_ladder_1.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_1.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_1 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_ladder_3.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_3.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_3 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 n net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_ladder_29.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_ladder_29.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_ladder_29 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 net3 net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR3 net4 net3 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR4 net5 net4 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR5 net6 net5 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR6 net7 net6 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR7 net8 net7 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR8 net9 net8 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR9 net10 net9 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR10 net11 net10 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR11 net12 net11 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR12 net13 net12 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR13 net14 net13 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR14 net15 net14 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR15 net16 net15 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR16 net17 net16 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR17 net18 net17 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR18 net19 net18 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR19 net20 net19 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR20 net21 net20 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR21 net22 net21 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR22 net23 net22 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR23 net24 net23 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR24 net25 net24 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR25 net26 net25 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR26 net27 net26 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR27 net28 net27 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR28 n net28 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  cd_amp_aux.sym # of pins=8
+** sym_path: $SOURCE/variants/lean_neuron/cd_amp_aux.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_amp_aux plus minus vdd vss out ibias nul nref  AUX_TAIL_UNITS=1 IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+*.iopin nul
+*.iopin nref
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rfixed_h RVALUE={R_ZERO}
+XCMILLER comp out pdk_mim CVALUE={C_MILLER}
+XMAM pmirror nul atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMAP gain1 nref atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMATAIL atail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={AUX_TAIL_UNITS} m={AUX_TAIL_UNITS}
+.ends
+
+
+* expanding   symbol:  pdk_rbias_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbias_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbias_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  cd_tg_small.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/cd_tg_small.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_tg_small a b en en_b vdd vss
+*.iopin a
+*.iopin b
+*.iopin en
+*.iopin en_b
+*.iopin vdd
+*.iopin vss
+XMN a en b vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMP a en_b b vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_rfixed_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  xor_control.sym # of pins=10
+** sym_path: $SOURCE/variants/lean_neuron/xor_control.sym
+** sch_path: xor_matched_tb.sch
+.subckt xor_control natural cue clamp reset hold_in cmd h ref vdd vss
+*.iopin natural
+*.iopin cue
+*.iopin clamp
+*.iopin reset
+*.iopin hold_in
+*.iopin cmd
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XNC clamp clamp_b vdd vss cmos_inv
+XNR reset reset_b vdd vss cmos_inv
+XFREE reset clamp free_on vdd vss cmos_nor2
+XCUE reset clamp_b cue_on vdd vss cmos_nor2
+XSTATE reset clamp hold_in state_b vdd vss cmos_nor3
+XFB free_on free_b vdd vss cmos_inv
+XCB cue_on cue_b vdd vss cmos_inv
+XSO state_b state_on vdd vss cmos_inv
+XNF natural cmd free_on free_b vdd vss transmission_gate UNITS=1
+XNCUE cue cmd cue_on cue_b vdd vss transmission_gate UNITS=1
+XZERO ref cmd reset reset_b vdd vss transmission_gate UNITS=1
+XHOLD h ref state_on state_b vdd vss transmission_gate UNITS=4
+.ends
+
+
+* expanding   symbol:  cd_signal_az.sym # of pins=8
+** sym_path: $SOURCE/variants/lean_neuron/cd_signal_az.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_signal_az plus minus out az az_b ref vdd vss  COMP=1p DRIVE=1 RZERO=5k HEADROOM=1
+*.iopin plus
+*.iopin minus
+*.iopin out
+*.iopin az
+*.iopin az_b
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XAMP plus mi vdd vss out net1 nul ref cd_amp_aux_rect AUX_TAIL_UNITS=1 IN_WIDTH={5*HEADROOM} IN_LENGTH=1 IN_UNITS=4 N_WIDTH={4*HEADROOM} N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO={RZERO}
+XRBIAS vdd net1 vss pdk_rbias2_v RVALUE=286k
+XSA plus mi az az_b vdd vss cd_tg_small
+XSN minus mi az_b az vdd vss transmission_gate UNITS=4
+XSH out nul az az_b vdd vss transmission_gate UNITS=1
+XCAZ nul ref sky130_fd_pr__cap_mim_m3_1 W=20.52 L=24.01 MF=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_rfixed_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rbank2_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbank2_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbank2_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbank2 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rfixed2_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed2_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed2 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rbank2_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbank2_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbank2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbank2 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rtau_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rtau_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rtau_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rtau RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_mim_state.sym # of pins=2
+** sym_path: $SOURCE/variants/lean_neuron/pdk_mim_state.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_mim_state p n  W=29.70 L=27.05
+*.iopin p
+*.iopin n
+XCMIM0 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM1 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM2 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM3 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_amp.sym # of pins=5
+** sym_path: $SOURCE/variants/lean_neuron/pdk_amp.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_amp plus minus vdd vss out  COMP=700f DRIVE=1 IN_SCALE=1 P_SCALE=1 BIAS_R=220k
+*.iopin plus
+*.iopin minus
+*.iopin vdd
+*.iopin vss
+*.iopin out
+XAMP plus minus vdd vss out bias sky130_amp IN_WIDTH={5*IN_SCALE} IN_LENGTH={IN_SCALE} IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH={5*P_SCALE} P_LENGTH={P_SCALE} TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO=1k
+XRBIAS vdd bias vss pdk_rbias_v RVALUE={BIAS_R}
+.ends
+
+
+* expanding   symbol:  pdk_rfixed2.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed2.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR1 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  cmos_nor3.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/cmos_nor3.sym
+** sch_path: xor_matched_tb.sch
+.subckt cmos_nor3 a b c y vdd vss
+*.iopin a
+*.iopin b
+*.iopin c
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a b c vss vss vdd vdd y sky130_fd_sc_hd__nor3_1
+.ends
+
+
+* expanding   symbol:  cmos_nor2.sym # of pins=5
+** sym_path: $SOURCE/variants/lean_neuron/cmos_nor2.sym
+** sch_path: xor_matched_tb.sch
+.subckt cmos_nor2 a b y vdd vss
+*.iopin a
+*.iopin b
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a b vss vss vdd vdd y sky130_fd_sc_hd__nor2_1
+.ends
+
+
+* expanding   symbol:  pdk_rbias_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbias_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbias_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rbias.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbias.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbias p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_rfixed.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rfixed.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rfixed p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/1-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  cd_amp_aux_rect.sym # of pins=8
+** sym_path: $SOURCE/variants/lean_neuron/cd_amp_aux_rect.sym
+** sch_path: xor_matched_tb.sch
+.subckt cd_amp_aux_rect plus minus vdd vss out ibias nul nref  AUX_TAIL_UNITS=1 IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+*.iopin nul
+*.iopin nref
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rfixed_h RVALUE={R_ZERO}
+XCMILLER comp out sky130_fd_pr__cap_mim_m3_1 W=20.52 L={0.01*floor((0.025+(C_MILLER/1f-7.7881)/41.37)/0.01+0.5)} MF=1 m=1
+XMAM pmirror nul atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMAP gain1 nref atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMATAIL atail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={AUX_TAIL_UNITS} m={AUX_TAIL_UNITS}
+.ends
+
+
+* expanding   symbol:  pdk_rbias2_v.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbias2_v.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbias2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias2 RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rbank2.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbank2.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbank2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR1 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR2 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR3 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_rtau.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rtau.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rtau p n bulk  RVALUE=10Meg
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 j1 p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR1 j2 j1 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR2 j3 j2 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR3 j4 j3 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR4 j5 j4 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR5 j6 j5 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR6 j7 j6 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR7 j8 j7 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR8 j9 j8 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR9 j10 j9 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR10 j11 j10 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR11 j12 j11 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR12 j13 j12 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR13 j14 j13 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR14 j15 j14 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR15 j16 j15 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR16 j17 j16 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR17 n j17 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  sky130_amp.sym # of pins=6
+** sym_path: $SOURCE/variants/lean_neuron/sky130_amp.sym
+** sch_path: xor_matched_tb.sch
+.subckt sky130_amp plus minus vdd vss out ibias  IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rsmall_h RVALUE={R_ZERO}
+XCMILLER comp out pdk_mim CVALUE={C_MILLER}
+.ends
+
+
+* expanding   symbol:  pdk_rbias2.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rbias2.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rbias2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/2-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR1 n net1 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/2-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+
+* expanding   symbol:  pdk_rsmall_h.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rsmall_h.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rsmall_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rsmall RVALUE={RVALUE}
+.ends
+
+
+* expanding   symbol:  pdk_rsmall.sym # of pins=3
+** sym_path: $SOURCE/variants/lean_neuron/pdk_rsmall.sym
+** sch_path: xor_matched_tb.sch
+.subckt pdk_rsmall p n bulk  RVALUE=1k
+*.iopin p
+*.iopin n
+*.iopin bulk
+* noconn bulk
+XRPO n p sky130_fd_pr__res_generic_po W=1 L={0.01*floor((RVALUE*0.944/(48.2*(1-3*8.916e-4+9*8.443e-7)))/0.01+0.5)} m=1
+.ends
+
+.end

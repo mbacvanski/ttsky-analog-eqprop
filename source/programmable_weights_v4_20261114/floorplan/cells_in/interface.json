@@ -1,0 +1,991 @@
+{
+ "pw4_bias": {
+  "outline": [
+   0,
+   0,
+   12.0,
+   68.0
+  ],
+  "size_um": [
+   12.0,
+   68.0
+  ],
+  "pins": {
+   "vdd": {
+    "layer": "metal2",
+    "rect": [
+     10.4,
+     0.0,
+     10.7,
+     0.7
+    ]
+   },
+   "vss": {
+    "layer": "metal2",
+    "rect": [
+     11.2,
+     0.0,
+     11.5,
+     0.7
+    ]
+   },
+   "ref": {
+    "layer": "metal3",
+    "rect": [
+     1.85,
+     0.0,
+     2.45,
+     0.7
+    ]
+   },
+   "dac": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     61.05,
+     0.7,
+     61.35
+    ]
+   },
+   "bw1": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     61.85,
+     0.7,
+     62.15
+    ]
+   },
+   "bw2": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     62.65,
+     0.7,
+     62.95
+    ]
+   },
+   "bias_prog": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     65.05,
+     0.7,
+     65.35
+    ]
+   },
+   "e1": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     65.85,
+     0.7,
+     66.15
+    ]
+   },
+   "write": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     66.65,
+     0.7,
+     66.95
+    ]
+   },
+   "e2": {
+    "layer": "metal1",
+    "rect": [
+     0.0,
+     67.45,
+     0.7,
+     67.75
+    ]
+   }
+  },
+  "capacitors_capm": [
+   [
+    0.55,
+    1.255,
+    11.54,
+    12.245
+   ],
+   [
+    0.55,
+    55.755,
+    11.54,
+    66.745
+   ]
+  ],
+  "lower_plates_metal3": [
+   [
+    0.41,
+    0.0,
+    11.68,
+    66.885
+   ]
+  ],
+  "metal4_shapes": [
+   [
+    0.745,
+    1.45,
+    11.345,
+    14.185
+   ],
+   [
+    5.35,
+    42.0,
+    5.75,
+    48.69
+   ],
+   [
+    7.6,
+    38.7,
+    8.0,
+    50.2
+   ],
+   [
+    10.2,
+    40.4,
+    10.6,
+    53.465
+   ],
+   [
+    11.0,
+    25.465,
+    11.4,
+    54.4
+   ],
+   [
+    0.745,
+    53.815,
+    11.345,
+    66.55
+   ]
+  ],
+  "frames_metal4": [],
+  "rings_round_capacitors_metal4": [],
+  "layers_used": [
+   "nwell",
+   "diff",
+   "tap",
+   "poly",
+   "li",
+   "metal1",
+   "metal2",
+   "metal3",
+   "metal4",
+   "capm"
+  ],
+  "metal5": false,
+  "chip_wire_over_the_cell": "nowhere: the cell uses metal1 to metal4 across its outline (the router closes metal1-4 over it and 0.3 um round it)",
+  "own_metal_inside_outline_by": "pins reach the outline at their rectangles only (west: seven metal1 pins; south: ref on metal3, vdd and vss on metal2); elsewhere the cell's own metal stays inside the outline",
+  "note": "Uses metal1 to metal4 across the whole outline: no chip wire may cross it. The two capacitors' lower plates (REF, metal3) cover x 0.41 .. 11.68 at y 1.115 .. 12.385 and 55.615 .. 66.885, joined by a metal3 strip x 0.41 .. 0.73 along the west edge; their upper plates (the stored gates, metal4) x 0.745 .. 11.345 at y 1.45 .. 12.05 and 55.95 .. 66.55. Keep the chip's switching wires at least 1 um from the outline beside the two plates (y 0 .. 14.2 and 53.8 .. 68). Stored gates in the extraction: sg1 (word 1), sg2 (word 2)."
+ },
+ "pw4_bridge": {
+  "outline": [
+   0,
+   0,
+   28.35,
+   14.9
+  ],
+  "size_um": [
+   28.35,
+   14.9
+  ],
+  "pins": {
+   "we": {
+    "layer": "metal2",
+    "rect": [
+     3.4,
+     14.2,
+     3.7,
+     14.9
+    ]
+   },
+   "b": {
+    "layer": "metal2",
+    "rect": [
+     1.1,
+     14.2,
+     1.4,
+     14.9
+    ]
+   },
+   "a": {
+    "layer": "metal2",
+    "rect": [
+     26.7,
+     14.2,
+     27.0,
+     14.9
+    ]
+   },
+   "ref": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     12.5,
+     28.35,
+     12.8
+    ]
+   },
+   "dac": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     1.45,
+     28.35,
+     1.75
+    ]
+   },
+   "clamp": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     13.6,
+     28.35,
+     13.9
+    ]
+   },
+   "vdd": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     0.95,
+     28.35,
+     1.25
+    ]
+   },
+   "vss": {
+    "layer": "metal1",
+    "rect": [
+     27.65,
+     0.36,
+     28.35,
+     0.84
+    ]
+   }
+  },
+  "capacitors_capm": [
+   [
+    1.585,
+    1.955,
+    12.575,
+    12.945
+   ],
+   [
+    15.775,
+    1.955,
+    26.765,
+    12.945
+   ]
+  ],
+  "lower_plates_metal3": [
+   [
+    14.785,
+    1.315,
+    27.38,
+    13.085
+   ],
+   [
+    0.97,
+    1.315,
+    13.565,
+    13.545
+   ]
+  ],
+  "metal4_shapes": [
+   [
+    1.78,
+    2.15,
+    26.57,
+    12.75
+   ],
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ],
+   [
+    0.0,
+    0.0,
+    28.35,
+    14.9
+   ]
+  ],
+  "frames_metal4": [
+   [
+    0.0,
+    0.0,
+    28.35,
+    14.9
+   ]
+  ],
+  "rings_round_capacitors_metal4": [
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ]
+  ],
+  "layers_used": [
+   "nwell",
+   "diff",
+   "tap",
+   "poly",
+   "li",
+   "metal1",
+   "metal2",
+   "metal3",
+   "metal4",
+   "capm"
+  ],
+  "metal5": false,
+  "chip_wire_over_the_cell": "nowhere: the cell uses metal1 to metal4 across its outline (the router closes metal1-4 over it and 0.3 um round it)",
+  "own_metal_inside_outline_by": "the grounded metal4 frame (0.3 um wide) runs along the whole outline; everything else stays 0.3 um inside it except the pins",
+  "note": "Inside the grounded metal4 frame on the outline, a metal4 ring 0.4 um wide runs 0.4 um round each capacitor's upper plate and is joined by via3 to that capacitor's lower plate, the part's own end (a on the east capacitor, b on the west; b is REF in the shunt). Each ring's net reaches diffusion inside the cell through metal3, metal2 and metal1 (the chain's end); no transistor gate is on it inside the cell."
+ },
+ "pw4_pulldown": {
+  "outline": [
+   0,
+   0,
+   10.7,
+   2.0
+  ],
+  "size_um": [
+   10.7,
+   2.0
+  ],
+  "pins": {
+   "vss": {
+    "layer": "metal1",
+    "rect": [
+     0,
+     0,
+     10.7,
+     0.515
+    ]
+   },
+   "vdd": {
+    "layer": "metal1",
+    "rect": [
+     0,
+     1.77,
+     10.7,
+     2.0
+    ]
+   },
+   "a": {
+    "layer": "metal1",
+    "rect": [
+     0,
+     0.935,
+     1.32,
+     1.355
+    ]
+   }
+  },
+  "capacitors_capm": [],
+  "lower_plates_metal3": [],
+  "metal4_shapes": [],
+  "frames_metal4": [],
+  "rings_round_capacitors_metal4": [],
+  "layers_used": [
+   "diff",
+   "tap",
+   "poly",
+   "li",
+   "metal1"
+  ],
+  "metal5": false,
+  "chip_wire_over_the_cell": "metal2, metal3, metal4 anywhere over it: the cell has no shape on them",
+  "own_metal_inside_outline_by": "the ground bar (bottom edge), the supply bar (top edge) and pin a (west edge) reach the outline; nothing else on metal1",
+  "note": "Standard cells may abut the west and east edges, bottoms level (Magic DRC with sky130_fd_sc_hd inv_1 and tapvpwrvgnd_1 at gaps 0 to 0.6 um: 0 errors, results/pw4_pulldown_neighbours.json). Two copies stack in 4.0 um, the upper one flipped with the supply bars touching (0 errors). Above a single copy: no n-well within 0.18 um of the top edge (5 V diffusion to n-well 0.825 um). The ground and supply bars run along the bottom and top edges on metal1, so nothing with metal1 there may abut those edges unless it is the same net."
+ },
+ "pw4_rblock4": {
+  "outline": [
+   0,
+   0,
+   113.4,
+   14.9
+  ],
+  "size_um": [
+   113.4,
+   14.9
+  ],
+  "pins": {
+   "we0": {
+    "layer": "metal2",
+    "rect": [
+     24.65,
+     14.2,
+     24.95,
+     14.9
+    ]
+   },
+   "m1x": {
+    "layer": "metal2",
+    "rect": [
+     27.05,
+     14.2,
+     27.35,
+     14.9
+    ]
+   },
+   "f1x": {
+    "layer": "metal2",
+    "rect": [
+     29.45,
+     14.2,
+     29.75,
+     14.9
+    ]
+   },
+   "we2": {
+    "layer": "metal2",
+    "rect": [
+     31.85,
+     14.2,
+     32.15,
+     14.9
+    ]
+   },
+   "zx": {
+    "layer": "metal2",
+    "rect": [
+     55.05,
+     14.2,
+     55.35,
+     14.9
+    ]
+   },
+   "zx (second pin, same net)": {
+    "layer": "metal2",
+    "rect": [
+     57.45,
+     14.2,
+     57.75,
+     14.9
+    ]
+   },
+   "we3": {
+    "layer": "metal2",
+    "rect": [
+     59.85,
+     14.2,
+     60.15,
+     14.9
+    ]
+   },
+   "f2x": {
+    "layer": "metal2",
+    "rect": [
+     83.85,
+     14.2,
+     84.15,
+     14.9
+    ]
+   },
+   "m2x": {
+    "layer": "metal2",
+    "rect": [
+     86.25,
+     14.2,
+     86.55,
+     14.9
+    ]
+   },
+   "we1": {
+    "layer": "metal2",
+    "rect": [
+     88.65,
+     14.2,
+     88.95,
+     14.9
+    ]
+   },
+   "clampw": {
+    "layer": "metal2",
+    "rect": [
+     50.25,
+     14.2,
+     50.55,
+     14.9
+    ]
+   },
+   "vdd": {
+    "layer": "metal2",
+    "rect": [
+     112.7,
+     0.75,
+     113.4,
+     1.05
+    ]
+   },
+   "vss": {
+    "layer": "metal1",
+    "rect": [
+     112.7,
+     6.35,
+     113.4,
+     6.65
+    ]
+   },
+   "dac": {
+    "layer": "metal1",
+    "rect": [
+     112.7,
+     1.55,
+     113.4,
+     1.85
+    ]
+   },
+   "ref": {
+    "layer": "metal2",
+    "rect": [
+     112.7,
+     4.75,
+     113.4,
+     5.05
+    ]
+   }
+  },
+  "capacitors_capm": [
+   [
+    1.585,
+    1.955,
+    12.575,
+    12.945
+   ],
+   [
+    15.775,
+    1.955,
+    26.765,
+    12.945
+   ],
+   [
+    29.935,
+    1.955,
+    40.925,
+    12.945
+   ],
+   [
+    44.125,
+    1.955,
+    55.115,
+    12.945
+   ],
+   [
+    58.285,
+    1.955,
+    69.275,
+    12.945
+   ],
+   [
+    72.475,
+    1.955,
+    83.465,
+    12.945
+   ],
+   [
+    86.635,
+    1.955,
+    97.625,
+    12.945
+   ],
+   [
+    100.825,
+    1.955,
+    111.815,
+    12.945
+   ]
+  ],
+  "lower_plates_metal3": [
+   [
+    14.785,
+    1.315,
+    27.38,
+    13.085
+   ],
+   [
+    43.135,
+    1.315,
+    55.73,
+    13.085
+   ],
+   [
+    71.485,
+    1.315,
+    84.08,
+    13.085
+   ],
+   [
+    86.02,
+    1.315,
+    98.615,
+    13.085
+   ],
+   [
+    0.97,
+    1.315,
+    13.565,
+    13.545
+   ],
+   [
+    29.32,
+    1.315,
+    41.915,
+    13.545
+   ],
+   [
+    57.67,
+    1.315,
+    70.265,
+    13.545
+   ],
+   [
+    99.835,
+    1.315,
+    112.43,
+    13.545
+   ]
+  ],
+  "metal4_shapes": [
+   [
+    1.78,
+    2.15,
+    26.57,
+    12.75
+   ],
+   [
+    30.13,
+    2.15,
+    54.92,
+    12.75
+   ],
+   [
+    58.48,
+    2.15,
+    83.27,
+    12.75
+   ],
+   [
+    86.83,
+    2.15,
+    111.62,
+    12.75
+   ],
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ],
+   [
+    29.33,
+    1.35,
+    41.53,
+    13.55
+   ],
+   [
+    43.52,
+    1.35,
+    55.72,
+    13.55
+   ],
+   [
+    57.68,
+    1.35,
+    69.88,
+    13.55
+   ],
+   [
+    71.87,
+    1.35,
+    84.07,
+    13.55
+   ],
+   [
+    86.03,
+    1.35,
+    98.23,
+    13.55
+   ],
+   [
+    100.22,
+    1.35,
+    112.42,
+    13.55
+   ],
+   [
+    0.0,
+    0.0,
+    113.4,
+    14.9
+   ]
+  ],
+  "frames_metal4": [
+   [
+    0.0,
+    0.0,
+    113.4,
+    14.9
+   ]
+  ],
+  "rings_round_capacitors_metal4": [
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ],
+   [
+    29.33,
+    1.35,
+    41.53,
+    13.55
+   ],
+   [
+    43.52,
+    1.35,
+    55.72,
+    13.55
+   ],
+   [
+    57.68,
+    1.35,
+    69.88,
+    13.55
+   ],
+   [
+    71.87,
+    1.35,
+    84.07,
+    13.55
+   ],
+   [
+    86.03,
+    1.35,
+    98.23,
+    13.55
+   ],
+   [
+    100.22,
+    1.35,
+    112.42,
+    13.55
+   ]
+  ],
+  "layers_used": [
+   "nwell",
+   "diff",
+   "tap",
+   "poly",
+   "li",
+   "metal1",
+   "metal2",
+   "metal3",
+   "metal4",
+   "capm"
+  ],
+  "metal5": false,
+  "chip_wire_over_the_cell": "nowhere: the cell uses metal1 to metal4 across its outline (the router closes metal1-4 over it and 0.3 um round it)",
+  "own_metal_inside_outline_by": "the grounded metal4 frames run along the whole outline; everything else stays 0.3 um inside it except the pins",
+  "note": "Pins on the plan's rectangles (chip strand's contract), the supply on the east edge as agreed on 2026-11-15. zx has two pins, joined inside the row. Capacitors 0.315 um further apart than the plan (rule capm.11); each cell's grounded metal4 frame, 0.3 um wide, runs along the cell's outline (the cells' frames merge at the seams), so metal4 reaches the row's outline all round. Inside each frame a metal4 ring 0.4 um wide runs 0.4 um round each capacitor's upper plate, joined by via3 to that capacitor's lower plate, i.e. on that bus (or REF): metal4 on f1x, zx, f2x, m1x, m2x and ref, each joined down to diffusion inside the row through metal3 to metal1."
+ },
+ "pw4_shunt": {
+  "outline": [
+   0,
+   0,
+   28.35,
+   14.9
+  ],
+  "size_um": [
+   28.35,
+   14.9
+  ],
+  "pins": {
+   "we": {
+    "layer": "metal2",
+    "rect": [
+     24.65,
+     14.2,
+     24.95,
+     14.9
+    ]
+   },
+   "a": {
+    "layer": "metal2",
+    "rect": [
+     27.05,
+     14.2,
+     27.35,
+     14.9
+    ]
+   },
+   "ref": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     12.5,
+     28.35,
+     12.8
+    ]
+   },
+   "dac": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     1.45,
+     28.35,
+     1.75
+    ]
+   },
+   "clamp": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     13.6,
+     28.35,
+     13.9
+    ]
+   },
+   "vdd": {
+    "layer": "metal2",
+    "rect": [
+     27.65,
+     0.95,
+     28.35,
+     1.25
+    ]
+   },
+   "vss": {
+    "layer": "metal1",
+    "rect": [
+     27.65,
+     0.36,
+     28.35,
+     0.84
+    ]
+   }
+  },
+  "capacitors_capm": [
+   [
+    1.585,
+    1.955,
+    12.575,
+    12.945
+   ],
+   [
+    15.775,
+    1.955,
+    26.765,
+    12.945
+   ]
+  ],
+  "lower_plates_metal3": [
+   [
+    14.785,
+    1.315,
+    27.38,
+    13.085
+   ],
+   [
+    0.97,
+    1.315,
+    13.565,
+    13.545
+   ]
+  ],
+  "metal4_shapes": [
+   [
+    1.78,
+    2.15,
+    26.57,
+    12.75
+   ],
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ],
+   [
+    0.0,
+    0.0,
+    28.35,
+    14.9
+   ]
+  ],
+  "frames_metal4": [
+   [
+    0.0,
+    0.0,
+    28.35,
+    14.9
+   ]
+  ],
+  "rings_round_capacitors_metal4": [
+   [
+    0.98,
+    1.35,
+    13.18,
+    13.55
+   ],
+   [
+    15.17,
+    1.35,
+    27.37,
+    13.55
+   ]
+  ],
+  "layers_used": [
+   "nwell",
+   "diff",
+   "tap",
+   "poly",
+   "li",
+   "metal1",
+   "metal2",
+   "metal3",
+   "metal4",
+   "capm"
+  ],
+  "metal5": false,
+  "chip_wire_over_the_cell": "nowhere: the cell uses metal1 to metal4 across its outline (the router closes metal1-4 over it and 0.3 um round it)",
+  "own_metal_inside_outline_by": "the grounded metal4 frame (0.3 um wide) runs along the whole outline; everything else stays 0.3 um inside it except the pins",
+  "note": "Inside the grounded metal4 frame on the outline, a metal4 ring 0.4 um wide runs 0.4 um round each capacitor's upper plate and is joined by via3 to that capacitor's lower plate, the part's own end (a on the east capacitor, b on the west; b is REF in the shunt). Each ring's net reaches diffusion inside the cell through metal3, metal2 and metal1 (the chain's end); no transistor gate is on it inside the cell."
+ }
+}

@@ -1,0 +1,278 @@
+{
+ "27.05": {
+  "plate_fF": 69.9351,
+  "w": 29.7,
+  "l": 27.05,
+  "other": [
+   [
+    "I_mimunit_29p70x27p05.C1",
+    "VSUBS",
+    "2.99581f"
+   ],
+   [
+    "I_mimunit_29p70x27p05.C2",
+    "VSUBS",
+    "16.7258f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_29p70x27p05.C1",
+   "I_mimunit_29p70x27p05.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "29.7": {
+  "plate_fF": 69.9351,
+  "w": 29.7,
+  "l": 27.05,
+  "other": [
+   [
+    "I_mimunit_29p70x27p05.C1",
+    "VSUBS",
+    "2.99581f"
+   ],
+   [
+    "I_mimunit_29p70x27p05.C2",
+    "VSUBS",
+    "16.7258f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_29p70x27p05.C1",
+   "I_mimunit_29p70x27p05.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "24.01": {
+  "plate_fF": 43.433,
+  "w": 20.52,
+  "l": 24.01,
+  "other": [
+   [
+    "I_mimunit_20p52x24p01.C1",
+    "VSUBS",
+    "2.24404f"
+   ],
+   [
+    "I_mimunit_20p52x24p01.C2",
+    "VSUBS",
+    "11.6427f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_20p52x24p01.C1",
+   "I_mimunit_20p52x24p01.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "20.52": {
+  "plate_fF": 43.433,
+  "w": 20.52,
+  "l": 24.01,
+  "other": [
+   [
+    "I_mimunit_20p52x24p01.C1",
+    "VSUBS",
+    "2.24404f"
+   ],
+   [
+    "I_mimunit_20p52x24p01.C2",
+    "VSUBS",
+    "11.6427f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_20p52x24p01.C1",
+   "I_mimunit_20p52x24p01.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "12.29": {
+  "plate_fF": 32.386,
+  "w": 30.0,
+  "l": 12.29,
+  "other": [
+   [
+    "I_mimunit_30p00x12p29.C1",
+    "VSUBS",
+    "2.49838f"
+   ],
+   [
+    "I_mimunit_30p00x12p29.C2",
+    "VSUBS",
+    "9.23018f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_30p00x12p29.C1",
+   "I_mimunit_30p00x12p29.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "30.0": {
+  "plate_fF": 32.386,
+  "w": 30.0,
+  "l": 12.29,
+  "other": [
+   [
+    "I_mimunit_30p00x12p29.C1",
+    "VSUBS",
+    "2.49838f"
+   ],
+   [
+    "I_mimunit_30p00x12p29.C2",
+    "VSUBS",
+    "9.23018f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_30p00x12p29.C1",
+   "I_mimunit_30p00x12p29.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "8.97": {
+  "plate_fF": 7.5165,
+  "w": 8.97,
+  "l": 8.97,
+  "other": [
+   [
+    "I_mimunit_8p97x8p97.C1",
+    "VSUBS",
+    "0.90422f"
+   ],
+   [
+    "I_mimunit_8p97x8p97.C2",
+    "VSUBS",
+    "3.35417f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_8p97x8p97.C1",
+   "I_mimunit_8p97x8p97.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "9.84": {
+  "plate_fF": 8.9695,
+  "w": 9.84,
+  "l": 9.84,
+  "other": [
+   [
+    "I_mimunit_9p84x9p84.C1",
+    "VSUBS",
+    "0.99591f"
+   ],
+   [
+    "I_mimunit_9p84x9p84.C2",
+    "VSUBS",
+    "3.75864f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_9p84x9p84.C1",
+   "I_mimunit_9p84x9p84.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "18.09": {
+  "plate_fF": 29.0706,
+  "w": 18.09,
+  "l": 18.09,
+  "other": [
+   [
+    "I_mimunit_18p09x18p09.C1",
+    "VSUBS",
+    "1.86535f"
+   ],
+   [
+    "I_mimunit_18p09x18p09.C2",
+    "VSUBS",
+    "8.52486f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_18p09x18p09.C1",
+   "I_mimunit_18p09x18p09.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "10.99": {
+  "plate_fF": 11.0854,
+  "w": 10.99,
+  "l": 10.99,
+  "other": [
+   [
+    "I_mimunit_10p99x10p99.C1",
+    "VSUBS",
+    "1.1171f"
+   ],
+   [
+    "I_mimunit_10p99x10p99.C2",
+    "VSUBS",
+    "4.32202f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_10p99x10p99.C1",
+   "I_mimunit_10p99x10p99.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "10.4": {
+  "plate_fF": 21.3228,
+  "w": 23.1,
+  "l": 10.4,
+  "other": [
+   [
+    "I_mimunit_23p10x10p40.C1",
+    "VSUBS",
+    "1.9472f"
+   ],
+   [
+    "I_mimunit_23p10x10p40.C2",
+    "VSUBS",
+    "6.76671f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_23p10x10p40.C1",
+   "I_mimunit_23p10x10p40.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ },
+ "23.1": {
+  "plate_fF": 21.3228,
+  "w": 23.1,
+  "l": 10.4,
+  "other": [
+   [
+    "I_mimunit_23p10x10p40.C1",
+    "VSUBS",
+    "1.9472f"
+   ],
+   [
+    "I_mimunit_23p10x10p40.C2",
+    "VSUBS",
+    "6.76671f"
+   ]
+  ],
+  "dev": [
+   "X0",
+   "I_mimunit_23p10x10p40.C1",
+   "I_mimunit_23p10x10p40.C2",
+   "sky130_fd_pr__cap_mim_m3_1"
+  ]
+ }
+}

@@ -1,0 +1,855 @@
+{
+  "scope": "Complete named-pin LVS-matched die with flat Magic capacitance and PDK MIM overlap accounting; interconnect resistance is excluded.",
+  "gds_sha256": "5c5dfd43e737b3b68a14ce2e2e48ed1101f673e7037ca79a42e95670e79d071b",
+  "source_circuit_sha256": "cfc0e02f03141889013c84c6cb083ebc4963ac5ab0a810238b7ee3edca3d79fa",
+  "Magic_full_DRC": {
+    "total": 0,
+    "rules": {}
+  },
+  "raw_flat_device_count": 2121,
+  "reduced_LVS_node_count": 499,
+  "actual_named_physical_terminals": [
+    "clk",
+    "ena",
+    "rst_n",
+    "ua[0]",
+    "ua[1]",
+    "ua[2]",
+    "ua[3]",
+    "ua[4]",
+    "ua[5]",
+    "ua[6]",
+    "ua[7]",
+    "ui_in[0]",
+    "ui_in[1]",
+    "ui_in[2]",
+    "ui_in[3]",
+    "ui_in[4]",
+    "ui_in[5]",
+    "ui_in[6]",
+    "ui_in[7]",
+    "uio_in[0]",
+    "uio_in[1]",
+    "uio_in[2]",
+    "uio_in[3]",
+    "uio_in[4]",
+    "uio_in[5]",
+    "uio_in[6]",
+    "uio_in[7]",
+    "uo_out[0]",
+    "uo_out[1]",
+    "uo_out[2]",
+    "uo_out[3]",
+    "uo_out[4]",
+    "uo_out[5]",
+    "uo_out[6]",
+    "uo_out[7]",
+    "VGND",
+    "VDPWR"
+  ],
+  "same_name_LVS_pin_check": true,
+  "extraction_vs_ext": {
+    "checked_pairs": 12538,
+    "maximum_absolute_error_fF": 0.005000000000052296,
+    "pairs_over_0p012fF": 0,
+    "largest_discrepancies_fF": [
+      {
+        "nodes": [
+          "aj_neuron_h_1.h",
+          "aj_neuron_z_0.ref"
+        ],
+        "error_fF": 0.005000000000052296
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "obs_mux_0.h2"
+        ],
+        "error_fF": 0.004000000000019099
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_decoder_0.XWP_XSTD.VNB"
+        ],
+        "error_fF": 0.004000000000019099
+      },
+      {
+        "nodes": [
+          "VDPWR",
+          "aj_neuron_z_0.ref"
+        ],
+        "error_fF": -0.0030000000000001137
+      },
+      {
+        "nodes": [
+          "VDPWR",
+          "pw4_decoder_0.XWP_XSTD.VNB"
+        ],
+        "error_fF": 0.0009999999999763531
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.h",
+          "aj_neuron_z_0.ref"
+        ],
+        "error_fF": 0.0009999999999763531
+      }
+    ]
+  },
+  "physical_board_pin_mapping": {
+    "clk": "vss",
+    "ena": "vdd",
+    "rst_n": "vdd",
+    "VDPWR": "vdd",
+    "VGND": "vss",
+    "ui_in[0]": "bit_a",
+    "uio_in[0]": "ext_en1",
+    "uo_out[0]": "uo_out0",
+    "ui_in[1]": "bit_b",
+    "uio_in[1]": "ext_en2",
+    "uo_out[1]": "uo_out1",
+    "ui_in[2]": "reset",
+    "uio_in[2]": "obs2_sel0",
+    "uo_out[2]": "uo_out2",
+    "ui_in[3]": "hold_in",
+    "uio_in[3]": "obs2_sel1",
+    "uo_out[3]": "uo_out3",
+    "ui_in[4]": "ref_reset",
+    "uio_in[4]": "bias_prog",
+    "uo_out[4]": "uo_out4",
+    "ui_in[5]": "obs_sel0",
+    "uio_in[5]": "write",
+    "uo_out[5]": "uo_out5",
+    "ui_in[6]": "obs_sel1",
+    "uio_in[6]": "res_sel",
+    "uo_out[6]": "uo_out6",
+    "ui_in[7]": "obs_sel2",
+    "uio_in[7]": "weight_prog",
+    "uo_out[7]": "uo_out7",
+    "ua[0]": "pad",
+    "ua[1]": "ext_bias",
+    "ua[2]": "pad2",
+    "ua[3]": "unused_analog_3",
+    "ua[4]": "unused_analog_4",
+    "ua[5]": "unused_analog_5",
+    "ua[6]": "unused_analog_6",
+    "ua[7]": "unused_analog_7"
+  },
+  "unconnected_analog_ports_quasistatically_eliminated": [
+    "ua[3]",
+    "ua[4]",
+    "ua[5]",
+    "ua[6]",
+    "ua[7]"
+  ],
+  "floating_elimination": {
+    "floating_linear_nodes_eliminated": 6,
+    "original_positive_capacitors": 8967,
+    "reduced_capacitors": 8942,
+    "independent_voltage_vectors": 16,
+    "maximum_external_charge_error_fC_at_1V": 2.2737367544323206e-12
+  },
+  "MIM_unit_table_sha256": "44a4396119c04befc88755c3aa7f89a847c3d5f0ca3963380bc78dc0f4d24c98",
+  "MIM_accounting": {
+    "instances": 106,
+    "sizes": {
+      "(10.99, 10.99)": 26,
+      "(8.97, 8.97)": 18,
+      "(20.52, 24.01)": 14,
+      "(18.09, 18.09)": 18,
+      "(27.05, 29.7)": 12,
+      "(9.84, 9.84)": 12,
+      "(15.7, 15.7)": 3,
+      "(12.29, 30.0)": 1,
+      "(10.4, 23.1)": 2
+    },
+    "removed_fF": 2601.7437999999984,
+    "units_fF": 2642.9484999999986,
+    "pairs": [
+      {
+        "nodes": [
+          "VGND",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 672.49,
+        "unit_plate_fF": 218.56459999999998,
+        "removed_fF": 218.56459999999998,
+        "remaining_fF": 453.9254,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "VGND",
+          "az_ref1_0.XMAUX.G0"
+        ],
+        "before_fF": 55.3467,
+        "unit_plate_fF": 45.099,
+        "removed_fF": 45.099,
+        "remaining_fF": 10.247700000000002,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "VGND",
+          "az_ref1_1.XMAUX.G0"
+        ],
+        "before_fF": 55.4447,
+        "unit_plate_fF": 45.099,
+        "removed_fF": 45.099,
+        "remaining_fF": 10.3457,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "VGND",
+          "az_ref4_0.XCORE.XMAUX.G0"
+        ],
+        "before_fF": 56.5522,
+        "unit_plate_fF": 45.099,
+        "removed_fF": 45.099,
+        "remaining_fF": 11.453200000000002,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "VGND",
+          "lean_block_0.XACT1.vbn"
+        ],
+        "before_fF": 67.46271,
+        "unit_plate_fF": 32.386,
+        "removed_fF": 32.386,
+        "remaining_fF": 35.07671,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "VGND",
+          "ne_res_hold_select_0.res_sel"
+        ],
+        "before_fF": 91.9174,
+        "unit_plate_fF": 22.0705,
+        "removed_fF": 22.0705,
+        "remaining_fF": 69.8469,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_0.XPB.o",
+          "aj_neuron_h_0.XU3.XRZERO.R1"
+        ],
+        "before_fF": 44.2908,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8577999999999975,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_0.XRES.m",
+          "aj_neuron_h_0.XU1.XRZERO.R1"
+        ],
+        "before_fF": 44.3186,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8856000000000037,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_0.XU1.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.4365,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 4.0035000000000025,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_0.XU3.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.359,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 3.926000000000002,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_1.XPB.o",
+          "aj_neuron_h_1.XU3.XRZERO.R1"
+        ],
+        "before_fF": 44.3185,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8855000000000004,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_1.XRES.m",
+          "aj_neuron_h_1.XU1.XRZERO.R1"
+        ],
+        "before_fF": 44.3186,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8856000000000037,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_1.XU1.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.4359,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 4.002899999999997,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_1.XU3.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.4337,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 4.000700000000002,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_h_1.h",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 300.26000000000005,
+        "unit_plate_fF": 279.7404,
+        "removed_fF": 279.7404,
+        "remaining_fF": 20.519600000000025,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.XPB.o",
+          "aj_neuron_z_0.XU3.XRZERO.R1"
+        ],
+        "before_fF": 44.3186,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8856000000000037,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.XRES.m",
+          "aj_neuron_z_0.XU1.XRZERO.R1"
+        ],
+        "before_fF": 44.3186,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8856000000000037,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.XU1.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.4339,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 4.0009000000000015,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.XU3.XSH_N.D",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 47.4338,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 4.000799999999998,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.h",
+          "aj_neuron_z_0.ref"
+        ],
+        "before_fF": 293.0,
+        "unit_plate_fF": 279.7404,
+        "removed_fF": 279.7404,
+        "remaining_fF": 13.259599999999978,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "az_ref4_0.XCMIL_00.C1"
+        ],
+        "before_fF": 190.01999999999998,
+        "unit_plate_fF": 174.4236,
+        "removed_fF": 174.4236,
+        "remaining_fF": 15.596399999999988,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "buf2_0.XAMP.XSH_N.D"
+        ],
+        "before_fF": 47.0663,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 3.6332999999999984,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "obs_mux_0.h2"
+        ],
+        "before_fF": 297.44,
+        "unit_plate_fF": 279.7404,
+        "removed_fF": 279.7404,
+        "remaining_fF": 17.699599999999975,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_bias_0.sg1"
+        ],
+        "before_fF": 11.6538,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 0.5684000000000005,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_bias_0.sg2"
+        ],
+        "before_fF": 11.816,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 0.7306000000000008,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_0.XC0.gn"
+        ],
+        "before_fF": 15.2293,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 4.1439,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_0.XC3.gn"
+        ],
+        "before_fF": 15.2576,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 4.1722,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_1.XC0.gn"
+        ],
+        "before_fF": 15.2371,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 4.1517,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_1.XC3.gn"
+        ],
+        "before_fF": 15.2572,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 4.171799999999999,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_2.XC0.gn"
+        ],
+        "before_fF": 14.887,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.8016000000000005,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_rblock4_2.XC3.gn"
+        ],
+        "before_fF": 14.8801,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.7947000000000006,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_units3d_0.dc"
+        ],
+        "before_fF": 0.72117,
+        "unit_plate_fF": 21.3228,
+        "removed_fF": 0.72117,
+        "remaining_fF": 0.0,
+        "available_below_unit": true
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_units3d_1.dc"
+        ],
+        "before_fF": 0.71973,
+        "unit_plate_fF": 21.3228,
+        "removed_fF": 0.71973,
+        "remaining_fF": 0.0,
+        "available_below_unit": true
+      },
+      {
+        "nodes": [
+          "az_pad_0.XCMIL_00.C1",
+          "pin_res_0.buffered"
+        ],
+        "before_fF": 190.1,
+        "unit_plate_fF": 174.4236,
+        "removed_fF": 174.4236,
+        "remaining_fF": 15.676400000000001,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "az_ref1_0.XCMIL_00.C1",
+          "ne_rw_native_0.z"
+        ],
+        "before_fF": 61.5558,
+        "unit_plate_fF": 53.817,
+        "removed_fF": 53.817,
+        "remaining_fF": 7.738799999999998,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "az_ref1_1.XCMIL_00.C1",
+          "ne_threshold8_0.ladder"
+        ],
+        "before_fF": 61.5253,
+        "unit_plate_fF": 53.817,
+        "removed_fF": 53.817,
+        "remaining_fF": 7.708300000000001,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "buf2_0.XAMP.XRZERO.R1",
+          "pin_res_0.buf"
+        ],
+        "before_fF": 44.2951,
+        "unit_plate_fF": 43.433,
+        "removed_fF": 43.433,
+        "remaining_fF": 0.8620999999999981,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_1.b1",
+          "pw4_rblock4_0.XC1.gn"
+        ],
+        "before_fF": 13.9645,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8790999999999993,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_1.b2",
+          "pw4_rblock4_0.XC2.gn"
+        ],
+        "before_fF": 13.9839,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8985000000000003,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_10.b1",
+          "pw4_rblock4_2.XC0.gn"
+        ],
+        "before_fF": 15.0788,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.9933999999999994,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_10.b2",
+          "pw4_rblock4_2.XC3.gn"
+        ],
+        "before_fF": 15.0142,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.9288000000000007,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_12.b1",
+          "pw4_rblock4_2.XC1.gn"
+        ],
+        "before_fF": 13.9839,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8985000000000003,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_12.b1",
+          "pw4_rblock4_2.XC2.gn"
+        ],
+        "before_fF": 14.2526,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.1671999999999993,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_12.b2",
+          "pw4_rblock4_0.XC1.gn"
+        ],
+        "before_fF": 13.9846,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8992000000000004,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_12.b2",
+          "pw4_rblock4_0.XC2.gn"
+        ],
+        "before_fF": 13.9364,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.851000000000001,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_13.b1",
+          "pw4_rblock4_0.XC0.gn"
+        ],
+        "before_fF": 15.0593,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.9739000000000004,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_13.b2",
+          "pw4_rblock4_0.XC3.gn"
+        ],
+        "before_fF": 15.063,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.9776000000000007,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_2.b1",
+          "pw4_rblock4_1.XC0.gn"
+        ],
+        "before_fF": 15.0968,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 4.0114,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_2.b2",
+          "pw4_rblock4_1.XC3.gn"
+        ],
+        "before_fF": 15.063,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 3.9776000000000007,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_6.b1",
+          "pw4_rblock4_2.XC1.gn"
+        ],
+        "before_fF": 13.9399,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8545,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_mid_6.b2",
+          "pw4_rblock4_2.XC2.gn"
+        ],
+        "before_fF": 13.9296,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8442000000000007,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_nrn_h_0.bus",
+          "pw4_rblock4_1.XC2.gn"
+        ],
+        "before_fF": 13.9851,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8996999999999993,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_nrn_h_1.bus",
+          "pw4_rblock4_1.XC1.gn"
+        ],
+        "before_fF": 13.9405,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8551,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_nrn_z_0.bus",
+          "pw4_rblock4_1.XC1.gn"
+        ],
+        "before_fF": 13.9839,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.8985000000000003,
+        "available_below_unit": false
+      },
+      {
+        "nodes": [
+          "pw4_nrn_z_0.bus",
+          "pw4_rblock4_1.XC2.gn"
+        ],
+        "before_fF": 14.007,
+        "unit_plate_fF": 11.0854,
+        "removed_fF": 11.0854,
+        "remaining_fF": 2.9215999999999998,
+        "available_below_unit": false
+      }
+    ],
+    "short_pairs": [
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_units3d_0.dc"
+        ],
+        "before_fF": 0.72117,
+        "unit_plate_fF": 21.3228,
+        "removed_fF": 0.72117,
+        "remaining_fF": 0.0,
+        "available_below_unit": true
+      },
+      {
+        "nodes": [
+          "aj_neuron_z_0.ref",
+          "pw4_units3d_1.dc"
+        ],
+        "before_fF": 0.71973,
+        "unit_plate_fF": 21.3228,
+        "removed_fF": 0.71973,
+        "remaining_fF": 0.0,
+        "available_below_unit": true
+      }
+    ]
+  },
+  "modelled_interconnect": "substrate and coupling capacitance; ideal conductors",
+  "ext_sha256": "58348ad5d897ea117a4ef3eaa6c2ada51501d85b9cc8b008fc92383741d0c17b",
+  "raw_spice_sha256": "9aa69058235c64599ee49a56a3c1f9c50aed9499752afd0d62cb4b876a9c812f",
+  "whole_flat_sha256": "078285ba81b5c39b8336f32eb4039c3e580a80889cbdb7fb636e8ce80095640e",
+  "board_spice_sha256": "4ce4731c6effee67f18c15e750b55506132cdf5b7bf18768a2a668fd45214d8f",
+  "LVS": {
+    "reference": {
+      "result": "Circuits match uniquely.",
+      "same_name_port_pairs": true,
+      "property_errors": false,
+      "expected_netlist_sha256": "cb87722a63c893afa2b6e649ac51563aed359ebfcc63bd52340a4dd2a24519e7",
+      "comparison_sha256": "425890bb4d87aab8486685bb02270b7b4e5bcea9dc430c16ab6c896356e57322"
+    },
+    "reference_bad": {
+      "result": "Top level cell failed pin matching.",
+      "same_name_port_pairs": false,
+      "property_errors": false,
+      "expected_netlist_sha256": "3a3641bc60ae14fdc9918b1d179fceff7e6992451c804c68debf3e097dceeba1",
+      "comparison_sha256": "5a9767740a58c4bd0ddd113358efdfa94346bb5e6b8367a10e40bbe8504bd766"
+    }
+  },
+  "additional_isolated_MIM": {
+    "unit_spice_sha256": "d19d1d82353bd234ff44b4d97df8c8325f70e901f0bf622294544eddf0e7cb50",
+    "foundry_device": [
+      "X0",
+      "C1",
+      "C2",
+      "sky130_fd_pr__cap_mim_m3_1",
+      "l=15.7",
+      "w=15.7"
+    ],
+    "capacitance_records": [
+      [
+        "C0",
+        "C1",
+        "C2",
+        "22.0705f"
+      ],
+      [
+        "C1",
+        "C2",
+        "VSUBS",
+        "8.58433f"
+      ]
+    ],
+    "additional_unit_sizes": {
+      "15.7": {
+        "w": 15.7,
+        "l": 15.7,
+        "plate_fF": 22.0705
+      }
+    },
+    "instances_on_die": 3
+  }
+}

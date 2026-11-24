@@ -1,0 +1,78 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794357244
+<< checkpaint >>
+rect -1544 -3582 1544 3582
+<< pwell >>
+rect -284 -2322 284 2322
+<< psubdiff >>
+rect -248 2252 -152 2286
+rect 152 2252 248 2286
+rect -248 2190 -214 2252
+rect 214 2190 248 2252
+rect -248 -2252 -214 -2190
+rect 214 -2252 248 -2190
+rect -248 -2286 -152 -2252
+rect 152 -2286 248 -2252
+<< psubdiffcont >>
+rect -152 2252 152 2286
+rect -248 -2190 -214 2190
+rect 214 -2190 248 2190
+rect -152 -2286 152 -2252
+<< xpolycontact >>
+rect -118 1724 -48 2156
+rect -118 -2156 -48 -1724
+rect 48 1724 118 2156
+rect 48 -2156 118 -1724
+<< xpolyres >>
+rect -118 -1724 -48 1724
+rect 48 -1724 118 1724
+<< locali >>
+rect -248 2252 -152 2286
+rect 152 2252 248 2286
+rect -248 2190 -214 2252
+rect 214 2190 248 2252
+rect -248 -2252 -214 -2190
+rect 214 -2252 248 -2190
+rect -248 -2286 -152 -2252
+rect 152 -2286 248 -2252
+<< viali >>
+rect -102 1741 -64 2138
+rect 64 1741 102 2138
+rect -102 -2138 -64 -1741
+rect 64 -2138 102 -1741
+<< metal1 >>
+rect -108 2138 -58 2150
+rect -108 1741 -102 2138
+rect -64 1741 -58 2138
+rect -108 1729 -58 1741
+rect 58 2138 108 2150
+rect 58 1741 64 2138
+rect 102 1741 108 2138
+rect 58 1729 108 1741
+rect -108 -1741 -58 -1729
+rect -108 -2138 -102 -1741
+rect -64 -2138 -58 -1741
+rect -108 -2150 -58 -2138
+rect 58 -1741 108 -1729
+rect 58 -2138 64 -1741
+rect 102 -2138 108 -1741
+rect 58 -2150 108 -2138
+<< labels >>
+rlabel psubdiffcont 0 -2269 0 -2269 0 B
+port 1 nsew
+rlabel xpolycontact -83 2121 -83 2121 0 R1_0
+port 2 nsew
+rlabel xpolycontact -83 -2121 -83 -2121 0 R2_0
+port 3 nsew
+rlabel xpolycontact 83 2121 83 2121 0 R1_1
+port 4 nsew
+rlabel xpolycontact 83 -2121 83 -2121 0 R2_1
+port 5 nsew
+<< properties >>
+string FIXED_BBOX -231 -2269 231 2269
+string gencell sky130_fd_pr__res_xhigh_po_0p35
+string library sky130
+string parameters w 0.35 l 17.4 m 1 nx 2 wmin 0.350 lmin 0.50 class resistor rho 2000 val 100.504k dummy 0 dw 0.0 term 188.2 sterm 0.0 caplen 0 wmax 0.350 guard 1 glc 1 grc 1 gtc 1 gbc 1 compatible {sky130_fd_pr__res_xhigh_po_0p35  sky130_fd_pr__res_xhigh_po_0p69 sky130_fd_pr__res_xhigh_po_1p41  sky130_fd_pr__res_xhigh_po_2p85 sky130_fd_pr__res_xhigh_po_5p73} snake 0 full_metal 1 n_guard 0 hv_guard 0 vias 1 viagb 0 viagt 0 viagl 0 viagr 0 doports 1
+<< end >>

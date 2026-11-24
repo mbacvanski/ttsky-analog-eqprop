@@ -1,0 +1,598 @@
+{
+ "what": "the last stage of a locked layout, traced (takeover/layout/freeze/trace_lock.py)",
+ "paths_relative_to": "hardware/mesa/xor_sky130",
+ "lock": "six_edge_programmable_20261117/takeover/bias/layout/lock4_r",
+ "commit": "ac1d09438c28d56b48447ec3fa772d51a6b7d13d",
+ "delivery_block": "cd takeover/bias/layout\n$PY -I scripts/rebuild.py EMPTY_FOLDER 0.42 3.2 1 3.5 \\\n    --schematic ../circuit/variant_reference.spice --patch inputs/local_patch.json \\\n    --v4 ../circuit/variant_reference_v4.spice --wells inputs/well_patch_hvi070.json --cellfix-level 3 \\\n    --strap inputs/strap_block_d.json inputs/xprog_strap.json \\\n    --rzero inputs/ar4_rzero_l070.gds rzero/variant_reference_v5.spice \\\n    --expect 99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
+ "cwd": "six_edge_programmable_20261117/takeover/bias/layout",
+ "args": [
+  "EMPTY_FOLDER",
+  "0.42",
+  "3.2",
+  "1",
+  "3.5",
+  "--schematic",
+  "../circuit/variant_reference.spice",
+  "--patch",
+  "inputs/local_patch.json",
+  "--v4",
+  "../circuit/variant_reference_v4.spice",
+  "--wells",
+  "inputs/well_patch_hvi070.json",
+  "--cellfix-level",
+  "3",
+  "--strap",
+  "inputs/strap_block_d.json",
+  "inputs/xprog_strap.json",
+  "--rzero",
+  "inputs/ar4_rzero_l070.gds",
+  "rzero/variant_reference_v5.spice",
+  "--expect",
+  "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1"
+ ],
+ "env": {},
+ "expect_sha256": "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
+ "final_stem": "chip_v4_w_s_r",
+ "exit_code": 0,
+ "seconds": 174.4,
+ "product_sha256": "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
+ "same_as_expected": true,
+ "inputs": [
+  {
+   "path": "feasibility_20261107/amp_layout/ref/aj_core1p_ref.spice",
+   "sha256": "8d93f31581e91bbb8c68492bf84f1bbad3ff27ce6b6ff1133ad4fdd8e5244f7e",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/ref/az_pad_ref.spice",
+   "sha256": "3d47a0fa272a710c3c2a43ab1a23ace2c40ee27fe01303aaf12ea0ad108764f9",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/ref/az_ref1_ref.spice",
+   "sha256": "8143eda5f55c397acff20325c2239dff5202bcb0a9f112305f19bd356a177ed6",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/ref/az_ref4_ref.spice",
+   "sha256": "1f32e799b4d9c23236db08aa562bb1ca71a0bf2519bc2b78dc4944748d1aae94",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/ref/lean_act_ref.spice",
+   "sha256": "dbd9f57df37a42794ce0163cc92f621d3f64d38727d7b27c462be8c37ee0a6dc",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/ref/lean_bias_ref.spice",
+   "sha256": "923beac969bb4eb9ab881720a09694a76c6ab1c8633302d3e8839736c17f76c7",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/results/az_pad_pins.json",
+   "sha256": "6fca103e38cd25397df9b9879a9dfe45b7137607c9a4b76a9d90a6b991b6982f",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/results/az_ref4_pins.json",
+   "sha256": "81ea3f8bc61ba2e9206349e5fc4095451ced88c6cf0a82afba74d4a7f34f7a18",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/scripts/build.py",
+   "sha256": "6e8837bad796f443dc71c6dc13f0b9681a2f0023bff0e3e415d1e9882f644e6e",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/amp_layout/scripts/geom.py",
+   "sha256": "78ba9253a430f2d31b036367fe6680d055b6d52905afd4ee65ed8dade24bb996",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip/scripts/geom.py",
+   "sha256": "78ba9253a430f2d31b036367fe6680d055b6d52905afd4ee65ed8dade24bb996",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip/scripts/make_ref.py",
+   "sha256": "96e7f62ef44e6c33897e66e99c10e56141b29fbb7a13e83600acf5519e5260c4",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/aj_ladder.mag",
+   "sha256": "c2ad836f73bf856cd3580e690e3e905c44bfbd2d853a4675ea48b7cf108f3484",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/aj_neuron_h.mag",
+   "sha256": "68de6b9d3384e3376f33294e7b208f6d96aa2b36d81fbce934a7ed7482f73c76",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/aj_neuron_z.mag",
+   "sha256": "92bcdf998b8b19df1331493f176cb8103dc394fa17b0957dbc2e5cab7547239a",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/aj_rc_h.mag",
+   "sha256": "a43c7ad16d67736214e6ba3a5087075f523a08a2c041344adf76a7d09a64b7c9",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/aj_rc_z.mag",
+   "sha256": "0e2a67ae22789e3ef6af8a46be0d8fe5fedf4bd1415fec4f60d9e800570d5014",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/buf2.mag",
+   "sha256": "20b7161b9620086be8c5d20e905c5ac966a7cd66a1dacb5f333cc5573597d1cb",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_cbyp.mag",
+   "sha256": "cb40714917936c20defe6903ac954f2d5690ac3bc5ea31b443decf5cf84ce305",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rbank_h.mag",
+   "sha256": "96733b8642f6925e53a771a68b8e281dc7ed083c8cceab58c21e99397e3ec2d4",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rbank_z.mag",
+   "sha256": "8ec52a5251613cbffbeff81aab970f98f38e3659af2afb16bb49e9c751758492",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rpin10k.mag",
+   "sha256": "85f37daa17392871cf41be0f4d508b3f187a16f89b5f5a78b77ac0dfbb7b3642",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rpin3k.mag",
+   "sha256": "eb83a1a9132c7d16dff18643a9605b49b123fe31ee4e1fa02024cb43a87c5677",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rpin5k.mag",
+   "sha256": "57db73418e06b224125fc38836c1f28f492fdffd0ffd1147a6e0e5bcf7cc8865",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/c2_rs2.mag",
+   "sha256": "d92b1b18f338edd67d48c915ae4523e3da839f79284acbdd1bb42ad6a307b7ed",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/obs2_mux.mag",
+   "sha256": "67759807e70bc674c1c35b55cea94b020b5e1726f0a4c7323764ab14e886739d",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/layout/pin_res.mag",
+   "sha256": "d72d141ad2cb4513bba356f61f50a2976299066d7c603b654c8b36e4f1f32ad9",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_edge.json",
+   "sha256": "5459c48bfc3df39570a0abfc97752a7b35ccdc42f8252697027e63143a1c72f9",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_h_pins.json",
+   "sha256": "a7b7e364c9a38a0d1cf7605b747feb947fc2f14f57b2348cf69ddf88ef934338",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_z_pins.json",
+   "sha256": "8c627b43af041d1fdb8dba47bcb5df85e3a31ac41ea6a26bc3a99fbb244188a5",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/scripts/chip.py",
+   "sha256": "556c480425238e4aacce8105e933d79abb23adece3db7ed135b7516615ecc81b",
+   "in_git": true
+  },
+  {
+   "path": "feasibility_20261107/floorplan/chip2x2/scripts/make_ref.py",
+   "sha256": "eba6ee732d90d53ffa68ff2deb46cd16518236c53e05ad3b97eae3a9bc4036ab",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/cells/scripts/lib.py",
+   "sha256": "4b36b6d641168d0887a5479234d7da330636d7a133e7a8ca1b6d79c099718544",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/cells/scripts/magic_util.py",
+   "sha256": "3f2ff8e197e281f45333cafca5f150a0f5fe47ec7638c3d88b7ebf0a128841a6",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cells_in/interface.json",
+   "sha256": "4e2661fb9a6ee7282aa37b58e5f45173240eec969609eb6c7c954600578ae15d",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_dacgate_cell.json",
+   "sha256": "f8aee4857c4ea11617895e61f03ce3ddc99e52e1129bdaf3e929b4a3bfdc67d1",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_decoder_cell.json",
+   "sha256": "277275a7b9ba7b5ead8f03e5ca86ae354f5df1a5fb16df814239b7300151e697",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_mid_cell.json",
+   "sha256": "2c9451d9a256482bc93f0ac54ba927fb4d1094dbd8f5980a6ef86fdb27230614",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_nrn_h_cell.json",
+   "sha256": "dcb97f021668cc8b5efdcabdfb54e56b296c1d70fd129764e490adb17ea7768d",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_nrn_z_cell.json",
+   "sha256": "9dacebd42295b686ca2ae565991a7d2a15d9621f4bcfa9191d5e2641a4bf5b63",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_units3d_cell.json",
+   "sha256": "f6c93abae532eb444051a75aa804b99d8b8fd0db54b80069fc7ac9d066f3bd55",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/cellwork/results/pw4_units5_cell.json",
+   "sha256": "233c98a0e5d8d1c7d49a8beb1e1d17564fdfec89ed9fc15ed27e7eb8944c66ed",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/scripts/chip_lvs.py",
+   "sha256": "df88aa13b4f57979f1851e6a555383fe41649b2c028b47ce08aeec5d262f2f29",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/scripts/magic_util.py",
+   "sha256": "964bb368bd6fac4aa3f2e38c96c134f01a57da52592b82460f2f7500d0209197",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/scripts/rev7.py",
+   "sha256": "3bbcea884447e66b8686a8c35a19ef3f347e07162fec006ada022f1f14c92f88",
+   "in_git": true
+  },
+  {
+   "path": "programmable_weights_v4_20261114/floorplan/scripts/v4_plan.py",
+   "sha256": "40200644820fea745ad6fce7f99d500b24863c80ea37b1f95530c294fc9943e3",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/circuit/digital_layout/control.py",
+   "sha256": "610d6234ae523a5a5dedf48a03faa2ebedc5b5c31ea7e00893e8a2971ea50d5b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/circuit/frozen_native.spice.gz",
+   "sha256": "07340e614f8b2e6c9898e478e9b7ce6ac5f51c1e517c4b6e39b1e88257633172",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/drawn/account_flat.py",
+   "sha256": "54cef38ff582bab6c0e71562bd20a14a0e729f438d26e55c8fbf5995dcafec8b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/drawn/extract.py",
+   "sha256": "55ef3b67ff51f3ec66102968a91052859557adb62a1df713b2f5b815b743c968",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/drawn/model_inputs/mim_plate.json",
+   "sha256": "44a4396119c04befc88755c3aa7f89a847c3d5f0ca3963380bc78dc0f4d24c98",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/drawn/ports.py",
+   "sha256": "0aaa62007f3934e17e2ea959f5920439debff3e026df36ec2a006fb94b68cb8c",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/drawn/reduce_capacitance.py",
+   "sha256": "046da6c8b94515fef8a6aa40661ed49bfc10f5c205ca14aa3a709e4e65a18034",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout/baseline.py",
+   "sha256": "5e7e0fff3dcf5345f19a228b38d0fa4510ae4b929bd13694af60c59119f8a185",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout/connectivity.py",
+   "sha256": "17ccf83065e14d7da1167656b63ebec89ef692b48d530912e26041eee188d4ed",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout/prepare_split.py",
+   "sha256": "5406cbf261163559f8385311594927a552e1c72521e0375dd1b5b6913ce236eb",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout/route_split.py",
+   "sha256": "ac31a47b99cfa09344423c6411620534fd5acb0e9c9426b103b011d4f67899c6",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout/trace_route.cpp",
+   "sha256": "e33a2b0790cf2b78b8985f50e3ffcb6e4cf4680fa7f60a136b7dbde75cd9e247",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/layout_cells/switches.py",
+   "sha256": "6d5d88aca6d827b5f8b2051c1ce6896195e60af7f5f0c6153feee434c0be07ea",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/check_die.py",
+   "sha256": "665ada88ff85cf6092540a908bb8224c8b51b2e52fa748510fd9a6facc1261e3",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/decoder.py",
+   "sha256": "b809d71f43f725869eabb7099658981f456388e6215c0443df968fd96f75584f",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/extract.py",
+   "sha256": "396230d0083fc4434e7726193460c6be9a6dd2d801c27628a1fac235fd43585d",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/hold_mode/quiet_route.py",
+   "sha256": "1bb4c5923101e0b9b3ffd856fb564c48a44bcdf7454eff97b5fc83982b03197d",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/hold_mode/res_select.py",
+   "sha256": "00a43ab896f184ea95b6da3968fa4ff37a92d20a46b7f86cf7a53f05010b9829",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/hold_mode/weak_leaf.py",
+   "sha256": "6043792b19e94895c8ea8b18ace0bf8236d6025587c3f73570fa92ada3cb6ae5",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/reference.py",
+   "sha256": "fc8387a35ca5dcecdfcfa677964365eb0d5c2f4a3637fa78732ee10b64e5f9a5",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/repair.py",
+   "sha256": "21d40fffdef7e6a2a9084e432d0071b2f26f950da2a77833fa42832b4116ced4",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/results/poly_cells.json",
+   "sha256": "fb9ec3aaf1eae6d5f001c6d1adb138a9919b25feb9db87421da8f4affb7fef24",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/results/quiet_rc_release/mim_unit.spice",
+   "sha256": "d19d1d82353bd234ff44b4d97df8c8325f70e901f0bf622294544eddf0e7cb50",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/signoff.py",
+   "sha256": "bca07715c1c64e62f7854f68d672ae75af6bd01aade23d72fd4872045e174a34",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/layout/source.py",
+   "sha256": "8934bd211ab250509f9d0dc840b256798fa4da989f0aa6cff9e8b8c29b7a7115",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/verification/evidence/layout_bbf78759_gate_p897/die.gds.gz",
+   "sha256": "086b033c399f7ea504f68b2f8e167ae7a905f719382497890d30535f83c9154e",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/native_edges/verification/evidence/weak_electrode_5c5dfd43/cells/gate_mim_897.gds.gz",
+   "sha256": "12f88ea5287ad7d7bdd155968af525b6c2df6788c9ea7ae2b83c9b6be4f3dc7b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/split_pair/layout/chip_reference.py",
+   "sha256": "ac1bcd8df2a3a6fb5a64c2ee7b43b2a466c42c3bda586de82ed80be0f3c732af",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/circuit/variant_reference.spice",
+   "sha256": "6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/circuit/variant_reference_v4.spice",
+   "sha256": "3e28c62019f182bb6de4f99152b65299868b2ef1cd03eb366fc8e57e90c83bb4",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/devices.py",
+   "sha256": "747325f24f2d25ebf5cedcfbbd2eacc950d1064cd3606073a13d476d59efc2cc",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/draw_bias.py",
+   "sha256": "b4fbd4ab7498f04b53fb59a5d153c53beef57e6c6d0f5fe9f6e974923c68264c",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/draw_rblock4.py",
+   "sha256": "280902d157718dafeb2bae260af82394fdbe64a847ad72071ddb8795254e369f",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/draw_res.py",
+   "sha256": "747f39d5b1663e8b662c8046ea7c4123fff8666c8f10089ff2ee124660d59d03",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/gen_devices.py",
+   "sha256": "d3cd71b04bfa5c2669b3bd8249bbb1a13813d85cd076edd30eab1ed88776b55f",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/lib.py",
+   "sha256": "4b36b6d641168d0887a5479234d7da330636d7a133e7a8ca1b6d79c099718544",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/cellfix/scripts/magic_util.py",
+   "sha256": "7f6cc60456e5c203b41ae4bd992fd15fa84a2e9f4ff475cf7973b5621eaefcdf",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/ar4_rzero_l070.gds",
+   "sha256": "899f730f62119604048d3a520257c58da7cb323c0a4cd9c001352aac3cfaaf6b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/base_targets.json",
+   "sha256": "7899a072becbbccb3afcaeffb05bc2d5b8cf961366a0ea0f911149667d27900f",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/local_patch.json",
+   "sha256": "a3dcd720686479fd6650c6057055bb30e070df78cbd4603e5368ed488da910d0",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/strap_block_d.json",
+   "sha256": "39f92f58e37dbacc986d309dce97b115b7267bab29110b72c95406df69676d47",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/well_patch_hvi070.json",
+   "sha256": "dfdd1c4ce2cf4fd48c829d598a86a6a1a71a228a4ca2c3a58a8664c3c336ed87",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/xprog_strap.json",
+   "sha256": "a01414b9f854331a3a87db45b87f597be782fe85d7fcbacb78c8eb077f10e88b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/rzero/variant_reference_v5.spice",
+   "sha256": "399eac539f89319920f6f0921f33a6454fbd4b10d10704f1164dfca0bb13a8c6",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/bias_stage.py",
+   "sha256": "33b4c83c15ee0840aa60db8aaaed2ba77f7193c2e7d2ecf63153fab26f04d51d",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/cellfix_stage.py",
+   "sha256": "7e474feb1ef09ee162a294a078647847fd539d4e7a946d44057f0650d9e7d7cc",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/cells.py",
+   "sha256": "55ea9ed8b1f1a26e463f368c9c6c95e2f85f481360a361022de6d5a459fa9c60",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/check_die_v4.py",
+   "sha256": "1c07a2a31e154a7ddeabfd54915794e1fdd1b074499c2db5b5103dcb611dce67",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/free_returns.py",
+   "sha256": "228e7f6522b17b90e2b763dd668ff0f9b4b713d77ae758bc5bf94c034fb456b9",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/gen_devices.py",
+   "sha256": "f8a283c29079335de20e675e9f0c82f3730b87e304ec1f022789f6f3f44270b9",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/macro_check.py",
+   "sha256": "ed6036cc4ce6f25e84d117156f60444ac46b56a79efec792374c611a8d3bdd7d",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/rebuild.py",
+   "sha256": "5c091b30325419745993c6a018caeb71184db0bab585f23dbb619459c85143fd",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/rzero_patch.py",
+   "sha256": "1dc29e3a6cc37328af5e5bd6cb46f7831921c0c78cdc86208b27760813d93d43",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/strap_patch.py",
+   "sha256": "d4c571567dbe5aebfc5f2ffc2ba1eed17e64ef9a45f72b1a9cc93210f4fde055",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/supply_patch.py",
+   "sha256": "6b809d8bdcd74796a3f10e56797c87cbca399ca49888ece4489e874fce13984b",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/v4_stage.py",
+   "sha256": "961e7daa8d0fc3625feeae008a67d49699f056ab7d6aafc4793413be9b0031c6",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/well_patch.py",
+   "sha256": "b73714f3894194daac4c501a8ea714f3139a98b584d8ed8232c03c170e2eaef6",
+   "in_git": true
+  }
+ ],
+ "inputs_not_in_git": [],
+ "outside_repository": {
+  "KLayout Python": 44,
+  "Magic": 17,
+  "PDK": [
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds",
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice",
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.tech/magic/sky130A.magicrc",
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.tech/magic/sky130A.tcl",
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.tech/magic/sky130A.tech",
+   "~/.ciel/ciel/sky130/versions/792ef67037d74c8c51811eab3ce23cf793491296/sky130A/libs.tech/netgen/sky130A_setup.tcl"
+  ],
+  "Tcl library": 1,
+  "netgen": 3,
+  "project venv": 314,
+  "tool wrappers": [
+   "~/.local/bin/magic-8.3.685",
+   "~/.local/bin/netgen-1.5.325"
+  ],
+  "uv-managed CPython": 174
+ },
+ "programs": [
+  "/usr/bin/bash",
+  "/usr/bin/cut",
+  "/usr/bin/g++",
+  "/usr/bin/ld",
+  "/usr/bin/uname",
+  "/usr/bin/x86_64-linux-gnu-as",
+  "/usr/libexec/gcc/x86_64-linux-gnu/15/cc1plus",
+  "/usr/libexec/gcc/x86_64-linux-gnu/15/collect2",
+  "~/.local/bin/magic-8.3.685",
+  "~/.local/bin/netgen-1.5.325",
+  "~/.local/opt/klayout-py/bin/python",
+  "~/.local/opt/magic-8.3.685/bin/magic",
+  "~/.local/opt/magic-8.3.685/lib/magic/tcl/magicdnull",
+  "~/.local/opt/netgen-1.5.325/bin/netgen",
+  "~/.local/opt/netgen-1.5.325/lib/netgen/tcl/netgenexec",
+  "{project venv}/bin/python"
+ ],
+ "worktree_status_after": [],
+ "log_tail": "{}\n },\n \"LVS\": {\n  \"reference\": \"Circuits match uniquely.\",\n  \"reference_bad\": \"Top level cell failed pin matching.\"\n },\n \"antenna\": {\n  \"gds_sha256\": \"99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1\",\n  \"violations\": 0,\n  \"planes\": [],\n  \"feedback_entries\": 0\n },\n \"board_spice_sha256\": \"a24a2ff1241e5fce749af97d4669fd3ae2860058b0036b1e2e56e8b353f47c95\",\n \"final_stem\": \"chip_v4_w_s_r\",\n \"supply_patch\": \"{worktree}/hardware/mesa/xor_sky130/six_edge_programmable_20261117/takeover/bias/layout/inputs/local_patch.json\",\n \"lock_checks_schematic_sha256\": \"6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf\",\n \"LVS_with_base_dummy_table\": {\n  \"reference\": {\n   \"result\": \"Circuits match uniquely.\",\n   \"property_errors\": true\n  },\n  \"reference_bad\": {\n   \"result\": \"Top level cell failed pin matching.\",\n   \"property_errors\": false\n  }\n },\n \"LVS_property_errors\": {\n  \"reference\": false,\n  \"reference_bad\": false\n },\n \"v4_dummy_table_sha256\": \"077c6506e98d33fbe898f86df7909dc3460872500861d06b1ef47f03e2dfde28\",\n \"reference_with_v4_dummies_sha256\": \"b69af3fb3a4d26eccfd1c0c014d03b02916d5a2d0dbed35b70a446289b7e1b70\",\n \"well_patch\": {\n  \"file\": \"well_patch_hvi070.json\",\n  \"sha256\": \"dfdd1c4ce2cf4fd48c829d598a86a6a1a71a228a4ca2c3a58a8664c3c336ed87\"\n },\n \"cellfix_output_gds_sha256\": \"842884678b7f2cda12cc971e17247e4134bb71fbe3425a4b312efa2a05f49769\",\n \"strap_patch\": {\n  \"files\": [\n   {\n    \"file\": \"strap_block_d.json\",\n    \"sha256\": \"39f92f58e37dbacc986d309dce97b115b7267bab29110b72c95406df69676d47\",\n    \"role\": \"block\"\n   },\n   {\n    \"file\": \"xprog_strap.json\",\n    \"sha256\": \"a01414b9f854331a3a87db45b87f597be782fe85d7fcbacb78c8eb077f10e88b\",\n    \"role\": \"strap\"\n   }\n  ],\n  \"base\": \"lock2_r\",\n  \"input_gds_sha256\": \"991393f67b6c14d99276e2e22df2c0a89817975409b56680e9ce1b8c809273b1\",\n  \"removed\": 3,\n  \"added\": 35\n },\n \"rzero_patch\": {\n  \"cell\": \"ar4_rzero\",\n  \"cell_file\": {\n   \"file\": \"inputs/ar4_rzero_l070.gds\",\n   \"generator\": \"sky130_fd_pr__res_xhigh_po_1p41\",\n   \"w\": 1.41,\n   \"l\": 0.7,\n   \"given\": \"ar4_rzero_l070.gds\",\n   \"sha256\": \"899f730f62119604048d3a520257c58da7cb323c0a4cd9c001352aac3cfaaf6b\"\n  },\n  \"base\": \"lock3_r\",\n  \"input_gds_sha256\": \"88594fa1019f750dd60a50459e5258d6304578ff0521c266214a11d6b05bce0f\"\n },\n \"reference_v5_sha256\": \"5565877cc0be90ec49ccabbf2f51580ea6a68ee7422d7b46a2d53089f3f889d9\",\n \"macro_check\": {\n  \"differences\": 0,\n  \"instances\": 14,\n  \"macros\": {\n   \"az_ref1\": \"8143eda5f55c397acff20325c2239dff5202bcb0a9f112305f19bd356a177ed6\",\n   \"az_ref4\": \"95948d35e7601c326868ea9c4b5e8a09971d29c12c235bc7ba34b5d72f1f393d\",\n   \"lean_bias\": \"923beac969bb4eb9ab881720a09694a76c6ab1c8633302d3e8839736c17f76c7\",\n   \"lean_act\": \"dbd9f57df37a42794ce0163cc92f621d3f64d38727d7b27c462be8c37ee0a6dc\",\n   \"aj_core1p\": \"8d93f31581e91bbb8c68492bf84f1bbad3ff27ce6b6ff1133ad4fdd8e5244f7e\",\n   \"az_pad\": \"3d47a0fa272a710c3c2a43ab1a23ace2c40ee27fe01303aaf12ea0ad108764f9\"\n  },\n  \"verdict\": true\n }\n}\n"
+}

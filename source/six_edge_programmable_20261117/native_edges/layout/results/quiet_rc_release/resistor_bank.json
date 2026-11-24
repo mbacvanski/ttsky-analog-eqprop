@@ -1,0 +1,57 @@
+{
+  "gds_sha256": "6e4194af28461fce91b1c9155c482a73fcf4294e25d714d3c0fa7e67072768f8",
+  "pin_m1_nm": {
+    "weak_src": [
+      0,
+      36855
+    ],
+    "weak": [
+      0,
+      -36855
+    ],
+    "weak_b_src": [
+      830,
+      36855
+    ],
+    "weak_b": [
+      830,
+      -36855
+    ],
+    "res_sel": [
+      1660,
+      36855
+    ],
+    "res_filtered": [
+      1660,
+      26145
+    ]
+  },
+  "box_nm": "(-670,-37230;2330,37230)",
+  "physical_devices": [
+    [
+      "X0",
+      "weak_b_src",
+      "weak_b",
+      "VSUBS",
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "l=69.9"
+    ],
+    [
+      "X1",
+      "weak_src",
+      "weak",
+      "VSUBS",
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "l=69.9"
+    ],
+    [
+      "X2",
+      "res_sel",
+      "res_filtered",
+      "VSUBS",
+      "sky130_fd_pr__res_xhigh_po_0p35",
+      "l=6.9"
+    ]
+  ],
+  "full_magic_DRC": 0
+}

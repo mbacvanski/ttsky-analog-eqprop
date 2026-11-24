@@ -1,0 +1,268 @@
+{
+ "what": "the checks, traced: check_all.sh under strace (takeover/layout/freeze/trace_checks.py)",
+ "paths_relative_to": "hardware/mesa/xor_sky130",
+ "command": "bash scripts/check_all.sh build/lock3_r.gds frzck ../bias/circuit/variant_reference_v4.spice xor_chip_native_six",
+ "commit": "33770e450d48e9e6aa76aa7483e5dd328a6c70ec",
+ "inputs": {
+  "feasibility_20261107/amp_layout/ref/aj_core1p_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/ref/az_pad_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/ref/az_ref1_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/ref/az_ref4_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/ref/lean_act_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/ref/lean_bias_ref.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/results/az_pad_pins.json": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/results/az_ref4_pins.json": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/amp_layout/scripts/metal_islands.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip/scripts/make_ref.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/ref/aj_native_chip.spice": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_edge.json": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_h_pins.json": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_z_pins.json": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/scripts/chip.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/scripts/magic_util.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/scripts/make_ref.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/chip2x2/scripts/sheet_check.py": [
+   "check_all.sh"
+  ],
+  "feasibility_20261107/floorplan/template/tt_analog_2x2.def": [
+   "check_all.sh"
+  ],
+  "programmable_weights_v4_20261114/floorplan/tt_project_v4/lef/tt_um_mbacvanski_denseam_xor.lef": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/native_edges/layout/results/placement.json": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/bias/circuit/variant_reference_v4.spice": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/checks/pin_ties.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/checks/rule_audit/measure.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/checks/tt_well_rules.sh": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/docs/info.md": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/docs/info.yaml": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/docs/project.v": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/cap_compare.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/check_all.sh": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/check_ties.sh": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/coupling_tables.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/gds_inventory.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/gds_sref_order.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/hvi_measures.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/lvs_check.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/magic_flows.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/new_crossings.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/over_blocks.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/sheet_run.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/static_drop.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/strip_coupling.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/stripe_points.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/stub/magic_util.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/supply_path_flow.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/ties.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/ties_netlist.py": [
+   "check_all.sh"
+  ],
+  "six_edge_programmable_20261117/takeover/layout/scripts/tt_precheck.py": [
+   "check_all.sh"
+  ]
+ },
+ "sha256": {
+  "feasibility_20261107/amp_layout/ref/aj_core1p_ref.spice": "8d93f31581e91bbb8c68492bf84f1bbad3ff27ce6b6ff1133ad4fdd8e5244f7e",
+  "feasibility_20261107/amp_layout/ref/az_pad_ref.spice": "3d47a0fa272a710c3c2a43ab1a23ace2c40ee27fe01303aaf12ea0ad108764f9",
+  "feasibility_20261107/amp_layout/ref/az_ref1_ref.spice": "8143eda5f55c397acff20325c2239dff5202bcb0a9f112305f19bd356a177ed6",
+  "feasibility_20261107/amp_layout/ref/az_ref4_ref.spice": "1f32e799b4d9c23236db08aa562bb1ca71a0bf2519bc2b78dc4944748d1aae94",
+  "feasibility_20261107/amp_layout/ref/lean_act_ref.spice": "dbd9f57df37a42794ce0163cc92f621d3f64d38727d7b27c462be8c37ee0a6dc",
+  "feasibility_20261107/amp_layout/ref/lean_bias_ref.spice": "923beac969bb4eb9ab881720a09694a76c6ab1c8633302d3e8839736c17f76c7",
+  "feasibility_20261107/amp_layout/results/az_pad_pins.json": "6fca103e38cd25397df9b9879a9dfe45b7137607c9a4b76a9d90a6b991b6982f",
+  "feasibility_20261107/amp_layout/results/az_ref4_pins.json": "81ea3f8bc61ba2e9206349e5fc4095451ced88c6cf0a82afba74d4a7f34f7a18",
+  "feasibility_20261107/amp_layout/scripts/metal_islands.py": "cd1571434f5162914cc8d63cf142ac27987a24e6aae329ce3b6b95ca939e77a5",
+  "feasibility_20261107/floorplan/chip/scripts/make_ref.py": "96e7f62ef44e6c33897e66e99c10e56141b29fbb7a13e83600acf5519e5260c4",
+  "feasibility_20261107/floorplan/chip2x2/ref/aj_native_chip.spice": "0704a90c13994d18a38b7b1335b88f2d935e155004d91f083cbfc5a52e3307d4",
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_edge.json": "5459c48bfc3df39570a0abfc97752a7b35ccdc42f8252697027e63143a1c72f9",
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_h_pins.json": "a7b7e364c9a38a0d1cf7605b747feb947fc2f14f57b2348cf69ddf88ef934338",
+  "feasibility_20261107/floorplan/chip2x2/results/aj_neuron_z_pins.json": "8c627b43af041d1fdb8dba47bcb5df85e3a31ac41ea6a26bc3a99fbb244188a5",
+  "feasibility_20261107/floorplan/chip2x2/scripts/chip.py": "556c480425238e4aacce8105e933d79abb23adece3db7ed135b7516615ecc81b",
+  "feasibility_20261107/floorplan/chip2x2/scripts/magic_util.py": "b15ce3f3e377e4716f375d26a5e576b4c18207de06e33decff45c90c71948f81",
+  "feasibility_20261107/floorplan/chip2x2/scripts/make_ref.py": "eba6ee732d90d53ffa68ff2deb46cd16518236c53e05ad3b97eae3a9bc4036ab",
+  "feasibility_20261107/floorplan/chip2x2/scripts/sheet_check.py": "6aa82c578dfd35b34a8b547ed7b25bd64f9b157ba5824d664727c8ec93288c4f",
+  "feasibility_20261107/floorplan/template/tt_analog_2x2.def": "c9bf60e875dc86e730424e7af724878977aec59586832a9b8fc937c2cd65c86f",
+  "programmable_weights_v4_20261114/floorplan/tt_project_v4/lef/tt_um_mbacvanski_denseam_xor.lef": "b9b92f976811d4813a54fc760b73561fc7ace4732fbc899271c712467090018a",
+  "six_edge_programmable_20261117/native_edges/layout/results/placement.json": "28d2b900b86b020d6d3985787e5aef736a0883a1c113f4347345ad56bb22536e",
+  "six_edge_programmable_20261117/takeover/bias/circuit/variant_reference_v4.spice": "3e28c62019f182bb6de4f99152b65299868b2ef1cd03eb366fc8e57e90c83bb4",
+  "six_edge_programmable_20261117/takeover/checks/pin_ties.py": "3e25076f5f8a624ba53f4788f8408e925a2b28ea36861db53a5b65874546674b",
+  "six_edge_programmable_20261117/takeover/checks/rule_audit/measure.py": "33d31ceef6f4972c6c58fe17f1c0a44d8fbbcb4d0bc2e16b87001939757f41cb",
+  "six_edge_programmable_20261117/takeover/checks/tt_well_rules.sh": "3f2aa2c49358dea1bfbe4161cabab9f3631a8d3e3bb60ac035d5ba3fe1b86971",
+  "six_edge_programmable_20261117/takeover/docs/info.md": "826f8451d255c94c8aaaf1ba3367242ff7a28629caf83b30ef3e3f92f0bf29e5",
+  "six_edge_programmable_20261117/takeover/docs/info.yaml": "322492ec8aedb7fc34b089e50ac1ddbe2f64c3d62f014ccfd9403ecfc7c70968",
+  "six_edge_programmable_20261117/takeover/docs/project.v": "ed9462287e9677eaa41fabeb188816fb1d26923b21d31ae60cc60c5f5c7d199c",
+  "six_edge_programmable_20261117/takeover/layout/scripts/cap_compare.py": "f929a64699d09313dbc3571dd9d2df8e624f954b49b91c3788f53c52a8862226",
+  "six_edge_programmable_20261117/takeover/layout/scripts/check_all.sh": "919ddfb539cfe46990977c2aecafd2bcb5ad4217b6e2181e9367c83ba02a9787",
+  "six_edge_programmable_20261117/takeover/layout/scripts/check_ties.sh": "2de5986cdef885eb6b61abc64dc943b29fee4590a6e7a3390f7f8c7653bb89b5",
+  "six_edge_programmable_20261117/takeover/layout/scripts/coupling_tables.py": "bff0504dc43c87a172ee337b4c410fcdd06f23f1305ad542c74ad23a5f4beaa0",
+  "six_edge_programmable_20261117/takeover/layout/scripts/gds_inventory.py": "75ab2f3e2119bcb5cdfc708e659045b9eb4d650ab54e8f889aa7e8bec1c45232",
+  "six_edge_programmable_20261117/takeover/layout/scripts/gds_sref_order.py": "597ebd30389652746574c78001a54b03942c34b1932c4e7c7cfbad3f8550658e",
+  "six_edge_programmable_20261117/takeover/layout/scripts/hvi_measures.py": "988b0ded5bfad091e85475044525caa4245e28dbe43eeba926e5d83e19b7ea03",
+  "six_edge_programmable_20261117/takeover/layout/scripts/lvs_check.py": "ca88585336e26468a71b32e7c57116290b6a726ae7933d4476f99a4df8007a9f",
+  "six_edge_programmable_20261117/takeover/layout/scripts/magic_flows.py": "c457d6682bfca72bf3904811224981c1ca38336c1a00cbaabcf409f39a206385",
+  "six_edge_programmable_20261117/takeover/layout/scripts/new_crossings.py": "f2243b4c59b86fc2d8384e5a9eea5e3e9ff239262556a0c00f27d8b289292e1f",
+  "six_edge_programmable_20261117/takeover/layout/scripts/over_blocks.py": "f7aedc3a922bb55dec6a279b2c6d8602ec0798e16502c45bf1da6658e9e20dc4",
+  "six_edge_programmable_20261117/takeover/layout/scripts/sheet_run.py": "bd35b16e54d4f7b98cd37e55b809eb446043a00d1919fe7ff0862fb617fe36cb",
+  "six_edge_programmable_20261117/takeover/layout/scripts/static_drop.py": "7cdd90b10e47def18b40fb17f1653277f4d709f5f921431f14dec1cca4d7d75f",
+  "six_edge_programmable_20261117/takeover/layout/scripts/strip_coupling.py": "640c52726f5f71d44af9f2dc2c0a56cc0d6b51d069afe70105ac0efa0ef36c31",
+  "six_edge_programmable_20261117/takeover/layout/scripts/stripe_points.py": "49b2d25726cf397c8077f25193761acbafd7b343fdd074c71883bf64d63fd34e",
+  "six_edge_programmable_20261117/takeover/layout/scripts/stub/magic_util.py": "974c306110ce5c7d326cba502207a739e0365dd51140d23e3489ea68c719923b",
+  "six_edge_programmable_20261117/takeover/layout/scripts/supply_path_flow.py": "43d8ac4496162ba3d299f511be8b9b7e41326cc0c14a354d43616c57a52a5570",
+  "six_edge_programmable_20261117/takeover/layout/scripts/ties.py": "dac205c19a2c344de3ffaedb433cd96b7bb366b2c104adaae82e71ba56afcb40",
+  "six_edge_programmable_20261117/takeover/layout/scripts/ties_netlist.py": "59ac9b90048f5a31d981a2519f4f2e2178f35d33240ce84b85afe19050d777a3",
+  "six_edge_programmable_20261117/takeover/layout/scripts/tt_precheck.py": "8bf64d61aa55e34a8f771b6b042f022f72eab2a4abdd0ddf16210d612ae49444"
+ },
+ "read_from_earlier_runs_not_in_git": [
+  "six_edge_programmable_20261117/takeover/layout/build/control.gds",
+  "six_edge_programmable_20261117/takeover/layout/build/ctrl/wired/tt_flat.ext",
+  "six_edge_programmable_20261117/takeover/layout/build/lock3_r.gds",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/.git/HEAD",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/.git/config",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/.git/packed-refs",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/.git/refs/heads/main",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/.gitignore",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/README.md",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/default.nix",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/klayout_tools.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/magic_drc.tcl",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/pin_check.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/precheck.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/precheck_failure.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/pyproject.toml",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/requirements.txt",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/nwell_hvtp.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/nwell_lvtn.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/nwell_urpm.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/pin_label_purposes_overlapping_drawing.rb.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/sky130A_mr.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech-files/zeroarea.rb.drc",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tech_data.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/test_precheck.py",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/precheck/tool-versions.json",
+  "six_edge_programmable_20261117/takeover/layout/build/precheck/tt-support-tools/tech/sky130A/def/analog/tt_analog_2x2.def",
+  "six_edge_programmable_20261117/takeover/layout/runs/over_blocks_control.json",
+  "six_edge_programmable_20261117/takeover/layout/runs/over_blocks_sel.json"
+ ],
+ "other_untracked_reads": [],
+ "programs": [
+  "/usr/bin/bash",
+  "/usr/bin/cut",
+  "/usr/bin/date",
+  "/usr/bin/dirname",
+  "/usr/bin/git",
+  "/usr/bin/grep",
+  "/usr/bin/head",
+  "/usr/bin/mkdir",
+  "/usr/bin/mktemp",
+  "/usr/bin/nproc",
+  "/usr/bin/readlink",
+  "/usr/bin/realpath",
+  "/usr/bin/sed",
+  "/usr/bin/sha256sum",
+  "/usr/bin/tail",
+  "/usr/bin/uname",
+  "/usr/lib/git-core/git",
+  "/usr/lib/git-core/git-remote-https",
+  "{layout folder}/build/precheck/bin/klayout",
+  "{layout folder}/build/precheck/bin/magic",
+  "{project venv}/bin/python",
+  "~/.local/bin/magic-8.3.685",
+  "~/.local/bin/netgen-1.5.325",
+  "~/.local/opt/klayout-0.30.0/root/usr/lib/klayout/klayout",
+  "~/.local/opt/klayout-py/bin/python",
+  "~/.local/opt/magic-8.3.685/bin/magic",
+  "~/.local/opt/magic-8.3.685/lib/magic/tcl/magicdnull",
+  "~/.local/opt/netgen-1.5.325/bin/netgen",
+  "~/.local/opt/netgen-1.5.325/lib/netgen/tcl/netgenexec",
+  "~/.local/opt/tt_proof/precheck_main/bin/klayout",
+  "~/.local/opt/tt_proof/precheck_main/venv/bin/python",
+  "~/.local/opt/tt_proof/precheck_main/venv/bin/yowasp-yosys"
+ ]
+}

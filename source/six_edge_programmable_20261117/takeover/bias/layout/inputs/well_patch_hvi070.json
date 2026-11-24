@@ -1,0 +1,439 @@
+{
+ "layer": "nwell 64/20",
+ "source_gds_sha256": "842884678b7f2cda12cc971e17247e4134bb71fbe3425a4b312efa2a05f49769",
+ "rule": "lvtn.10: nwell encloses lvtn by 0.38 um (0.39/0.40 per side where free); drawn HVI 0.70 um (0.705 where free)",
+ "boxes_um": [
+  [
+   147.6,
+   29.64,
+   158.76,
+   29.75
+  ],
+  [
+   147.6,
+   29.75,
+   147.68,
+   35.56
+  ],
+  [
+   147.6,
+   35.56,
+   147.78,
+   35.67
+  ],
+  [
+   158.59,
+   29.75,
+   158.76,
+   35.67
+  ],
+  [
+   149.41,
+   39.71,
+   151.57,
+   39.79
+  ],
+  [
+   149.41,
+   87.11,
+   151.57,
+   87.19
+  ],
+  [
+   147.6,
+   91.23,
+   147.78,
+   91.34
+  ],
+  [
+   147.6,
+   91.34,
+   147.68,
+   97.15
+  ],
+  [
+   158.59,
+   91.23,
+   158.76,
+   97.15
+  ],
+  [
+   147.6,
+   97.15,
+   158.76,
+   97.26
+  ],
+  [
+   39.91,
+   179.305,
+   40.02,
+   184.465
+  ],
+  [
+   49.75,
+   184.195,
+   49.94,
+   184.465
+  ],
+  [
+   68.26,
+   179.305,
+   68.37,
+   184.465
+  ],
+  [
+   78.1,
+   184.195,
+   78.29,
+   184.465
+  ],
+  [
+   39.91,
+   192.135,
+   40.1,
+   192.405
+  ],
+  [
+   68.26,
+   192.135,
+   68.45,
+   192.405
+  ],
+  [
+   49.83,
+   192.135,
+   49.94,
+   197.295
+  ],
+  [
+   78.18,
+   192.135,
+   78.29,
+   197.295
+  ],
+  [
+   39.91,
+   211.495,
+   40.1,
+   211.765
+  ],
+  [
+   68.26,
+   211.495,
+   68.45,
+   211.765
+  ],
+  [
+   49.83,
+   211.495,
+   49.94,
+   216.655
+  ],
+  [
+   78.18,
+   211.495,
+   78.29,
+   216.655
+  ]
+ ],
+ "n_boxes": 22,
+ "added_area_um2": 9.4962,
+ "wells": [
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "right": 0.4,
+    "top": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(40.02,178.74;50.5,184.8)",
+   "lvtn_bbox_um": "(40.31,179.705;49.54,184.065)",
+   "sides_grown": [
+    "left",
+    "right",
+    "top"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "right": 0.4,
+    "top": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(68.37,178.74;78.85,184.8)",
+   "lvtn_bbox_um": "(68.66,179.705;77.89,184.065)",
+   "sides_grown": [
+    "left",
+    "right",
+    "top"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(39.35,191.8;49.83,197.86)",
+   "lvtn_bbox_um": "(40.31,192.535;49.54,196.895)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(67.7,191.8;78.18,197.86)",
+   "lvtn_bbox_um": "(68.66,192.535;77.89,196.895)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(39.35,211.16;49.83,217.22)",
+   "lvtn_bbox_um": "(40.31,211.895;49.54,216.255)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": 1.39,
+    "5V/native diffusion (MV diffusion to LV n-well)": 0.992,
+    "drawn HVI (hvi.5 at 0.70)": 0.732,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(67.7,211.16;78.18,217.22)",
+   "lvtn_bbox_um": "(68.66,211.895;77.89,216.255)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right"
+   ],
+   "well_area_um2": 61.871,
+   "added_area_um2": 0.6189,
+   "area_growth_pct": 1.0,
+   "perimeter_growth_pct": 0.67
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "top": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": null,
+    "5V/native diffusion (MV diffusion to LV n-well)": null,
+    "drawn HVI (hvi.5 at 0.70)": null,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(148.84,84.43;156.39,87.11)",
+   "lvtn_bbox_um": "(149.81,85.43;151.17,86.79)",
+   "sides_grown": [
+    "top"
+   ],
+   "well_area_um2": 20.234,
+   "added_area_um2": 0.1728,
+   "area_growth_pct": 0.85,
+   "perimeter_growth_pct": 0.78
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4,
+    "top": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": null,
+    "5V/native diffusion (MV diffusion to LV n-well)": null,
+    "drawn HVI (hvi.5 at 0.70)": null,
+    "substrate p-tap": 1.382,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(147.68,90.7;158.59,97.15)",
+   "lvtn_bbox_um": "(148,91.63;158.36,96.86)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right",
+    "top"
+   ],
+   "well_area_um2": 70.153,
+   "added_area_um2": 2.7186,
+   "area_growth_pct": 3.88,
+   "perimeter_growth_pct": 2.07
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "left": 0.4,
+    "bottom": 0.4,
+    "right": 0.4,
+    "top": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": null,
+    "5V/native diffusion (MV diffusion to LV n-well)": null,
+    "drawn HVI (hvi.5 at 0.70)": null,
+    "substrate p-tap": 1.382,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(147.68,29.75;158.59,36.2)",
+   "lvtn_bbox_um": "(148,30.04;158.36,35.27)",
+   "sides_grown": [
+    "left",
+    "bottom",
+    "right",
+    "top"
+   ],
+   "well_area_um2": 70.153,
+   "added_area_um2": 2.7186,
+   "area_growth_pct": 3.88,
+   "perimeter_growth_pct": 2.07
+  },
+  {
+   "mode": "square",
+   "enclosure_um": {
+    "bottom": 0.4
+   },
+   "sides_at_0p38": [],
+   "within_0p01_of_a_rule": [],
+   "spacing_after_um": {
+    "n+ diffusion": null,
+    "5V/native diffusion (MV diffusion to LV n-well)": null,
+    "drawn HVI (hvi.5 at 0.70)": null,
+    "substrate p-tap": null,
+    "other n-well": null,
+    "other n-well (5V)": null,
+    "deep n-well": null
+   },
+   "well_bbox_um": "(148.84,39.79;156.39,42.47)",
+   "lvtn_bbox_um": "(149.81,40.11;151.17,41.47)",
+   "sides_grown": [
+    "bottom"
+   ],
+   "well_area_um2": 20.234,
+   "added_area_um2": 0.1728,
+   "area_growth_pct": 0.85,
+   "perimeter_growth_pct": 0.78
+  }
+ ]
+}

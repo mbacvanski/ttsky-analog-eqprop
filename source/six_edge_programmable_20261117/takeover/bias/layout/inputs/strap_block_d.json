@@ -1,0 +1,25 @@
+{
+ "format": "Bias layout's block edit for the XPROG ground strap, variant D (strap/GROUND.md). Applied by scripts/strap_patch.py before the layout stream's strap file. 'remove': [layer, x0, y0, x1, y1, cell, note], an existing box in that cell equal to the rectangle (exactly one; the cell has one instance). 'add': [layer, x0, y0, x1, y1, note], a rectangle added to the top cell. Chip um. Layers: met1 68/20, via 68/44, met2 69/20, via2 69/44, met3 70/20, via3 70/44, met4 71/20.",
+ "layouts": ["lock2_h", "lock2_r"],
+ "remove": {
+  "D: the block's one tie to the reference buffer's grounded plate, at (299.7, 2.2)": [
+   ["via", 299.625, 2.025, 299.775, 2.175, "ne_bias_words", "via1 from the writers' metal-1 rail up to the pin's metal-2 pad"],
+   ["via2", 299.6, 2.05, 299.8, 2.25, "ne_bias_words", "via2 from that pad up to the metal-3 pad on the buffer plate; the metal-3 pad and its 'vss' label stay, now the buffer plate's metal"],
+   ["met2", 299.5, 1.95, 299.9, 2.35, "ne_bias_words", "the metal-2 pad between the two cuts, which would float without them"]
+  ]
+ },
+ "add": {
+  "B second cuts inside the block": [
+   ["via", 280.115, 1.975, 280.265, 2.125, "plate A's tie to the writers' rail: second via1, 0.19 um east of the existing one"],
+   ["met2", 280.035, 1.91, 280.435, 2.19, "plate A's tie: metal-2 pad widened east over the second via1 and via2 (0.31 um from the vdd rail above)"],
+   ["via2", 280.15, 1.95, 280.35, 2.15, "plate A's tie: second via2, 0.20 um east of the existing one"],
+   ["met3", 280.1, 1.85, 280.415, 2.4, "plate A's tie: metal 3 widened east over the second via2; merges with the tie and plate A, more than 1.9 um from capacitor A's top plate, no edge facing it"],
+   ["met1", 278.43, 10.61, 278.71, 10.9, "XPROG1's source: metal 1 widened east to 278.71 over the second via1, as it already is at the first (y 10.19-10.61); 0.168 um from the gate strap, as the source strip already is"],
+   ["via", 278.495, 10.645, 278.645, 10.795, "XPROG1's source: second via1, 0.17 um above the existing one"],
+   ["met2", 278.375, 10.6, 278.925, 10.985, "XPROG1's source: metal-2 pad extended up over the second via1 and via2"],
+   ["via2", 278.625, 10.7, 278.825, 10.9, "XPROG1's source: second via2 onto plate A, 0.20 um above the existing one, 0.42 um from capacitor A's top plate"],
+   ["via", 283.845, 9.805, 283.995, 9.955, "XPROG2's source: second via1, 0.17 um above the existing one, inside its metal-1 pad (283.78-284.31 x 9.06-10.06)"],
+   ["met2", 283.75, 9.72, 284.06, 10.04, "XPROG2's source: metal 2 over the second via1 (0.085 um above it), filling the corner of its metal-2 L (no notch)"]
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "P1 H2 and both input buffers: SEL2's supply rail -> 0.15 um metal2 -> input buffer A's rail": [
+  [
+   "met2",
+   215.7,
+   26.3,
+   216.77,
+   37.1,
+   "widen the chip's 0.15 um metal2 (216.62-216.77, 26.43-37.22) west to 1.07 um, from SEL2's rail to buffer A's rail"
+  ],
+  [
+   "via",
+   216.41,
+   26.385,
+   216.56,
+   26.535,
+   "via1 cut 2 on SEL2's metal1 supply rail (y 26.22-26.70), beside the existing one at 216.73"
+  ],
+  [
+   "via",
+   216.09,
+   26.385,
+   216.24,
+   26.535,
+   "via1 cut 3"
+  ],
+  [
+   "via",
+   215.77,
+   26.385,
+   215.92,
+   26.535,
+   "via1 cut 4"
+  ]
+ ],
+ "P2 H1 and Z: the 0.15 um metal2 into H1's top edge": [
+  [
+   "met2",
+   82.15,
+   170.36,
+   82.9,
+   173.7,
+   "widen the chip's 0.15 um metal2 (82.48-82.63, 170.64-173.64) to 0.75 um, from row A's supply rail (y 173.55-173.85) to H1's rail"
+  ],
+  [
+   "via",
+   82.225,
+   170.445,
+   82.375,
+   170.595,
+   "via1 cut 2 onto H1's metal1 supply rail (y 170.28-170.76), beside the existing one at 82.545"
+  ]
+ ],
+ "P3 Z: the two single via1 cuts on its chip wire": [
+  [
+   "met2",
+   70.88,
+   84.08,
+   71.53,
+   84.5,
+   "metal2 pad west of the chip's 0.37 um metal2 at its lower end"
+  ],
+  [
+   "via",
+   70.95,
+   84.19,
+   71.1,
+   84.34,
+   "via1 cut 2 onto the metal1 along Z's top edge, 0.17 um west of the existing cut at 71.27"
+  ],
+  [
+   "met1",
+   70.8,
+   84.1,
+   71.51,
+   84.53,
+   "metal1 widened north from 0.33 to 0.43 um under the new cut (Magic's via.5a needs it; free track: next metal1 0.625 um north)"
+  ],
+  [
+   "met2",
+   71.16,
+   92.4,
+   71.83,
+   92.81,
+   "metal2 pad east of the chip's 0.37 um metal2 at its upper end"
+  ],
+  [
+   "via",
+   71.59,
+   92.575,
+   71.74,
+   92.725,
+   "via1 cut 2 onto H1's metal1 rail (y 92.50-92.80), beside the existing one at 71.27"
+  ]
+ ]
+}

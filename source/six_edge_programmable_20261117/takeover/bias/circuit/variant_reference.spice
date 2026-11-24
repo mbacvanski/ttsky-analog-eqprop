@@ -1,0 +1,1453 @@
+.subckt xor_chip_staged bit_a bit_b reset hold_in pad vdd vss obs_sel0 obs_sel1 ref_reset obs_sel2 ext_en1 ext_en2 ext_bias uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 pad2 obs2_sel0 obs2_sel1  CORE_MATCH=1 READ_MATCH=1
+*.iopin bit_a
+*.iopin bit_b
+*.iopin reset
+*.iopin hold_in
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin ref_reset
+*.iopin obs_sel2
+*.iopin ext_bias
+*.iopin ext_en1
+*.iopin ext_en2
+*.iopin uo_out0
+*.iopin uo_out1
+*.iopin uo_out2
+*.iopin uo_out3
+*.iopin uo_out4
+*.iopin uo_out5
+*.iopin uo_out6
+*.iopin uo_out7
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XREF vdd vss vbn bias2 bias1 ref ref_reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in xor_references_stiff
+XNET reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 xor_network CORE_MATCH={CORE_MATCH} READ_MATCH={READ_MATCH}
+XEXT1 sel1_ladder ext_in ext_en1 bias1_in vdd vss ext_bias_switch
+XEXT2 sel2_ladder ext_in ext_en2 bias2_in vdd vss ext_bias_switch
+XECHO bit_a bit_b reset hold_in ref_reset obs_sel0 obs_sel1 obs_sel2 uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 vdd vss echo_buffers
+XRPIN1 ext_bias ext_in vss pdk_rpin_h RVALUE=10k
+.ends
+
+.subckt xor_references_stiff vdd vss vbn bias2 bias1 ref reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in
+*.iopin vdd
+*.iopin vss
+*.iopin vbn
+*.iopin bias2
+*.iopin bias1
+*.iopin ref
+*.iopin reset
+*.iopin bit_a
+*.iopin bit_b
+*.iopin sel1_ladder
+*.iopin bias1_in
+*.iopin sel2_ladder
+*.iopin bias2_in
+XRL0 vdd d3_tap vss pdk_ladder_31_v RVALUE=34875
+XRL1 d3_tap hi_tap vss pdk_ladder_1_v RVALUE=1125
+XRL2 hi_tap d2_tap vss pdk_ladder_3_v RVALUE=3375
+XRL3 d2_tap ref_tap vss pdk_ladder_1_v RVALUE=1125
+XRL4 ref_tap d1_tap vss pdk_ladder_3_v RVALUE=3375
+XRL5 d1_tap lo_tap vss pdk_ladder_1_v RVALUE=1125
+XRL6 lo_tap d0_tap vss pdk_ladder_3_v RVALUE=3375
+XRL7 d0_tap vss vss pdk_ladder_29_v RVALUE=32625
+XBUF1 bias2_in bias2 bias2 az az_b ref_tap vdd vss cd_ref_az COMP=1.2p DRIVE=1 RZERO=5k HEADROOM=1
+XBUF2 bias1_in bias1 bias1 az az_b ref_tap vdd vss cd_ref_az COMP=1.2p DRIVE=1 RZERO=5k HEADROOM=1
+XBUF3 ref_tap ref ref az az_b ref_tap vdd vss cd_ref_az COMP=4p DRIVE=4 RZERO=1k HEADROOM=1
+XCBYPASS ref vss pdk_mim CVALUE=4p
+XBIAS1 d1_tap d2_tap d3_tap sel1_ladder bit_a bit_b vdd vss bias_selector
+XBIAS2 d0_tap d1_tap d2_tap sel2_ladder bit_a bit_b vdd vss bias_selector
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+XLB ref d0_tap vbn vdd vss lean_bias
+.ends
+
+.subckt xor_network reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1  CORE_MATCH=1 READ_MATCH=1
+*.iopin reset
+*.iopin hold_in
+*.iopin bias1
+*.iopin bias2
+*.iopin vbn
+*.iopin ref
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin obs_sel2
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XACT1 h1 ref natural1 ref vbn vdd vss lean_act
+XACT2 ref h2 natural2 ref vbn vdd vss lean_act
+XH1 natural1 bias1 reset hold_in f1 h1 ref vdd vss cd_core_two_az DPROG=0.5
+XH2 natural2 bias2 reset hold_in f2 h2 ref vdd vss cd_core_two_az DPROG=0.5
+XZ hz ref reset hold_in z hz ref vdd vss cd_core_two_az DPROG=1
+XREAD net1 pad vdd vss xor_readout MATCH={READ_MATCH}
+XRW4 z f1 vss pdk_rfixed2_h RVALUE=200k
+XRW5 z f2 vss pdk_rfixed2_h RVALUE=200k
+XOBS z h1 h2 ref f1 f2 bias1 bias2 obs_sel0 obs_sel1 obs_sel2 vdd vss net1 observe_mux
+XOBS2 ref z h1 h2 obs2_sel0 obs2_sel1 vdd vss obs2 second_observer
+XREAD2 obs2 pad2 reset ref vdd vss second_readout
+.ends
+
+.subckt ext_bias_switch ladder ext en out vdd vss
+*.iopin ladder
+*.iopin ext
+*.iopin en
+*.iopin out
+*.iopin vdd
+*.iopin vss
+XSN ladder out en_b en vdd vss transmission_gate UNITS=1
+XSE ext out en en_b vdd vss transmission_gate UNITS=1
+XINV en en_b vdd vss cmos_inv
+.ends
+
+.subckt echo_buffers in0 in1 in2 in3 in4 in5 in6 in7 out0 out1 out2 out3 out4 out5 out6 out7 vdd vss
+*.iopin in0
+*.iopin out0
+*.iopin in1
+*.iopin out1
+*.iopin in2
+*.iopin out2
+*.iopin in3
+*.iopin out3
+*.iopin in4
+*.iopin out4
+*.iopin in5
+*.iopin out5
+*.iopin in6
+*.iopin out6
+*.iopin in7
+*.iopin out7
+*.iopin vdd
+*.iopin vss
+XB0 in0 vss vss vdd vdd out0 sky130_fd_sc_hd__buf_1
+XB1 in1 vss vss vdd vdd out1 sky130_fd_sc_hd__buf_1
+XB2 in2 vss vss vdd vdd out2 sky130_fd_sc_hd__buf_1
+XB3 in3 vss vss vdd vdd out3 sky130_fd_sc_hd__buf_1
+XB4 in4 vss vss vdd vdd out4 sky130_fd_sc_hd__buf_1
+XB5 in5 vss vss vdd vdd out5 sky130_fd_sc_hd__buf_1
+XB6 in6 vss vss vdd vdd out6 sky130_fd_sc_hd__buf_1
+XB7 in7 vss vss vdd vdd out7 sky130_fd_sc_hd__buf_1
+.ends
+
+.subckt pdk_rpin_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rpin RVALUE={RVALUE}
+.ends
+
+.subckt pdk_ladder_31_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_31 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_ladder_1_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_1 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_ladder_3_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_3 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_ladder_29_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_ladder_29 RVALUE={RVALUE}
+.ends
+
+.subckt cd_ref_az plus minus out az az_b ref vdd vss  COMP=1p DRIVE=1 RZERO=5k HEADROOM=1
+*.iopin plus
+*.iopin minus
+*.iopin out
+*.iopin az
+*.iopin az_b
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XAMP plus mi vdd vss out net1 nul ref cd_amp_aux AUX_TAIL_UNITS=1 IN_WIDTH={5*HEADROOM} IN_LENGTH=1 IN_UNITS=4 N_WIDTH={4*HEADROOM} N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO={RZERO}
+XRBIAS vdd net1 vss pdk_rbias_v RVALUE=220k
+XSA plus mi az az_b vdd vss cd_tg_small
+XSN minus mi az_b az vdd vss transmission_gate UNITS=4
+XSH out nul az az_b vdd vss transmission_gate UNITS=1
+XCAZ nul vss pdk_mim CVALUE=1p
+.ends
+
+.subckt pdk_mim p n  CVALUE=10p
+*.iopin p
+*.iopin n
+XCMIM0 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM1 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM2 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM3 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM4 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+XCMIM5 p n sky130_fd_pr__cap_mim_m3_1 W={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} L={0.01*floor(((sqrt((.76f)^2+8f*CVALUE/6)-.76f)/4f+.025)/0.01+0.5)} MF=1 m=1
+.ends
+
+.subckt bias_selector v0 v1 v2 out a b vdd vss
+*.iopin v0
+*.iopin v1
+*.iopin v2
+*.iopin out
+*.iopin a
+*.iopin b
+*.iopin vdd
+*.iopin vss
+X00 v0 net1 a_b a vdd vss transmission_gate UNITS=4
+X10 v1 net1 a a_b vdd vss transmission_gate UNITS=4
+X01 v1 net2 a_b a vdd vss transmission_gate UNITS=4
+X11 v2 net2 a a_b vdd vss transmission_gate UNITS=4
+XB0 net1 out b_b b vdd vss transmission_gate UNITS=4
+XB1 net2 out b b_b vdd vss transmission_gate UNITS=4
+XINV_a a a_b vdd vss cmos_inv
+XINV_b b b_b vdd vss cmos_inv
+.ends
+
+.subckt cmos_inv a y vdd vss
+*.iopin a
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a vss vss vdd vdd y sky130_fd_sc_hd__inv_1
+.ends
+
+.subckt lean_bias ref tap vbn vdd vss
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+*.iopin tap
+*.iopin vbn
+XRB vdd nb vss pdk_rbias_v RVALUE=220k
+XMNB nb nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=4 m=4
+XMTO st nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMA pm vr st vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=8 m=8
+XMB vbn tap st vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=8 m=8
+XMPA pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMPB vbn pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMR vr vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XRU ref vr vss pdk_rfixed_v RVALUE=87.5k
+XCVBN vbn vss sky130_fd_pr__cap_mim_m3_1 W=30 L=12.29 MF=1 m=1
+.ends
+
+.subckt lean_act inp inn act ref vbn vdd vss
+*.iopin ref
+*.iopin vbn
+*.iopin vdd
+*.iopin vss
+*.iopin inp
+*.iopin inn
+*.iopin act
+XM1 o1n inp s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=12 m=12
+XM2 o1p inn s1 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=12 m=12
+XMT1 s1 vbn vss vss sky130_fd_pr__nfet_01v8 L=4 W=8 nf=1 ad=2.32 as=2.32 pd=16.58 ps=16.58 nrd=0.03625 nrs=0.03625 sa=0 sb=0 sd=0 mult=1 m=1
+XR1A x o1n vss pdk_rbias_v RVALUE=115k
+XR1B x o1p vss pdk_rbias_v RVALUE=115k
+XRX vdd x vss pdk_rfixed_v RVALUE=55k
+XM3 pm o1p s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=4 m=4
+XM4 act o1n s2 vss sky130_fd_pr__nfet_01v8 L=1 W=5 nf=1 ad=1.45 as=1.45 pd=10.58 ps=10.58 nrd=0.058 nrs=0.058 sa=0 sb=0 sd=0 mult=4 m=4
+XMT2 s2 vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XM5 pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=2 m=2
+XM6 act pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=2 m=2
+XRL act ref vss pdk_rfixed_v RVALUE=50k
+.ends
+
+.subckt cd_core_two_az natural bpin reset hold_in y h ref vdd vss  DPROG=2.5
+*.iopin natural
+*.iopin bpin
+*.iopin reset
+*.iopin hold_in
+*.iopin y
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XCTRL natural ref vss reset hold_in cmd h ref vdd vss xor_control
+XU1 cmd y m az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR1 y m vss pdk_rfixed_h RVALUE=100k
+XR4 y p vss pdk_rbank2_h RVALUE={100k/(1+DPROG)}
+XR3 bpin p vss pdk_rfixed2_v RVALUE=200k
+XR5 ref p vss pdk_rfixed2_v RVALUE=200k
+XU3 p q o az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR6 m q vss pdk_rfixed_h RVALUE=100k
+XR7 q ref vss pdk_rbank2_v RVALUE={100k/(1+DPROG)}
+XR8 q o vss pdk_rfixed_h RVALUE=100k
+XRTAU o h vss pdk_rtau_h RVALUE={TAU_R}
+XCSTATE h ref pdk_mim_state W=29.70 L=27.05
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+.subckt xor_readout inp pad vdd vss  MATCH=1
+*.iopin inp
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+XRSENSE inp sense vss pdk_rfixed_h RVALUE=100k
+XBUF sense buffered vdd vss buffered pdk_amp COMP={4p*MATCH*MATCH} DRIVE=4 IN_SCALE={MATCH} P_SCALE={MATCH} BIAS_R=220k
+XROUT buffered pad vss pdk_rpin_h RVALUE=3k
+.ends
+
+.subckt pdk_rfixed2_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed2 RVALUE={RVALUE}
+.ends
+
+.subckt observe_mux z h1 h2 ref f1 f2 bias1 bias2 sel0 sel1 sel2 vdd vss out
+*.iopin z
+*.iopin h1
+*.iopin h2
+*.iopin ref
+*.iopin f1
+*.iopin f2
+*.iopin bias1
+*.iopin bias2
+*.iopin out
+*.iopin sel0
+*.iopin sel1
+*.iopin sel2
+*.iopin vdd
+*.iopin vss
+XSEL0 sel0 sel0_b vdd vss cmos_inv
+XSEL1 sel1 sel1_b vdd vss cmos_inv
+XSEL2 sel2 sel2_b vdd vss cmos_inv
+XSW0 z out net1 net2 vdd vss cd_tg_small
+XDEC0 sel0 sel1 sel2 net1 vdd vss cmos_nor3
+XENB0 net1 net2 vdd vss cmos_inv
+XSW1 h1 out net3 net4 vdd vss cd_tg_small
+XDEC1 sel0_b sel1 sel2 net3 vdd vss cmos_nor3
+XENB1 net3 net4 vdd vss cmos_inv
+XSW2 h2 out net5 net6 vdd vss cd_tg_small
+XDEC2 sel0 sel1_b sel2 net5 vdd vss cmos_nor3
+XENB2 net5 net6 vdd vss cmos_inv
+XSW3 ref out net7 net8 vdd vss cd_tg_small
+XDEC3 sel0_b sel1_b sel2 net7 vdd vss cmos_nor3
+XENB3 net7 net8 vdd vss cmos_inv
+XSW4 f1 out net9 net10 vdd vss cd_tg_small
+XDEC4 sel0 sel1 sel2_b net9 vdd vss cmos_nor3
+XENB4 net9 net10 vdd vss cmos_inv
+XSW5 f2 out net11 net12 vdd vss cd_tg_small
+XDEC5 sel0_b sel1 sel2_b net11 vdd vss cmos_nor3
+XENB5 net11 net12 vdd vss cmos_inv
+XSW6 bias1 out net13 net14 vdd vss cd_tg_small
+XDEC6 sel0 sel1_b sel2_b net13 vdd vss cmos_nor3
+XENB6 net13 net14 vdd vss cmos_inv
+XSW7 bias2 out net15 net16 vdd vss cd_tg_small
+XDEC7 sel0_b sel1_b sel2_b net15 vdd vss cmos_nor3
+XENB7 net15 net16 vdd vss cmos_inv
+.ends
+
+.subckt second_observer ref z h1 h2 sel0 sel1 vdd vss out
+*.iopin vdd
+*.iopin vss
+*.iopin sel0
+*.iopin sel1
+*.iopin ref
+*.iopin z
+*.iopin h1
+*.iopin h2
+*.iopin out
+XSEL0 sel0 sel0_b vdd vss cmos_inv
+XSEL1 sel1 sel1_b vdd vss cmos_inv
+XSW0 ref out en0 en0_b vdd vss cd_tg_small
+XDEC0 sel0 sel1 en0 vdd vss cmos_nor2
+XENB0 en0 en0_b vdd vss cmos_inv
+XSW1 z out en1 en1_b vdd vss cd_tg_small
+XDEC1 sel0_b sel1 en1 vdd vss cmos_nor2
+XENB1 en1 en1_b vdd vss cmos_inv
+XSW2 h1 out en2 en2_b vdd vss cd_tg_small
+XDEC2 sel0 sel1_b en2 vdd vss cmos_nor2
+XENB2 en2 en2_b vdd vss cmos_inv
+XSW3 h2 out en3 en3_b vdd vss cd_tg_small
+XDEC3 sel0_b sel1_b en3 vdd vss cmos_nor2
+XENB3 en3 en3_b vdd vss cmos_inv
+.ends
+
+.subckt second_readout inp pad reset ref vdd vss
+*.iopin vdd
+*.iopin vss
+*.iopin ref
+*.iopin inp
+*.iopin pad
+*.iopin reset
+XRS inp sense vss pdk_rbias_h RVALUE=100k
+XAMP sense buf buf az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM=1
+XRO buf pad vss pdk_rpin_h RVALUE=5k
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+.subckt transmission_gate a b en en_b vdd vss  UNITS=1
+*.iopin a
+*.iopin b
+*.iopin en
+*.iopin en_b
+*.iopin vdd
+*.iopin vss
+XMN a en b vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult={UNITS} m={UNITS}
+XMP a en_b b vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult={UNITS} m={UNITS}
+.ends
+
+.subckt pdk_rpin p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_2p85 L={0.01*floor(((RVALUE/1-131.232879039705)*2.85/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt pdk_ladder_31 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 net3 net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR3 net4 net3 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR4 net5 net4 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR5 net6 net5 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR6 net7 net6 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR7 net8 net7 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR8 net9 net8 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR9 net10 net9 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR10 net11 net10 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR11 net12 net11 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR12 net13 net12 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR13 net14 net13 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR14 net15 net14 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR15 net16 net15 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR16 net17 net16 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR17 net18 net17 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR18 net19 net18 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR19 net20 net19 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR20 net21 net20 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR21 net22 net21 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR22 net23 net22 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR23 net24 net23 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR24 net25 net24 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR25 net26 net25 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR26 net27 net26 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR27 net28 net27 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR28 net29 net28 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR29 net30 net29 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR30 n net30 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+.subckt pdk_ladder_1 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+.subckt pdk_ladder_3 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 n net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+.subckt pdk_ladder_29 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR1 net2 net1 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR2 net3 net2 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR3 net4 net3 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR4 net5 net4 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR5 net6 net5 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR6 net7 net6 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR7 net8 net7 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR8 net9 net8 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR9 net10 net9 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR10 net11 net10 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR11 net12 net11 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR12 net13 net12 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR13 net14 net13 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR14 net15 net14 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR15 net16 net15 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR16 net17 net16 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR17 net18 net17 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR18 net19 net18 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR19 net20 net19 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR20 net21 net20 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR21 net22 net21 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR22 net23 net22 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR23 net24 net23 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR24 net25 net24 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR25 net26 net25 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR26 net27 net26 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR27 net28 net27 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+XR28 n net28 bulk sky130_fd_pr__res_xhigh_po_2p85 L=1.42 mult=1 m=1
+.ends
+
+.subckt cd_amp_aux plus minus vdd vss out ibias nul nref  AUX_TAIL_UNITS=1 IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+*.iopin nul
+*.iopin nref
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rfixed_h RVALUE={R_ZERO}
+XCMILLER comp out pdk_mim CVALUE={C_MILLER}
+XMAM pmirror nul atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMAP gain1 nref atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMATAIL atail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={AUX_TAIL_UNITS} m={AUX_TAIL_UNITS}
+.ends
+
+.subckt pdk_rbias_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias RVALUE={RVALUE}
+.ends
+
+.subckt cd_tg_small a b en en_b vdd vss
+*.iopin a
+*.iopin b
+*.iopin en
+*.iopin en_b
+*.iopin vdd
+*.iopin vss
+XMN a en b vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMP a en_b b vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pdk_rfixed_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed RVALUE={RVALUE}
+.ends
+
+.subckt xor_control natural cue clamp reset hold_in cmd h ref vdd vss
+*.iopin natural
+*.iopin cue
+*.iopin clamp
+*.iopin reset
+*.iopin hold_in
+*.iopin cmd
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XNC clamp clamp_b vdd vss cmos_inv
+XNR reset reset_b vdd vss cmos_inv
+XFREE reset clamp free_on vdd vss cmos_nor2
+XCUE reset clamp_b cue_on vdd vss cmos_nor2
+XSTATE reset clamp hold_in state_b vdd vss cmos_nor3
+XFB free_on free_b vdd vss cmos_inv
+XCB cue_on cue_b vdd vss cmos_inv
+XSO state_b state_on vdd vss cmos_inv
+XNF natural cmd free_on free_b vdd vss transmission_gate UNITS=1
+XNCUE cue cmd cue_on cue_b vdd vss transmission_gate UNITS=1
+XZERO ref cmd reset reset_b vdd vss transmission_gate UNITS=1
+XHOLD h ref state_on state_b vdd vss transmission_gate UNITS=4
+.ends
+
+.subckt cd_signal_az plus minus out az az_b ref vdd vss  COMP=1p DRIVE=1 RZERO=5k HEADROOM=1
+*.iopin plus
+*.iopin minus
+*.iopin out
+*.iopin az
+*.iopin az_b
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XAMP plus mi vdd vss out net1 nul ref cd_amp_aux_rect AUX_TAIL_UNITS=1 IN_WIDTH={5*HEADROOM} IN_LENGTH=1 IN_UNITS=4 N_WIDTH={4*HEADROOM} N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO={RZERO}
+XRBIAS vdd net1 vss pdk_rbias2_v RVALUE=286k
+XSA plus mi az az_b vdd vss cd_tg_small
+XSN minus mi az_b az vdd vss transmission_gate UNITS=4
+XSH out nul az az_b vdd vss transmission_gate UNITS=1
+XCAZ nul ref sky130_fd_pr__cap_mim_m3_1 W=20.52 L=24.01 MF=1 m=1
+.ends
+
+.subckt pdk_rfixed_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rbank2_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbank2 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rfixed2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rfixed2 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rbank2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbank2 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rtau_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rtau RVALUE={RVALUE}
+.ends
+
+.subckt pdk_mim_state p n  W=29.70 L=27.05
+*.iopin p
+*.iopin n
+XCMIM0 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM1 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM2 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+XCMIM3 p n sky130_fd_pr__cap_mim_m3_1 W={W} L={L} MF=1 m=1
+.ends
+
+.subckt pdk_amp plus minus vdd vss out  COMP=700f DRIVE=1 IN_SCALE=1 P_SCALE=1 BIAS_R=220k
+*.iopin plus
+*.iopin minus
+*.iopin vdd
+*.iopin vss
+*.iopin out
+XAMP plus minus vdd vss out bias sky130_amp IN_WIDTH={5*IN_SCALE} IN_LENGTH={IN_SCALE} IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH={5*P_SCALE} P_LENGTH={P_SCALE} TAIL_UNITS=4 POUT_UNITS={8*DRIVE} NLOAD_UNITS={16*DRIVE} C_MILLER={COMP} R_ZERO=1k
+XRBIAS vdd bias vss pdk_rbias_v RVALUE={BIAS_R}
+.ends
+
+.subckt pdk_rfixed2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR1 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt cmos_nor3 a b c y vdd vss
+*.iopin a
+*.iopin b
+*.iopin c
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a b c vss vss vdd vdd y sky130_fd_sc_hd__nor3_1
+.ends
+
+.subckt cmos_nor2 a b y vdd vss
+*.iopin a
+*.iopin b
+*.iopin y
+*.iopin vdd
+*.iopin vss
+XSTD a b vss vss vdd vdd y sky130_fd_sc_hd__nor2_1
+.ends
+
+.subckt pdk_rbias_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rbias p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt pdk_rfixed p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 n p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/1-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt cd_amp_aux_rect plus minus vdd vss out ibias nul nref  AUX_TAIL_UNITS=1 IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+*.iopin nul
+*.iopin nref
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rfixed_h RVALUE={R_ZERO}
+XCMILLER comp out sky130_fd_pr__cap_mim_m3_1 W=20.52 L={0.01*floor((0.025+(C_MILLER/1f-7.7881)/41.37)/0.01+0.5)} MF=1 m=1
+XMAM pmirror nul atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMAP gain1 nref atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMATAIL atail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={AUX_TAIL_UNITS} m={AUX_TAIL_UNITS}
+.ends
+
+.subckt pdk_rbias2_v p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rbias2 RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rbank2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR1 net1 p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR2 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR3 n net1 bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt pdk_rtau p n bulk  RVALUE=10Meg
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 j1 p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR1 j2 j1 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR2 j3 j2 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR3 j4 j3 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR4 j5 j4 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR5 j6 j5 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR6 j7 j6 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR7 j8 j7 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR8 j9 j8 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR9 j10 j9 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR10 j11 j10 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR11 j12 j11 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR12 j13 j12 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR13 j14 j13 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR14 j15 j14 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR15 j16 j15 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR16 j17 j16 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR17 n j17 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/18-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt sky130_amp plus minus vdd vss out ibias  IN_WIDTH=5 IN_LENGTH=1 IN_UNITS=4 N_WIDTH=4 N_LENGTH=2 P_WIDTH=5 P_LENGTH=1 TAIL_UNITS=4 POUT_UNITS=8 NLOAD_UNITS=16 C_MILLER=700f R_ZERO=1k
+*.iopin vdd
+*.iopin vss
+*.iopin ibias
+*.iopin minus
+*.iopin plus
+*.iopin out
+XMNBIAS ibias ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMNTAIL tail ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={TAIL_UNITS} m={TAIL_UNITS}
+XMNMINUS pmirror minus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMNPLUS gain1 plus tail vss sky130_fd_pr__nfet_01v8 L={IN_LENGTH} W={IN_WIDTH} nf=1 ad={(IN_WIDTH)*.29} as={(IN_WIDTH)*.29} pd={2*((IN_WIDTH)+.29)} ps={2*((IN_WIDTH)+.29)} nrd={.29/(IN_WIDTH)} nrs={.29/(IN_WIDTH)} sa=0 sb=0 sd=0 mult={IN_UNITS} m={IN_UNITS}
+XMPREF pmirror pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPMIRROR gain1 pmirror vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={1} m={1}
+XMPOUT out gain1 vdd vdd sky130_fd_pr__pfet_01v8 L={P_LENGTH} W={P_WIDTH} nf=1 ad={(P_WIDTH)*.29} as={(P_WIDTH)*.29} pd={2*((P_WIDTH)+.29)} ps={2*((P_WIDTH)+.29)} nrd={.29/(P_WIDTH)} nrs={.29/(P_WIDTH)} sa=0 sb=0 sd=0 mult={POUT_UNITS} m={POUT_UNITS}
+XMNLOAD out ibias vss vss sky130_fd_pr__nfet_01v8 L={N_LENGTH} W={N_WIDTH} nf=1 ad={(N_WIDTH)*.29} as={(N_WIDTH)*.29} pd={2*((N_WIDTH)+.29)} ps={2*((N_WIDTH)+.29)} nrd={.29/(N_WIDTH)} nrs={.29/(N_WIDTH)} sa=0 sb=0 sd=0 mult={NLOAD_UNITS} m={NLOAD_UNITS}
+XRZERO gain1 comp vss pdk_rsmall_h RVALUE={R_ZERO}
+XCMILLER comp out pdk_mim CVALUE={C_MILLER}
+.ends
+
+.subckt pdk_rbias2 p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 net1 p bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/2-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+XR1 n net1 bulk sky130_fd_pr__res_xhigh_po_0p35 L={0.01*floor(((RVALUE/2-587.80457142857)*0.35/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt pdk_rsmall_h p n bulk  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+XDEVICE p n bulk pdk_rsmall RVALUE={RVALUE}
+.ends
+
+.subckt pdk_rsmall p n bulk  RVALUE=1k
+*.iopin p
+*.iopin n
+*.iopin bulk
+* noconn bulk
+XRPO n p sky130_fd_pr__res_generic_po W=1 L={0.01*floor((RVALUE*0.944/(48.2*(1-3*8.916e-4+9*8.443e-7)))/0.01+0.5)} m=1
+.ends
+
+.subckt xor_chip_v4 bit_a bit_b reset hold_in pad vdd vss obs_sel0 obs_sel1 ref_reset obs_sel2 ext_en1 ext_en2 ext_bias uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 pad2 obs2_sel0 obs2_sel1 bias_prog write res_sel weight_prog  CORE_MATCH=1 READ_MATCH=1
+*.iopin bit_a
+*.iopin bit_b
+*.iopin reset
+*.iopin hold_in
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin ref_reset
+*.iopin obs_sel2
+*.iopin ext_bias
+*.iopin ext_en1
+*.iopin ext_en2
+*.iopin uo_out0
+*.iopin uo_out1
+*.iopin uo_out2
+*.iopin uo_out3
+*.iopin uo_out4
+*.iopin uo_out5
+*.iopin uo_out6
+*.iopin uo_out7
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XREF vdd vss vbn bias2 bias1 ref ref_reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in xor_references_stiff
+XNET reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 f1 f2 z p1 q1 p2 q2 pz qz m1 m2 xor_network_v4 CORE_MATCH={CORE_MATCH} READ_MATCH={READ_MATCH}
+XEXT1 sel1_ladder bw1 ext_en1 bias1_in vdd vss ext_bias_switch
+XEXT2 sel2_ladder bw2 ext_en2 bias2_in vdd vss ext_bias_switch
+XECHO bit_a bit_b reset hold_in ref_reset obs_sel0 obs_sel1 obs_sel2 uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 vdd vss echo_buffers
+XRPIN1 ext_bias ext_in vss pdk_rpin_h RVALUE=10k
+* ---- v4 additions, one instance per layout cell
+XMID m1 m2 m1x m2x iso vss pw4_mid
+XNH1 f1 p1 q1 f1x qs1 dn1 iso vss pw4_nrn_h
+XUE1 qs1 ref dn1 vss pw4_units3d
+XNH2 f2 p2 q2 f2x qs2 dn2 iso vss pw4_nrn_h
+XUE2 qs2 ref dn2 vss pw4_units3d
+XNZ z pz qz zx qsz nm ref iso vss pw4_nrn_z
+XUZ nm nd qsz ref vss pw4_units5
+XDG nd ext_in ref iso vdd vss pw4_dacgate
+XRB f1x f2x zx m1x m2x ref ext_in we0 we1 we2 we3 clampw vdd vss pw4_rblock4
+XDEC obs_sel2 obs2_sel0 write res_sel weight_prog we0 we1 we2 we3 iso clampw vdd vss pw4_decoder
+XBW ext_in bw1 bw2 ext_en1 ext_en2 bias_prog write ref vdd vss pw4_bias
+.ends
+
+.subckt xor_network_v4 reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 f1 f2 z p1 q1 p2 q2 pz qz m1 m2  CORE_MATCH=1 READ_MATCH=1
+*.iopin f1
+*.iopin f2
+*.iopin z
+*.iopin p1
+*.iopin q1
+*.iopin p2
+*.iopin q2
+*.iopin pz
+*.iopin qz
+*.iopin m1
+*.iopin m2
+*.iopin reset
+*.iopin hold_in
+*.iopin bias1
+*.iopin bias2
+*.iopin vbn
+*.iopin ref
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin obs_sel2
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XACT1 h1 ref natural1 ref vbn vdd vss lean_act
+XACT2 ref h2 natural2 ref vbn vdd vss lean_act
+XH1 natural1 bias1 reset hold_in f1 h1 ref vdd vss p1 q1 cd_core_two_az_pq DPROG=0.5
+XH2 natural2 bias2 reset hold_in f2 h2 ref vdd vss p2 q2 cd_core_two_az_pq DPROG=0.5
+XZ hz ref reset hold_in z hz ref vdd vss pz qz cd_core_two_az_pq DPROG=1
+XREAD net1 pad vdd vss xor_readout MATCH={READ_MATCH}
+XRW4 z f1 vss m1 pdk_rfixed2_h_m RVALUE=200k
+XRW5 z f2 vss m2 pdk_rfixed2_h_m RVALUE=200k
+XOBS z h1 h2 ref f1 f2 bias1 bias2 obs_sel0 obs_sel1 obs_sel2 vdd vss net1 observe_mux
+XOBS2 ref z h1 h2 obs2_sel0 obs2_sel1 vdd vss obs2 second_observer
+XREAD2 obs2 pad2 reset ref vdd vss second_readout
+.ends
+
+.subckt cd_core_two_az_pq natural bpin reset hold_in y h ref vdd vss p q  DPROG=2.5
+*.iopin p
+*.iopin q
+*.iopin natural
+*.iopin bpin
+*.iopin reset
+*.iopin hold_in
+*.iopin y
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XCTRL natural ref vss reset hold_in cmd h ref vdd vss xor_control
+XU1 cmd y m az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR1 y m vss pdk_rfixed_h RVALUE=100k
+XR4 y p vss pdk_rbank2_h RVALUE={100k/(1+DPROG)}
+XR3 bpin p vss pdk_rfixed2_v RVALUE=200k
+XR5 ref p vss pdk_rfixed2_v RVALUE=200k
+XU3 p q o az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR6 m q vss pdk_rfixed_h RVALUE=100k
+XR7 q ref vss pdk_rbank2_v RVALUE={100k/(1+DPROG)}
+XR8 q o vss pdk_rfixed_h RVALUE=100k
+XRTAU o h vss pdk_rtau_h RVALUE={TAU_R}
+XCSTATE h ref pdk_mim_state W=29.70 L=27.05
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+.subckt pdk_rfixed2_m p n bulk m  RVALUE=100k
+*.iopin m
+*.iopin p
+*.iopin n
+*.iopin bulk
+XR0 m p bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+XR1 n m bulk sky130_fd_pr__res_xhigh_po_1p41 L={0.01*floor(((RVALUE/2-232.3959788743)*1.41/2000)/0.01+0.5)} mult=1 m=1
+.ends
+
+.subckt pdk_rfixed2_h_m p n bulk m  RVALUE=100k
+*.iopin p
+*.iopin n
+*.iopin bulk
+*.iopin m
+XDEVICE p n bulk m pdk_rfixed2_m RVALUE={RVALUE}
+.ends
+
+.subckt pw4_clamp a ref en vss
+* holds a at REF while en is high
+XCL a en ref vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_bridge a b ref dac we clamp vdd vss
+* Programmable resistor, BRIDGE across an edge (z bus to f bus), 0 to 2.5 uS: raises the weight.
+* LVT PMOS in series between a and b with one gate gn (the stored node) and one well (mid). gn is written from the DAC
+* line while a, b and the well are held at REF (the buses' clamps and XCLM); afterwards it floats and rides on the
+* terminals through its two capacitors. The conductance falls as the code rises; above about 1.1 V it is zero.
+* Writer, in two stages as in the bias word: at the gate a 5 V NMOS (passes codes up to 0.6 to 0.8 V) beside an LVT
+* PMOS (passes the codes above, so the resistor can be shut off at every corner); then a transmission gate to the DAC
+* line. When not writing, the node between the stages (wm) is held at REF: the stored gate has REF behind its off
+* writer whatever the DAC line does. The hold (XWC) is a long, weak NMOS on purpose: if the transmission gate to the
+* DAC line ever failed shorted, REF would see at most a microampere from the DAC pin, not 80.
+XPA a gn ma mid sky130_fd_pr__pfet_01v8_lvt L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XPA2 ma gn mid mid sky130_fd_pr__pfet_01v8_lvt L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XPB2 mb gn mid mid sky130_fd_pr__pfet_01v8_lvt L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XPB b gn mb mid sky130_fd_pr__pfet_01v8_lvt L=2 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XCA gn a sky130_fd_pr__cap_mim_m3_1 W=10.99 L=10.99 MF=1 m=1
+XCB gn b sky130_fd_pr__cap_mim_m3_1 W=10.99 L=10.99 MF=1 m=1
+XW1N gn we wm vss sky130_fd_pr__nfet_g5v0d10v5 L=4 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XW1P gn we_b wm vdd sky130_fd_pr__pfet_01v8_lvt L=1 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XW2 wm dac we we_b vdd vss cd_tg_small
+XWC wm we_b ref vss sky130_fd_pr__nfet_01v8 L=8 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XWI we we_b vdd vss cmos_inv
+XCLM mid clamp ref vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_shunt a b ref dac we clamp vdd vss
+* Programmable resistor, SHUNT from an edge's midpoint bus to REF, 0 to 20 uS: lowers the weight.
+* LVT PMOS in series between a and b with one gate gn (the stored node) and one well (mid). gn is written from the DAC
+* line while a, b and the well are held at REF (the buses' clamps and XCLM); afterwards it floats and rides on the
+* terminals through its two capacitors. The conductance falls as the code rises; above about 1.1 V it is zero.
+* Writer, in two stages as in the bias word: at the gate a 5 V NMOS (passes codes up to 0.6 to 0.8 V) beside an LVT
+* PMOS (passes the codes above, so the resistor can be shut off at every corner); then a transmission gate to the DAC
+* line. When not writing, the node between the stages (wm) is held at REF: the stored gate has REF behind its off
+* writer whatever the DAC line does. The hold (XWC) is a long, weak NMOS on purpose: if the transmission gate to the
+* DAC line ever failed shorted, REF would see at most a microampere from the DAC pin, not 80.
+XPA a gn mid mid sky130_fd_pr__pfet_01v8_lvt L=2 W=8 nf=1 ad=4.64 as=4.64 pd=32.58 ps=32.58 nrd=0.01812 nrs=0.01812 sa=0 sb=0 sd=0 mult=2 m=2
+XPB b gn mid mid sky130_fd_pr__pfet_01v8_lvt L=2 W=8 nf=1 ad=4.64 as=4.64 pd=32.58 ps=32.58 nrd=0.01812 nrs=0.01812 sa=0 sb=0 sd=0 mult=2 m=2
+XCA gn a sky130_fd_pr__cap_mim_m3_1 W=10.99 L=10.99 MF=1 m=1
+XCB gn b sky130_fd_pr__cap_mim_m3_1 W=10.99 L=10.99 MF=1 m=1
+XW1N gn we wm vss sky130_fd_pr__nfet_g5v0d10v5 L=4 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XW1P gn we_b wm vdd sky130_fd_pr__pfet_01v8_lvt L=1 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XW2 wm dac we we_b vdd vss cd_tg_small
+XWC wm we_b ref vss sky130_fd_pr__nfet_01v8 L=8 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XWI we we_b vdd vss cmos_inv
+XCLM mid clamp ref vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_mid m1 m2 b1 b2 iso vss
+* The two midpoints' isolation switches (one cell between the two hidden-to-output resistor pairs): midpoint to its bus.
+XSW1 m1 iso b1 vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XSW2 m2 iso b2 vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_nrn_h y p q bus qs dn iso vss
+* A hidden neuron's west cell: four switches and three unit strips. y is the neuron's wire (f1 or f2).
+*   XSWB  isolation switch: the wire y to its bus
+*   XSWD  the damping network's switch (revision 7): the wire y to dn, a second finger of XSWB on the same diffusion
+*         of the wire (each finger has 0.58 um2 and 4.29 um of it); its unit and plate are in the east cell
+*   XSW4, XU1..XU3  the helper beside R4: switch AT THE WIRE, then three units in series to p (400 kohm, 2.5 uS)
+*   XSW7  the switch of the helper beside R7: q to qs; its three units are the east cell (pw4_units3d), qs to REF
+XSWB y iso bus vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=0.58 as=1.16 pd=4.29 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XSWD y iso dn vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=0.58 as=1.16 pd=4.29 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XSW4 y iso n1 vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XU1 n1 n2 vss pdk_rbias2 RVALUE=133333
+XU2 n2 n3 vss pdk_rbias2 RVALUE=133333
+XU3 n3 p vss pdk_rbias2 RVALUE=133333
+XSW7 q iso qs vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_units3d a b dn vss
+* A hidden neuron's east cell (revision 7): the three units of the helper beside R7, from its switch to REF (a to b),
+* and the damping network behind the west cell's XSWD: one unit from dn, then the plate to REF (b), lower plate on REF.
+* In programmed mode the network lies from the wire to REF: above 1/(2 pi R C) it lowers the first amplifier's feedback
+* factor, so its loop crosses over lower; it has no path at DC. In fixed mode XSWD is off and only its finger is on y.
+XU1 a n2 vss pdk_rbias2 RVALUE=133333
+XU2 n2 n3 vss pdk_rbias2 RVALUE=133333
+XU3 n3 b vss pdk_rbias2 RVALUE=133333
+XU4 dn dc vss pdk_rbias2 RVALUE=133333
+XCD dc b sky130_fd_pr__cap_mim_m3_1 W=23.1 L=10.4 MF=1 m=1
+.ends
+
+.subckt pw4_nrn_z y p q bus qs nm ref iso vss
+* The output neuron's west cell: four switches in a row and three unit strips. y is the neuron's wire (z).
+*   XSWB  isolation switch: the wire y to its bus
+*   XSW4, XU1  the helper beside R4: switch at the wire (three 4 um fingers), one unit to p (133 kohm, 7.5 uS)
+*   XSW7  the switch of the helper beside R7 (three fingers): q to qs. XU2, XU3: one of its two branches, two units in
+*         series from qs to REF; the other branch is in the east cell (pw4_units5)
+*   XSZ   the DAC edge's switch at the wire: y to nm; its strips are in the east cell
+XSWB y iso bus vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XSW4 y iso n1 vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=3 m=3
+XU1 n1 p vss pdk_rbias2 RVALUE=133333
+XSW7 q iso qs vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=3 m=3
+XU2 qs n2 vss pdk_rbias2 RVALUE=133333
+XU3 n2 ref vss pdk_rbias2 RVALUE=133333
+XSZ y iso nm vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_units5 nm nd qs ref vss
+* The output neuron's east cell: five strips.
+*   XU1..XU3  the DAC edge, nm to nd. The third strip is shorter than a unit by what the pin resistor, the board and the
+*             edge's two switches add, so that the whole edge from ua[1] to z is three units (less the 0.2% that the output
+*             neuron's helpers lose in their own switches).
+*   XU4, XU5  the second branch of the helper beside R7: two units in series from qs to REF
+XU1 nm n2 vss pdk_rbias2 RVALUE=133333
+XU2 n2 n3 vss pdk_rbias2 RVALUE=133333
+XU3 n3 nd vss pdk_rbias2 RVALUE=122300
+XU4 qs n4 vss pdk_rbias2 RVALUE=133333
+XU5 n4 ref vss pdk_rbias2 RVALUE=133333
+.ends
+
+.subckt pw4_dacgate nd dac ref iso vdd vss
+* The DAC edge's gate, in the output neuron: nd -- transmission gate -- DAC line -- (pin resistor) -- ua[1].
+* iso high: (V_DAC - REF) x 0.25 is added to the output neuron's drive (its bank is matched for this edge, so there is
+* no spring): the output bias, and the nudge. iso low: nd is held at REF (XCL), so the switch on z has REF behind the
+* strips and the DAC line cannot reach z whatever its voltage. `off` is made here from `iso`.
+XCL nd off ref vss sky130_fd_pr__nfet_03v3_nvt L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XSD nd dac iso off vdd vss transmission_gate UNITS=8
+XOFF iso off vdd vss cmos_inv
+.ends
+
+.subckt pw4_rblock4 f1x f2x zx m1x m2x ref dac we0 we1 we2 we3 clampw vdd vss
+* The row of the four programmable resistors with the five buses' clamps.
+XBCL_f1 f1x ref clampw vss pw4_clamp
+XBCL_f2 f2x ref clampw vss pw4_clamp
+XBCL_z zx ref clampw vss pw4_clamp
+XBCL_m1 m1x ref clampw vss pw4_clamp
+XBCL_m2 m2x ref clampw vss pw4_clamp
+XSH1 m1x ref ref dac we0 clampw vdd vss pw4_shunt
+XSH2 m2x ref ref dac we1 clampw vdd vss pw4_shunt
+XBR1 zx f1x ref dac we2 clampw vdd vss pw4_bridge
+XBR2 zx f2x ref dac we3 clampw vdd vss pw4_bridge
+.ends
+
+.subckt pw4_pulldown a vdd vss
+* weak pull-down: a long 5 V NMOS with its gate at the supply
+XPD a vdd vss vss sky130_fd_pr__nfet_g5v0d10v5 L=8 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt pw4_tg a b en en_b vdd vss
+* a transmission gate of 0.5 um transistors: it leaks far less when off than the 0.15 um ones
+XMN a en b vss sky130_fd_pr__nfet_01v8 L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMP a en_b b vdd sky130_fd_pr__pfet_01v8 L=0.5 W=4 nf=1 ad=2.32 as=2.32 pd=16.58 ps=16.58 nrd=0.03625 nrs=0.03625 sa=0 sb=0 sd=0 mult=2 m=2
+.ends
+
+.subckt pw4_bias_word dac line we bp bp_b nref pref ref vdd vss
+* One stored bias. XF is a PMOS follower: gate sg (the stored node), source = the read line, which goes to the
+* EXTERNAL input of the accepted bias switch.
+* Idle (bp low, we low): the DAC line is on the read line through XDL, so the accepted external-bias function is
+*   unchanged; every current source is off and nothing flows.
+* Write (we high, bp low): the DAC holds the line. The sink XIS pulls the read current through the follower and the
+*   writer (XW1N, XW1P, XW2) joins the follower's drain to its gate, so the gate takes the value that puts the line at
+*   the DAC voltage at the read current. XTW returns the same current to the line, so none flows in the DAC pin.
+* Read (bp high): the DAC is off the line, the drain is grounded (XRD) and the top source XIT feeds the line (XTS).
+* Not writing: the writer's middle node wm is held at REF (XWC), so the off writer has REF on its far side.
+XF drn sg line line sky130_fd_pr__pfet_01v8_lvt L=1 W=10 nf=1 ad=11.6 as=11.6 pd=80.58 ps=80.58 nrd=0.00725 nrs=0.00725 sa=0 sb=0 sd=0 mult=4 m=4
+XST sg ref sky130_fd_pr__cap_mim_m3_1 W=10.99 L=10.99 MF=1 m=1
+XW1N sg we wm vss sky130_fd_pr__nfet_g5v0d10v5 L=1 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XW1P sg we_b wm vdd sky130_fd_pr__pfet_01v8_lvt L=1 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XW2 wm drn we we_b vdd vss cd_tg_small
+XWC wm ref we_b we vdd vss cd_tg_small
+XWI we we_b vdd vss cmos_inv
+XIT top pref vdd vdd sky130_fd_pr__pfet_01v8 L=2 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XTS line bp_b top vdd sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XTW line we_b top vdd sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XIS tail nref vss vss sky130_fd_pr__nfet_01v8 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XSS drn we tail vss sky130_fd_pr__nfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XRD drn bp vss vss sky130_fd_pr__nfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XDL dac line bp_b bp vdd vss pw4_tg
+.ends
+
+.subckt pw4_bias dac bw1 bw2 e1 e2 bias_prog write ref vdd vss
+* The bias block: the two bias words, their own current reference (a resistor into a diode; nothing hangs on the
+* chip's vbn), the gating of their two write strobes and the pull-downs of BIAS_PROG and WRITE.
+* A bias word is written while WRITE and its external-bias enable (e1 = uio[0], e2 = uio[1]) are high and BIAS_PROG is
+* low. The block makes its own inverse of WRITE (the decoder in the strip has another).
+XIWB write nwrite vdd vss cmos_inv
+XIE1 e1 ne1 vdd vss cmos_inv
+XIE2 e2 ne2 vdd vss cmos_inv
+XB1 nwrite ne1 bias_prog wb1 vdd vss cmos_nor3
+XB2 nwrite ne2 bias_prog wb2 vdd vss cmos_nor3
+XBPB bias_prog bp_b vdd vss cmos_inv
+XBP bp_b bp vdd vss cmos_inv
+XPD4 bias_prog vdd vss pw4_pulldown
+XPD5 write vdd vss pw4_pulldown
+XRREF vdd nref vss pdk_rbias2_v RVALUE=286k
+XMREF nref nref vss vss sky130_fd_pr__nfet_01v8 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=8 m=8
+XMN0 pref nref vss vss sky130_fd_pr__nfet_01v8 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XMP0 pref pref vdd vdd sky130_fd_pr__pfet_01v8 L=2 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XW1 dac bw1 wb1 bp bp_b nref pref ref vdd vss pw4_bias_word
+XW2 dac bw2 wb2 bp bp_b nref pref ref vdd vss pw4_bias_word
+.ends
+
+.subckt pw4_decoder a0 a1 write res_sel weight_prog we0 we1 we2 we3 iso clampw vdd vss
+XIW write nwrite vdd vss cmos_inv
+XIA0 a0 na0 vdd vss cmos_inv
+XIA1 a1 na1 vdd vss cmos_inv
+* gw: writing a resistor word is allowed (WRITE high, RES_SEL high, WEIGHT_PROG low); ngw high keeps every strobe low
+XIRS res_sel nrs vdd vss cmos_inv
+XGW nwrite nrs weight_prog gw vdd vss cmos_nor3
+XGWB gw ngw vdd vss cmos_inv
+XD0 a0 a1 ngw we0 vdd vss cmos_nor3
+XD1 na0 a1 ngw we1 vdd vss cmos_nor3
+XD2 a0 na1 ngw we2 vdd vss cmos_nor3
+XD3 na0 na1 ngw we3 vdd vss cmos_nor3
+* clampw (to the many clamps) and iso (to the switches) each come from the pin through their own gates:
+* clampw stuck either way cannot turn a switch on
+XWPB weight_prog clampw vdd vss cmos_inv
+XWN weight_prog nwp vdd vss cmos_inv
+XWP nwp iso vdd vss cmos_inv
+XPD6 res_sel vdd vss pw4_pulldown
+XPD7 weight_prog vdd vss pw4_pulldown
+.ends
+
+.subckt native_six_network reset hold_in bias1 bias2 vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 f1 f2 z p1 q1 p2 q2 pz qz m1 m2 observed_a observed_b weak weak_b  CORE_MATCH=1 READ_MATCH=1
+*.iopin f1
+*.iopin f2
+*.iopin z
+*.iopin p1
+*.iopin q1
+*.iopin p2
+*.iopin q2
+*.iopin pz
+*.iopin qz
+*.iopin m1
+*.iopin m2
+*.iopin reset
+*.iopin hold_in
+*.iopin bias1
+*.iopin bias2
+*.iopin vbn
+*.iopin ref
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin obs_sel2
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XACT1 h1 ref natural1 ref vbn vdd vss lean_act
+XACT2 ref h2 natural2 ref vbn vdd vss lean_act
+XH1 natural1 bias1 reset hold_in f1 h1 ref vdd vss p1 q1 weak weak_b native_res_hold_state DPROG=0.5
+XH2 natural2 bias2 reset hold_in f2 h2 ref vdd vss p2 q2 weak weak_b native_res_hold_state DPROG=0.5
+XZ hz ref reset hold_in z hz ref vdd vss pz qz weak weak_b native_res_hold_state DPROG=1
+XREAD net1 pad vdd vss xor_readout MATCH={READ_MATCH}
+XRW4 z f1 vss m1 pdk_rfixed2_h_m RVALUE=200k
+XRW5 z f2 vss m2 pdk_rfixed2_h_m RVALUE=200k
+XOBS z h1 h2 ref f1 f2 observed_a observed_b obs_sel0 obs_sel1 obs_sel2 vdd vss net1 observe_mux
+XOBS2 ref z h1 h2 obs2_sel0 obs2_sel1 vdd vss obs2 second_observer
+XREAD2 obs2 pad2 reset ref vdd vss second_readout
+.ends
+
+* The external pin names and the calibrated shunt/bridge addresses are the frozen design's.
+* bit_a,bit_b select a row ONLY when a resistor write is strobed.
+.subckt native_bank_enable bit_a bit_b we0 we1 we2 we3 z0 z1 z2 z3 a0 a1 a2 a3 b0 b1 b2 b3 vdd vss
+XIA bit_a nba vdd vss cmos_inv
+XIB bit_b nbb vdd vss cmos_inv
+XZ bit_a bit_b sel_z vdd vss cmos_nor2
+XA nba bit_b sel_a vdd vss cmos_nor2
+XB bit_a nbb sel_b vdd vss cmos_nor2
+XNZ sel_z nz vdd vss cmos_inv
+XNA sel_a na vdd vss cmos_inv
+XNB sel_b nb vdd vss cmos_inv
+XI0 we0 nw0 vdd vss cmos_inv
+XI1 we1 nw1 vdd vss cmos_inv
+XI2 we2 nw2 vdd vss cmos_inv
+XI3 we3 nw3 vdd vss cmos_inv
+XZ0 nz nw0 z0 vdd vss cmos_nor2
+XZ1 nz nw1 z1 vdd vss cmos_nor2
+XZ2 nz nw2 z2 vdd vss cmos_nor2
+XZ3 nz nw3 z3 vdd vss cmos_nor2
+XA0 na nw0 a0 vdd vss cmos_nor2
+XA1 na nw1 a1 vdd vss cmos_nor2
+XA2 na nw2 a2 vdd vss cmos_nor2
+XA3 na nw3 a3 vdd vss cmos_nor2
+XB0 nb nw0 b0 vdd vss cmos_nor2
+XB1 nb nw1 b1 vdd vss cmos_nor2
+XB2 nb nw2 b2 vdd vss cmos_nor2
+XB3 nb nw3 b3 vdd vss cmos_nor2
+.ends
+
+* The native R3 is 200k into each neuron. In six-edge mode its far end
+* is connected to REF through the corresponding series resistor below.
+* The second branch goes from p to switched VSS. Together they reproduce
+* the old 5 uS bias input at a fixed -REF/12 or -7 REF/36 offset.
+.subckt native_fixed_offsets ref bias1 bias2 p1 p2 six vss ret1 ret2
+XR1 ref bias1 vss pdk_rbias2 RVALUE=18181.81818
+XR2 ref bias2 vss pdk_rbias2 RVALUE=48275.86207
+XG11 p1 a1 vss pdk_rbias2 RVALUE=300k
+XG12 a1 a2 vss pdk_rbias2 RVALUE=300k
+XG13 a2 a3 vss pdk_rbias2 RVALUE=300k
+XG14 a3 a4 vss pdk_rbias2 RVALUE=300k
+XG15 a4 a5 vss pdk_rbias2 RVALUE=300k
+XG16 a5 a6 vss pdk_rbias2 RVALUE=300k
+XG17 a6 a7 vss pdk_rbias2 RVALUE=300k
+XG18 a7 end1 vss pdk_rbias2 RVALUE=300k
+XG21 p2 b1 vss pdk_rbias2 RVALUE=257142.85714
+XG22 b1 b2 vss pdk_rbias2 RVALUE=257142.85714
+XG23 b2 b3 vss pdk_rbias2 RVALUE=257142.85714
+XG24 b3 end2 vss pdk_rbias2 RVALUE=257142.85714
+* variant: the sources of the two mode switches go to ret1, ret2 (the programmable transistors below them)
+XRETURN end1 end2 ret1 ret2 six vss native_ground_return
+.ends
+
+* One buffered raw input feeds the common end of two native 200k resistor pairs.
+* Each hidden end has its own isolation switch. A floating common end would
+* leave a DC connection between H1 and H2 in the original operating mode.
+.subckt native_clamped_row raw raw_bus f1 f2 ref dac we0 we1 we2 we3 six park vdd vss
+XEND f1 f2 leaf1 leaf2 six vss pw4_mid
+XR1 raw leaf1 vss mid1 pdk_rfixed2_h_m RVALUE=200k
+XR2 raw leaf2 vss mid2 pdk_rfixed2_h_m RVALUE=200k
+XMID mid1 mid2 mx1 mx2 six vss pw4_mid
+XLEAF_BUS leaf1 leaf2 fx1 fx2 six vss pw4_mid
+XRB fx1 fx2 raw_bus mx1 mx2 ref dac we0 we1 we2 we3 park vdd vss pw4_rblock4
+.ends
+
+* A hidden endpoint has three incident programmed edges. The two new edges
+* add 15 uS nominal, on top of the original 17.5 uS feedback at both R4/R7.
+.subckt native_hidden_feedback f p q ref six vss
+XSW1 f q sw4 sw7 six vss pw4_mid
+XSW2 f q sw4 sw7 six vss pw4_mid
+XSW3 f q sw4 sw7 six vss pw4_mid
+XR4A sw4 p vss pdk_rbias2 RVALUE=133333
+XR4B sw4 p vss pdk_rbias2 RVALUE=133333
+XR7A sw7 ref vss pdk_rbias2 RVALUE=133333
+XR7B sw7 ref vss pdk_rbias2 RVALUE=133333
+.ends
+
+.subckt native_res_hold_control natural cue clamp reset hold_in cmd h ref vdd vss weak weak_b
+*.iopin natural
+*.iopin cue
+*.iopin clamp
+*.iopin reset
+*.iopin hold_in
+*.iopin cmd
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XNC clamp clamp_b vdd vss cmos_inv
+XNR reset reset_b vdd vss cmos_inv
+XFREE reset clamp free_on vdd vss cmos_nor2
+XCUE reset clamp_b cue_on vdd vss cmos_nor2
+XSTATE reset clamp hold_in state_b vdd vss cmos_nor3
+XFB free_on free_b vdd vss cmos_inv
+XCB cue_on cue_b vdd vss cmos_inv
+XSO state_b state_on vdd vss cmos_inv
+XNF natural cmd free_on free_b vdd vss transmission_gate UNITS=1
+XNCUE cue cmd cue_on cue_b vdd vss transmission_gate UNITS=1
+XZERO ref cmd reset reset_b vdd vss transmission_gate UNITS=1
+XHOLD h ref state_on state_b vdd vss transmission_gate UNITS=4
+XWEAK h ref weak weak_b vdd vss cd_tg_small
+.ends
+
+.subckt native_res_hold_state natural bpin reset hold_in y h ref vdd vss p q weak weak_b  DPROG=2.5
+*.iopin p
+*.iopin q
+*.iopin natural
+*.iopin bpin
+*.iopin reset
+*.iopin hold_in
+*.iopin y
+*.iopin h
+*.iopin ref
+*.iopin vdd
+*.iopin vss
+XCTRL natural ref vss reset hold_in cmd h ref vdd vss weak weak_b native_res_hold_control
+XU1 cmd y m az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR1 y m vss pdk_rfixed_h RVALUE=100k
+XR4 y p vss pdk_rbank2_h RVALUE={100k/(1+DPROG)}
+XR3 bpin p vss pdk_rfixed2_v RVALUE=200k
+XR5 ref p vss pdk_rfixed2_v RVALUE=200k
+XU3 p q o az az_b ref vdd vss cd_signal_az COMP=1p DRIVE=0.5 RZERO=5k HEADROOM={CORE_SCALE}
+XR6 m q vss pdk_rfixed_h RVALUE=100k
+XR7 q ref vss pdk_rbank2_v RVALUE={100k/(1+DPROG)}
+XR8 q o vss pdk_rfixed_h RVALUE=100k
+XRTAU o h vss pdk_rtau_h RVALUE={TAU_R}
+XCSTATE h ref pdk_mim_state W=29.70 L=27.05
+XAZB reset az_b vdd vss cmos_inv
+XAZ az_b az vdd vss cmos_inv
+.ends
+
+.subckt xor_chip_native_six bit_a bit_b reset hold_in pad vdd vss obs_sel0 obs_sel1 ref_reset obs_sel2 ext_en1 ext_en2 ext_bias uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 pad2 obs2_sel0 obs2_sel1 bias_prog write res_sel weight_prog  CORE_MATCH=1 READ_MATCH=1
+*.iopin bit_a
+*.iopin bit_b
+*.iopin reset
+*.iopin hold_in
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+*.iopin obs_sel0
+*.iopin obs_sel1
+*.iopin ref_reset
+*.iopin obs_sel2
+*.iopin ext_bias
+*.iopin ext_en1
+*.iopin ext_en2
+*.iopin uo_out0
+*.iopin uo_out1
+*.iopin uo_out2
+*.iopin uo_out3
+*.iopin uo_out4
+*.iopin uo_out5
+*.iopin uo_out6
+*.iopin uo_out7
+*.iopin pad2
+*.iopin obs2_sel0
+*.iopin obs2_sel1
+XREF vdd vss vbn bias2 bias1 ref ref_reset bit_a bit_b sel1_ladder bias1_in sel2_ladder bias2_in xor_references_stiff
+XNET reset hold_in h1bias h2bias vbn ref pad vdd vss obs_sel0 obs_sel1 obs_sel2 pad2 obs2_sel0 obs2_sel1 f1 f2 z p1 q1 p2 q2 pz qz m1 m2 bias1 bias2 weak weak_b native_six_network CORE_MATCH={CORE_MATCH} READ_MATCH={READ_MATCH}
+XEXT1 sel1_ladder bw1 ext_en1 bias1_in vdd vss ext_bias_switch
+XEXT2 sel2_ladder bw2 ext_en2 bias2_in vdd vss ext_bias_switch
+XECHO bit_a bit_b reset hold_in ref_reset obs_sel0 obs_sel1 obs_sel2 uo_out0 uo_out1 uo_out2 uo_out3 uo_out4 uo_out5 uo_out6 uo_out7 vdd vss echo_buffers
+XRPIN1 ext_bias ext_in vss pdk_rpin_h RVALUE=10k
+* ---- v4 additions, one instance per layout cell
+XMID m1 m2 m1x m2x iso vss pw4_mid
+XNH1 f1 p1 q1 f1x qs1 dn1 iso vss pw4_nrn_h
+XUE1 qs1 ref dn1 vss pw4_units3d
+XNH2 f2 p2 q2 f2x qs2 dn2 iso vss pw4_nrn_h
+XUE2 qs2 ref dn2 vss pw4_units3d
+XNZ z pz qz zx qsz nm ref iso vss pw4_nrn_z
+XUZ nm nd qsz ref vss pw4_units5
+XDG nd ext_in ref iso vdd vss pw4_dacgate
+XRB f1x f2x zx m1x m2x ref ext_in z0 z1 z2 z3 clampw vdd vss pw4_rblock4
+XDEC obs_sel2 obs2_sel0 write res_filtered weight_prog we0 we1 we2 we3 iso clampw vdd vss pw4_decoder
+XBW ext_in bw1 bw2 ext_en1 ext_en2 bias_prog write ref vdd vss pw4_bias
+* In six-edge mode the two original unity buffers drive raw A and B.
+* In original operation they feed each hidden R3 and the readout as before.
+XNBP bias_prog nbp vdd vss cmos_inv
+XNE1 ext_en1 ne1 vdd vss cmos_inv
+XNE2 ext_en2 ne2 vdd vss cmos_inv
+XARM nbp ne1 ne2 armed vdd vss cmos_nor3
+XNARM armed narmed vdd vss cmos_inv
+XMODE narmed clampw six vdd vss cmos_nor2
+XPARK six park vdd vss cmos_inv
+XRCIN_R res_sel res_filtered vss sky130_fd_pr__res_xhigh_po_0p35 L=6.90 mult=1 m=1
+XRCIN_C res_filtered vss sky130_fd_pr__cap_mim_m3_1 W=15.7 L=15.7 MF=1 m=1
+XRESERVOIR1 ref vss sky130_fd_pr__cap_mim_m3_1 W=15.7 L=15.7 MF=1 m=1
+XRESERVOIR2 ref vss sky130_fd_pr__cap_mim_m3_1 W=15.7 L=15.7 MF=1 m=1
+XRWEAK_N weak_src weak vss sky130_fd_pr__res_xhigh_po_0p35 L=69.90 mult=1 m=1
+XRWEAK_P weak_b_src weak_b vss sky130_fd_pr__res_xhigh_po_0p35 L=69.90 mult=1 m=1
+XGATELOAD weak_b vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97 MF=1 m=1
+XHOLD_AND_B res_filtered six vss vss vdd vdd weak_b_src sky130_fd_sc_hd__nand2_1
+XHOLD_AND weak_b_src weak_src vdd vss cmos_inv
+* Two sets of eight native switches select the fixed or legacy H bias branches.
+XSEL_RAW1 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED1 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW2 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED2 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW3 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED3 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW4 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED4 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW5 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED5 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW6 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED6 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW7 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED7 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSEL_RAW8 bias1 bias2 h1bias h2bias park vss pw4_mid
+XSEL_FIXED8 fixed1 fixed2 h1bias h2bias six vss pw4_mid
+XSTATIC ref fixed1 fixed2 p1 p2 six vss ret1 ret2 native_fixed_offsets
+XENABLE bit_a bit_b we0 we1 we2 we3 z0 z1 z2 z3 a0 a1 a2 a3 b0 b1 b2 b3 vdd vss native_bank_enable
+XCLAMP_BUS bias1 bias2 ax bx six vss pw4_mid
+XROW_A bias1 ax f1 f2 ref ext_in a0 a1 a2 a3 six park vdd vss native_clamped_row
+XROW_B bias2 bx f1 f2 ref ext_in b0 b1 b2 b3 six park vdd vss native_clamped_row
+XH1FEEDBACK f1 p1 q1 ref six vss native_hidden_feedback
+XH2FEEDBACK f2 p2 q2 ref six vss native_hidden_feedback
+* ---- variant: programmable hidden offsets (takeover/bias/SPEC.md), one instance per new layout cell
+XOPROG ret1 ret2 bg1 bg2 vss native_offset_prog
+XOWORD1 bg1 ext_in bstb1 ref vdd vss native_offset_word
+XOWORD2 bg2 ext_in bstb2 ref vdd vss native_offset_word
+XOSTROBE bit_a bit_b we0 we1 bstb1 bstb2 vdd vss native_offset_strobe
+.ends
+
+.subckt native_ground_return m1 m2 b1 b2 iso vss
+XSW1 m1 iso b1 vss sky130_fd_pr__nfet_01v8 L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XSW2 m2 iso b2 vss sky130_fd_pr__nfet_01v8 L=0.5 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+* ==== Programmable hidden offsets (variant v3 of 2026-11-23, takeover/bias/SPEC.md); everything below is new ====
+
+.subckt native_offset_prog ret1 ret2 bg1 bg2 vss
+* The pair of programmable offset transistors. Each sits between the source of the existing mode switch (XSW_k of
+* native_ground_return, gate six) and ground: end_k -- XSW_k -- ret_k -- XPROG_k -- vss. Gate bg_k = the stored word;
+* source and body on the same ground as the storage capacitor, so the stored voltage is the gate-to-source voltage.
+* Long-channel 1.8 V NMOS: with bg_k at the supply the chain draws today's current; lower bg_k lowers the offset.
+XPROG1 ret1 bg1 vss vss sky130_fd_pr__nfet_01v8 L=3.2 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XPROG2 ret2 bg2 vss vss sky130_fd_pr__nfet_01v8 L=3.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.subckt native_offset_word bg dac bstb ref vdd vss
+* One stored hidden offset (two instances): the stored gate bg on a MIM to the local ground, and a copy of the
+* two-stage writer of pw4_shunt, device for device. At bg a 5 V NMOS (XW1N) beside an LVT PMOS (XW1P), then a
+* transmission gate (XW2) to the DAC line; when not writing, the middle node wm is held at REF by the long weak
+* NMOS XWC, so the stored gate has REF behind its off writer whatever the DAC line does. XWI: the strobe's inverter
+* (bstbb). Stored node on the MIM's first terminal (top plate), as in the existing words. No clamp on bg.
+XC bg vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97 MF=1 m=1
+XW1N bg bstb wm vss sky130_fd_pr__nfet_g5v0d10v5 L=4 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XW1P bg bstbb wm vdd sky130_fd_pr__pfet_01v8_lvt L=1 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XW2 wm dac bstb bstbb vdd vss cd_tg_small
+XWC wm bstbb ref vss sky130_fd_pr__nfet_01v8 L=8 W=0.42 nf=1 ad=0.1218 as=0.1218 pd=1.42 ps=1.42 nrd=0.6905 nrs=0.6905 sa=0 sb=0 sd=0 mult=1 m=1
+XWI bstb bstbb vdd vss cmos_inv
+.ends
+
+.subckt native_offset_strobe bit_a bit_b we0 we1 bstb1 bstb2 vdd vss
+* The two strobes of the bias row, built beside the stored words from global nets (layout/INTERFACE.md).
+* Row (bit_a, bit_b) = (1, 1), unused by the resistor rows; we0 (word address 0) writes H1's offset, we1 (word
+* address 1) H2's. we0, we1 come from pw4_decoder and already contain WRITE, RES_SEL, not WEIGHT_PROG and the word
+* address, so six = 0 whenever bstb1 or bstb2 is high.
+*   bstb1 = bit_a & bit_b & we0 = NOR2(NAND2(bit_a, bit_b), not we0);  bstb2 likewise with we1
+XSAB bit_a bit_b vss vss vdd vdd nab sky130_fd_sc_hd__nand2_1
+XSW0 we0 nwe0 vdd vss cmos_inv
+XSW1 we1 nwe1 vdd vss cmos_inv
+XSB1 nab nwe0 bstb1 vdd vss cmos_nor2
+XSB2 nab nwe1 bstb2 vdd vss cmos_nor2
+.ends

@@ -1,0 +1,208 @@
+{
+ "S1 plate A (C1's bottom plate, XPROG1's ground) to the VGND stripe: metal 3 and a via3 array": [
+  [
+   "met3",
+   263.7,
+   9.685,
+   269.135,
+   11.685,
+   "2.00 um metal 3 from the stripe's west edge (263.70) into plate A's west edge (269.035; plate 269.035-280.165 x 2.315-11.685) by 0.10; top edge in line with the plate's (11.685); nearest other metal 3 1.215 um above (bg1's landing 269.475-269.975 x 12.90-13.40); no via2 or via3 under it"
+  ],
+  [
+   "via3",
+   263.81,
+   9.785,
+   264.01,
+   9.985,
+   "via3 1 of 20 into the VGND metal-4 stripe (x 263.70-265.30): 4 columns x 5 rows at 0.40 pitch; metal-4 enclosure 0.11 west and 0.09 east, metal-3 enclosure 0.11 west and 0.10 top and bottom"
+  ],
+  [
+   "via3",
+   264.21,
+   9.785,
+   264.41,
+   9.985,
+   "via3 2 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.61,
+   9.785,
+   264.81,
+   9.985,
+   "via3 3 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   265.01,
+   9.785,
+   265.21,
+   9.985,
+   "via3 4 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   263.81,
+   10.185,
+   264.01,
+   10.385,
+   "via3 5 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.21,
+   10.185,
+   264.41,
+   10.385,
+   "via3 6 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.61,
+   10.185,
+   264.81,
+   10.385,
+   "via3 7 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   265.01,
+   10.185,
+   265.21,
+   10.385,
+   "via3 8 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   263.81,
+   10.585,
+   264.01,
+   10.785,
+   "via3 9 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.21,
+   10.585,
+   264.41,
+   10.785,
+   "via3 10 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.61,
+   10.585,
+   264.81,
+   10.785,
+   "via3 11 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   265.01,
+   10.585,
+   265.21,
+   10.785,
+   "via3 12 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   263.81,
+   10.985,
+   264.01,
+   11.185,
+   "via3 13 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.21,
+   10.985,
+   264.41,
+   11.185,
+   "via3 14 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.61,
+   10.985,
+   264.81,
+   11.185,
+   "via3 15 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   265.01,
+   10.985,
+   265.21,
+   11.185,
+   "via3 16 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   263.81,
+   11.385,
+   264.01,
+   11.585,
+   "via3 17 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.21,
+   11.385,
+   264.41,
+   11.585,
+   "via3 18 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   264.61,
+   11.385,
+   264.81,
+   11.585,
+   "via3 19 of 20 into the VGND stripe"
+  ],
+  [
+   "via3",
+   265.01,
+   11.385,
+   265.21,
+   11.585,
+   "via3 20 of 20 into the VGND stripe"
+  ]
+ ],
+ "S2 plate B (C2's bottom plate) to plate A: the gap between the two plates filled": [
+  [
+   "met3",
+   273.835,
+   11.685,
+   280.165,
+   12.865,
+   "metal 3 between plate A's top edge (11.685) and plate B's bottom edge (12.865; plate 273.835-284.965) over their common width; its west edge in line with plate B's, its east edge with plate A's, so no new metal-3 edge faces either MIM cap (capm.11 checks 1.34 um from unrelated metal 3); no metal 4 above it"
+  ]
+ ],
+ "S4 XPROG2's source landing on plate B: a metal-3 tab and two more via2": [
+  [
+   "met3",
+   283.4,
+   12.1,
+   283.8,
+   12.865,
+   "tab hanging from plate B's pad (283.40-283.80 x 12.86-13.30) down over XPROG2's metal-2 L (283.45-283.75)"
+  ],
+  [
+   "via2",
+   283.5,
+   12.2,
+   283.7,
+   12.4,
+   "via2 on XPROG2's metal 2, 0.40 below the next"
+  ],
+  [
+   "via2",
+   283.5,
+   12.6,
+   283.7,
+   12.8,
+   "via2 below the existing one (283.50-283.70 x 13.00-13.20): three in a column"
+  ]
+ ]
+}

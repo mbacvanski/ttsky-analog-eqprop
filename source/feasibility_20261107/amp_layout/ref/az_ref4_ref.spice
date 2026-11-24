@@ -1,0 +1,38 @@
+* LVS reference for az_ref4: REF buffer (cd_ref_az as XBUF3).
+* Flattened from feasibility_20261107/results/ah_sf3_strict/native.spice (sha256 b01e9aaceefae7af43ac0831217db066cf56b4ce25e7d9ed9c1baeb97063ca33),
+* cd_ref_az COMP=4e-12 DRIVE=4 RZERO=1000 HEADROOM=1; values evaluated from the deck.
+* Layout addition: XRBIAS_DUMMY, the grounded second strip of the RBIAS array (rule rpm.1).
+.subckt az_ref4 plus minus out az az_b ref vdd vss
+XAMP_XMNBIAS net1 net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XAMP_XMNTAIL XAMP_tail net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=4
+XAMP_XMNMINUS XAMP_pmirror mi XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMNPLUS XAMP_gain1 plus XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMPREF XAMP_pmirror XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPMIRROR XAMP_gain1 XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPOUT out XAMP_gain1 vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=32
+XAMP_XMNLOAD out net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=64
+XAMP_XRZERO_XDEVICE_XR0 XAMP_comp XAMP_gain1 vss sky130_fd_pr__res_xhigh_po_1p41 L=0.54
+XAMP_XCMILLER_XCMIM0 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM1 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM2 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM3 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM4 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XCMILLER_XCMIM5 XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=18.09 L=18.09
+XAMP_XMAM XAMP_pmirror nul XAMP_atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 m=1
+XAMP_XMAP XAMP_gain1 ref XAMP_atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 m=1
+XAMP_XMATAIL XAMP_atail net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XRBIAS_XDEVICE_XR0 net1 vdd vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+XSA_XMN plus az mi vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 m=1
+XSA_XMP plus az_b mi vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1 m=1
+XSN_XMN minus az_b mi vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 m=4
+XSN_XMP minus az mi vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 m=4
+XSH_XMN out az nul vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 m=1
+XSH_XMP out az_b nul vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 m=1
+XCAZ_XCMIM0 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XCAZ_XCMIM1 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XCAZ_XCMIM2 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XCAZ_XCMIM3 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XCAZ_XCMIM4 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XCAZ_XCMIM5 nul vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97
+XRBIAS_DUMMY vss vss vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+.ends az_ref4

@@ -1,0 +1,27 @@
+* LVS reference for aj_core1p: AJ core auto-zero amplifier, hold 1 pF, both capacitors single rectangles, bias resistor two strips (cd_signal_az as U1/U3: DRIVE 0.5).
+* Flattened from ref/aj2_native.spice (sha256 99916c6cfb41aedb6a615786339f8362e70f8df6a0ff6b7e9ce72f12a07aaea8),
+* cd_signal_az COMP=1e-12 DRIVE=0.5 RZERO=5000 HEADROOM=1; values evaluated from the deck.
+.subckt aj_core1p plus minus out az az_b ref vdd vss
+XAMP_XMNBIAS net1 net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XAMP_XMNTAIL XAMP_tail net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=4
+XAMP_XMNMINUS XAMP_pmirror mi XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMNPLUS XAMP_gain1 plus XAMP_tail vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=4
+XAMP_XMPREF XAMP_pmirror XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPMIRROR XAMP_gain1 XAMP_pmirror vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=1
+XAMP_XMPOUT out XAMP_gain1 vdd vdd sky130_fd_pr__pfet_01v8 L=1 W=5 m=4
+XAMP_XMNLOAD out net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=8
+XAMP_XRZERO_XDEVICE_XR0 XAMP_comp XAMP_gain1 vss sky130_fd_pr__res_xhigh_po_1p41 L=3.36
+XAMP_XCMILLER XAMP_comp out sky130_fd_pr__cap_mim_m3_1 W=20.52 L=24.01
+XAMP_XMAM XAMP_pmirror nul XAMP_atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 m=1
+XAMP_XMAP XAMP_gain1 ref XAMP_atail vss sky130_fd_pr__nfet_01v8 L=2 W=1 m=1
+XAMP_XMATAIL XAMP_atail net1 vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XRBIAS_XDEVICE_XR0 XRBIAS_XDEVICE_net1 vdd vss sky130_fd_pr__res_xhigh_po_0p35 L=24.92
+XRBIAS_XDEVICE_XR1 net1 XRBIAS_XDEVICE_net1 vss sky130_fd_pr__res_xhigh_po_0p35 L=24.92
+XSA_XMN plus az mi vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 m=1
+XSA_XMP plus az_b mi vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1 m=1
+XSN_XMN minus az_b mi vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 m=4
+XSN_XMP minus az mi vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 m=4
+XSH_XMN out az nul vss sky130_fd_pr__nfet_01v8 L=0.15 W=2 m=1
+XSH_XMP out az_b nul vdd sky130_fd_pr__pfet_01v8 L=0.15 W=4 m=1
+XCAZ nul ref sky130_fd_pr__cap_mim_m3_1 W=20.52 L=24.01
+.ends aj_core1p

@@ -1,0 +1,96 @@
+{
+  "parent_gds_sha256": "1b2984a374e8c637086f901c59c330eb34c85f835001764f758f63b65b91646e",
+  "source_sha256": "521b0f942a8a8dfc408ef1165621026c4febcbdd5e4f9f8b9aa09725a834dd91",
+  "physical": {
+    "R": {
+      "cell": "ne_rc_high_poly",
+      "transform": "r270 247565,137135",
+      "bbox_nm": "(210335,134805;284795,137805)",
+      "pins_nm": {
+        "weak_src": [
+          284420,
+          137135
+        ],
+        "weak": [
+          210710,
+          137135
+        ],
+        "weak_b_src": [
+          284420,
+          136305
+        ],
+        "weak_b": [
+          210710,
+          136305
+        ],
+        "res_sel": [
+          284420,
+          135475
+        ],
+        "res_filtered": [
+          273710,
+          135475
+        ]
+      }
+    },
+    "C": {
+      "cell": "ne_rc_mim",
+      "transform": "r0 322615,215905",
+      "bbox_nm": "(313685,207855;331545,223955)",
+      "pins_nm": {
+        "res_filtered": [
+          321735,
+          215905
+        ],
+        "vss": [
+          331285,
+          215905
+        ]
+      }
+    }
+  },
+  "cut_top_shapes": {
+    "res_sel": {
+      "m1": 22,
+      "m2": 10,
+      "m3": 4,
+      "m4": 2,
+      "v1": 4,
+      "v2": 4,
+      "v3": 3
+    },
+    "weak": {
+      "m1": 23,
+      "m2": 7,
+      "m3": 0,
+      "m4": 0,
+      "v1": 3,
+      "v2": 0,
+      "v3": 0
+    },
+    "weak_b": {
+      "m1": 9,
+      "m2": 11,
+      "m3": 6,
+      "m4": 0,
+      "v1": 3,
+      "v2": 4,
+      "v3": 0
+    }
+  },
+  "replaced_trunks": [
+    "res_sel",
+    "weak",
+    "weak_b"
+  ],
+  "gds_sha256": "415256a89fb741bda52f465b3d00209b3796123c4c9a9b11cd0f571d6055e16b",
+  "join_count": {
+    "vss": 1,
+    "res_sel": 1,
+    "weak": 3,
+    "weak_b": 3,
+    "res_filtered": 3,
+    "weak_src": 1,
+    "weak_b_src": 1
+  }
+}

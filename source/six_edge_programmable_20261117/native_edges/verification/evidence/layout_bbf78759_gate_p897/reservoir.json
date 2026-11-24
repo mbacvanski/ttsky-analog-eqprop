@@ -1,0 +1,52 @@
+{
+ "gds_sha256": "bbf7875934448644dfa0c871103ef1f93f6e8285dfba6d05863c42baaddbf41b",
+ "source_sha256": "6a4914949436474a194d8c3b3386713eb179511f5ee10c41911b647b57e85a3d",
+ "board_spice_sha256": "82e04aceed1dfc63ab32d3a6f888dcba3d7c38a28830a6e83a55164758918bcf",
+ "model": "sky130_fd_pr__cap_mim_m3_1",
+ "electrode": "weak_b",
+ "added_count": 1,
+ "metal_plate_width_length_um": 8.97,
+ "actual_two_terminal_extracted_labels": [
+  {
+   "C1": "nr_gate_load_0.C1",
+   "C2": "nr_gate_load_0.C2",
+   "positive_canonical": "sx_reset_tg_2.en_b",
+   "negative_canonical": "pw4_decoder_0.XWP_XSTD.VNB"
+  }
+ ],
+ "actual_part_negative_control": {
+  "removed_card": "XGATELOAD weak_b vss sky130_fd_pr__cap_mim_m3_1 W=8.97 L=8.97 MF=1 m=1",
+  "full_logical_fault_sha256": "cfc0e02f03141889013c84c6cb083ebc4963ac5ab0a810238b7ee3edca3d79fa",
+  "compared_reference_sha256": "cb87722a63c893afa2b6e649ac51563aed359ebfcc63bd52340a4dd2a24519e7",
+  "report_sha256": "affff94d177e266e114e2f6cf5b664c42cd5997976a56c359286d048b52f431a",
+  "reported_verdict": "Top level cell failed pin matching.",
+  "property_difference": false,
+  "compared_parallel_capacitor_multiplicities": null
+ },
+ "parent_all_original_device_counts": {
+  "sky130_fd_pr__nfet_01v8": 900,
+  "sky130_fd_pr__res_xhigh_po_1p41": 93,
+  "sky130_fd_pr__pfet_01v8_hvt": 218,
+  "sky130_fd_pr__cap_mim_m3_1": 106,
+  "sky130_fd_pr__nfet_03v3_nvt": 104,
+  "sky130_fd_pr__pfet_01v8": 323,
+  "sky130_fd_pr__pfet_01v8_lvt": 70,
+  "sky130_fd_pr__res_xhigh_po_0p35": 201,
+  "sky130_fd_pr__res_xhigh_po_2p85": 87,
+  "sky130_fd_pr__res_generic_po": 1,
+  "sky130_fd_pr__nfet_g5v0d10v5": 18
+ },
+ "physically_counted_new_model_counts": {
+  "sky130_fd_pr__nfet_01v8": 900,
+  "sky130_fd_pr__res_xhigh_po_1p41": 93,
+  "sky130_fd_pr__pfet_01v8_hvt": 218,
+  "sky130_fd_pr__cap_mim_m3_1": 107,
+  "sky130_fd_pr__nfet_03v3_nvt": 104,
+  "sky130_fd_pr__pfet_01v8": 323,
+  "sky130_fd_pr__pfet_01v8_lvt": 70,
+  "sky130_fd_pr__res_xhigh_po_0p35": 201,
+  "sky130_fd_pr__res_xhigh_po_2p85": 87,
+  "sky130_fd_pr__res_generic_po": 1,
+  "sky130_fd_pr__nfet_g5v0d10v5": 18
+ }
+}

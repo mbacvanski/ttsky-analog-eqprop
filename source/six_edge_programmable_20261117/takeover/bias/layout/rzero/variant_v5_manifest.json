@@ -1,0 +1,17 @@
+{
+ "version": 5,
+ "made_by": "make_variant_v5.py",
+ "made_from": "takeover/bias/circuit/variant_reference_v4.spice (version 4)",
+ "version4_sha256": "3e28c62019f182bb6de4f99152b65299868b2ef1cd03eb366fc8e57e90c83bb4",
+ "version5_sha256": "399eac539f89319920f6f0921f33a6454fbd4b10d10704f1164dfca0bb13a8c6",
+ "change": "XBUF3 (the REF buffer, cd_ref_az DRIVE=4) RZERO=1k -> 1225: its RZERO resistor sky130_fd_pr__res_xhigh_po_1p41 L 0.54 -> 0.70 um (pdk_rfixed's formula), model 998.35 -> 1225.30 ohm (design lead, 24 Nov, fix A: SkyWater's 0.66 um resistor body and 0.64 um bar end-to-end rules); nothing else",
+ "check": "instance by instance against version 4 (nets, model, parameters), subcircuits and top level: only XBUF3 differs, and only in RZERO; pdk_rfixed gives L 0.54 for 1k and 0.70 for 1225: PASS",
+ "changed_lines": [
+  {
+   "line": 59,
+   "old": "XBUF3 ref_tap ref ref az az_b ref_tap vdd vss cd_ref_az COMP=4p DRIVE=4 RZERO=1k HEADROOM=1",
+   "new": "XBUF3 ref_tap ref ref az az_b ref_tap vdd vss cd_ref_az COMP=4p DRIVE=4 RZERO=1225 HEADROOM=1"
+  }
+ ],
+ "lines": 1453
+}

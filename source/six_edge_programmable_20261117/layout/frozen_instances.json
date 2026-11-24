@@ -1,0 +1,162 @@
+{
+ "BIAS": {
+  "cell": "pw4_bias",
+  "x_um": 321.85,
+  "y_um": 157.0
+ },
+ "BUF2": {
+  "cell": "buf2",
+  "x_um": 147.5,
+  "y_um": 146.6
+ },
+ "BUF_BIAS1": {
+  "cell": "az_ref1",
+  "x_um": 179.23,
+  "y_um": 174.5
+ },
+ "BUF_BIAS2": {
+  "cell": "az_ref1",
+  "x_um": 204.5,
+  "y_um": 174.5
+ },
+ "BUF_REF": {
+  "cell": "az_ref4",
+  "x_um": 269.0,
+  "y_um": 66.0
+ },
+ "DACG": {
+  "cell": "pw4_dacgate",
+  "x_um": 166.75,
+  "y_um": 72.6
+ },
+ "DEC": {
+  "cell": "pw4_decoder",
+  "x_um": 34.0,
+  "y_um": 218.2
+ },
+ "ECHO": {
+  "cell": "echo",
+  "x_um": 111.56,
+  "y_um": 213.5
+ },
+ "EXT1": {
+  "cell": "ext_sw",
+  "x_um": 184.4,
+  "y_um": 176.5
+ },
+ "EXT2": {
+  "cell": "ext_sw",
+  "x_um": 184.4,
+  "y_um": 195.5
+ },
+ "H1": {
+  "cell": "aj_neuron_h",
+  "x_um": 6.25,
+  "y_um": 1.6
+ },
+ "H2": {
+  "cell": "aj_neuron_h",
+  "x_um": 6.25,
+  "y_um": 194.2
+ },
+ "LADDER": {
+  "cell": "aj_ladder",
+  "x_um": 269.0,
+  "y_um": 217.6
+ },
+ "LEAN": {
+  "cell": "lean_block",
+  "x_um": 133.0,
+  "y_um": 93.1
+ },
+ "MID": {
+  "cell": "pw4_mid",
+  "x_um": 231.6,
+  "y_um": 162.0
+ },
+ "NRN_H1": {
+  "cell": "pw4_nrn_h",
+  "x_um": 74.45,
+  "y_um": 56.02
+ },
+ "NRN_H2": {
+  "cell": "pw4_nrn_h",
+  "x_um": 74.45,
+  "y_um": 139.98
+ },
+ "NRN_Z": {
+  "cell": "pw4_nrn_z",
+  "x_um": 176.55,
+  "y_um": 56.1
+ },
+ "OBS": {
+  "cell": "obs_mux",
+  "x_um": 36.2,
+  "y_um": 90.1
+ },
+ "OBS2": {
+  "cell": "obs2_mux",
+  "x_um": 4.5,
+  "y_um": 87.1
+ },
+ "PADBUF": {
+  "cell": "az_pad",
+  "x_um": 269.0,
+  "y_um": 61.925
+ },
+ "PINRES": {
+  "cell": "pin_res",
+  "x_um": 120.9,
+  "y_um": 3.6
+ },
+ "RBLOCK": {
+  "cell": "pw4_rblock4",
+  "x_um": 4.4,
+  "y_um": 195.5
+ },
+ "REFINV": {
+  "cell": "ref_inv",
+  "x_um": 190.0,
+  "y_um": 216.16
+ },
+ "RSENSE": {
+  "cell": "rsense",
+  "x_um": 252.0,
+  "y_um": 3.2
+ },
+ "RW": {
+  "cell": "rw_res",
+  "x_um": 205.5,
+  "y_um": 167.9
+ },
+ "SEL1": {
+  "cell": "bias_sel",
+  "x_um": 223.3,
+  "y_um": 91.0
+ },
+ "SEL2": {
+  "cell": "bias_sel",
+  "x_um": 223.3,
+  "y_um": 125.0
+ },
+ "U3_H1": {
+  "cell": "pw4_units3d",
+  "x_um": 93.4,
+  "y_um": 57.2
+ },
+ "U3_H2": {
+  "cell": "pw4_units3d",
+  "x_um": 93.4,
+  "y_um": 138.8
+ },
+ "U3_Z": {
+  "cell": "pw4_units5",
+  "x_um": 154.15,
+  "y_um": 57.2
+ },
+ "Z": {
+  "cell": "aj_neuron_z",
+  "x_um": 244.75,
+  "y_um": 1.6
+ }
+}

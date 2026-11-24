@@ -1,0 +1,99 @@
+{
+ "paths": [
+  {
+   "net": "ref",
+   "new_parallel_to_wafer_travel_um": 3.74,
+   "by_layer_um": {
+    "m4": 2.2,
+    "m3": 1.54
+   },
+   "via_count": {
+    "v3": 1,
+    "v2": 1,
+    "v1": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     3,
+     297110,
+     156310
+    ],
+    [
+     0,
+     300410,
+     156750
+    ]
+   ]
+  },
+  {
+   "net": "ref",
+   "new_parallel_to_wafer_travel_um": 12.76,
+   "by_layer_um": {
+    "m4": 1.98,
+    "m3": 10.78
+   },
+   "via_count": {
+    "v3": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     3,
+     313170,
+     156310
+    ],
+    [
+     2,
+     300410,
+     156310
+    ]
+   ]
+  },
+  {
+   "net": "vss",
+   "new_parallel_to_wafer_travel_um": 0.22,
+   "by_layer_um": {
+    "m2": 0.22
+   },
+   "via_count": {
+    "v2": 1,
+    "v1": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     2,
+     288310,
+     143770
+    ],
+    [
+     0,
+     288310,
+     143550
+    ]
+   ]
+  },
+  {
+   "net": "vss",
+   "new_parallel_to_wafer_travel_um": 3.3,
+   "by_layer_um": {
+    "m2": 3.3
+   },
+   "via_count": {
+    "v2": 1,
+    "v1": 1
+   },
+   "start_and_end_layer_xy_nm": [
+    [
+     2,
+     321970,
+     166650
+    ],
+    [
+     0,
+     321970,
+     169950
+    ]
+   ]
+  }
+ ],
+ "scope": "Length of each added grid path between actual existing GDS contact-metal regions. Includes detours, separate conductor layers and via counts. The pre-existing terminal metal and device interiors are outside these new lengths."
+}

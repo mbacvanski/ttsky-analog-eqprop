@@ -1,0 +1,285 @@
+[
+  {
+    "name": "ne_help",
+    "gds": "e157f65cda71fccea3f8ca7fc0a28bb8e15642cbe03ee331bfe4e602b08977e5",
+    "active_strips": 8,
+    "dummy_strips": 2,
+    "strip_length_um": 11.56,
+    "target_unit_ohm": 133333.0,
+    "actual_cell_size_um": [
+      19.72,
+      9.87
+    ],
+    "pins": {
+      "sw4": {
+        "layer": "metal2",
+        "rect": [
+          0.45,
+          6.065,
+          0.75,
+          6.445
+        ]
+      },
+      "p": {
+        "layer": "metal2",
+        "rect": [
+          1.4,
+          5.235,
+          1.7,
+          5.615
+        ]
+      },
+      "sw7": {
+        "layer": "metal2",
+        "rect": [
+          0.45,
+          2.745,
+          0.75,
+          3.125
+        ]
+      },
+      "ref": {
+        "layer": "metal2",
+        "rect": [
+          1.4,
+          1.915,
+          1.7,
+          2.295
+        ]
+      },
+      "vss": {
+        "layer": "metal1",
+        "rect": [
+          19.185,
+          7.335,
+          19.485,
+          7.695
+        ]
+      }
+    },
+    "drc_errors": 0,
+    "verified_endpoint_paths": [
+      [
+        "p",
+        "sw4",
+        2
+      ],
+      [
+        "p",
+        "sw4",
+        2
+      ],
+      [
+        "ref",
+        "sw7",
+        2
+      ],
+      [
+        "ref",
+        "sw7",
+        2
+      ]
+    ],
+    "grounded_edge_dummies": 2
+  },
+  {
+    "name": "ne_r1",
+    "gds": "af82d78fcc90936fce24e6db4eb99cfe415d6c7575556fd43a3baf76630d063e",
+    "active_strips": 2,
+    "dummy_strips": 2,
+    "strip_length_um": 1.49,
+    "target_unit_ohm": 18181.81818,
+    "actual_cell_size_um": [
+      9.65,
+      4.89
+    ],
+    "pins": {
+      "ref": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          2.745,
+          1.25,
+          3.125
+        ]
+      },
+      "fixed1": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          1.915,
+          1.25,
+          2.295
+        ]
+      },
+      "vss": {
+        "layer": "metal1",
+        "rect": [
+          9.115,
+          2.355,
+          9.415,
+          2.715
+        ]
+      }
+    },
+    "drc_errors": 0,
+    "verified_endpoint_paths": [
+      [
+        "fixed1",
+        "ref",
+        2
+      ]
+    ],
+    "grounded_edge_dummies": 2
+  },
+  {
+    "name": "ne_r2",
+    "gds": "f58ecea6efbcecbdba8cc860f059538ccd13bba27a9eece323d6be366716536c",
+    "active_strips": 2,
+    "dummy_strips": 2,
+    "strip_length_um": 4.12,
+    "target_unit_ohm": 48275.86207,
+    "actual_cell_size_um": [
+      12.28,
+      4.89
+    ],
+    "pins": {
+      "ref": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          2.745,
+          1.25,
+          3.125
+        ]
+      },
+      "fixed2": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          1.915,
+          1.25,
+          2.295
+        ]
+      },
+      "vss": {
+        "layer": "metal1",
+        "rect": [
+          11.745,
+          2.355,
+          12.045,
+          2.715
+        ]
+      }
+    },
+    "drc_errors": 0,
+    "verified_endpoint_paths": [
+      [
+        "fixed2",
+        "ref",
+        2
+      ]
+    ],
+    "grounded_edge_dummies": 2
+  },
+  {
+    "name": "ne_g1",
+    "gds": "293324ad3d2691330170881a823b4bd4393b8477ea5f215a82d73398b30af25c",
+    "active_strips": 16,
+    "dummy_strips": 2,
+    "strip_length_um": 26.15,
+    "target_unit_ohm": 300000.0,
+    "actual_cell_size_um": [
+      34.31,
+      16.51
+    ],
+    "pins": {
+      "p1": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          14.365,
+          1.25,
+          14.745
+        ]
+      },
+      "end1": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          1.915,
+          1.25,
+          2.295
+        ]
+      },
+      "vss": {
+        "layer": "metal1",
+        "rect": [
+          33.775,
+          13.975,
+          34.075,
+          14.335
+        ]
+      }
+    },
+    "drc_errors": 0,
+    "verified_endpoint_paths": [
+      [
+        "end1",
+        "p1",
+        16
+      ]
+    ],
+    "grounded_edge_dummies": 2
+  },
+  {
+    "name": "ne_g2",
+    "gds": "719d54eeca8eec1d31943f4d9525a04743c2ab560e8eb4c6d2bdcf936054dceb",
+    "active_strips": 8,
+    "dummy_strips": 2,
+    "strip_length_um": 22.4,
+    "target_unit_ohm": 257142.85714,
+    "actual_cell_size_um": [
+      30.56,
+      9.87
+    ],
+    "pins": {
+      "p2": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          7.725,
+          1.25,
+          8.105
+        ]
+      },
+      "end2": {
+        "layer": "metal2",
+        "rect": [
+          0.95,
+          1.915,
+          1.25,
+          2.295
+        ]
+      },
+      "vss": {
+        "layer": "metal1",
+        "rect": [
+          30.025,
+          7.335,
+          30.325,
+          7.695
+        ]
+      }
+    },
+    "drc_errors": 0,
+    "verified_endpoint_paths": [
+      [
+        "end2",
+        "p2",
+        8
+      ]
+    ],
+    "grounded_edge_dummies": 2
+  }
+]

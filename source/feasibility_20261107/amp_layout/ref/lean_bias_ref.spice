@@ -1,0 +1,17 @@
+* LVS reference for lean_bias: bias cell of the two activations (lean_bias as XLB).
+* Flattened from ref/aj2_native.spice (sha256 99916c6cfb41aedb6a615786339f8362e70f8df6a0ff6b7e9ce72f12a07aaea8),
+* lean_bias no parameters; values evaluated from the deck.
+* Layout addition: XRB_DUMMY, a grounded dummy strip beside a lone 0.35 um resistor (rule rpm.1).
+.subckt lean_bias ref tap vbn vdd vss
+XRB_XDEVICE_XR0 nb vdd vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+XMNB nb nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=4
+XMTO st nb vss vss sky130_fd_pr__nfet_01v8 L=2 W=4 m=1
+XMA pm vr st vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=8
+XMB vbn tap st vss sky130_fd_pr__nfet_01v8 L=1 W=5 m=8
+XMPA pm pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 m=1
+XMPB vbn pm vdd vdd sky130_fd_pr__pfet_01v8 L=4 W=4 m=1
+XMR vr vbn vss vss sky130_fd_pr__nfet_01v8 L=8 W=4 m=1
+XRU_XDEVICE_XR0 vr ref vss sky130_fd_pr__res_xhigh_po_1p41 L=61.52
+XCVBN vbn vss sky130_fd_pr__cap_mim_m3_1 W=30 L=12.29
+XRB_DUMMY vss vss vss sky130_fd_pr__res_xhigh_po_0p35 L=38.4
+.ends lean_bias

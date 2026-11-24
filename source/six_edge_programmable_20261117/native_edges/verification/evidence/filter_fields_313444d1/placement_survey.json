@@ -1,0 +1,697 @@
+{
+ "parent_occupied_gds": "1b2984a374e8c637086f901c59c330eb34c85f835001764f758f63b65b91646e",
+ "existing_filter_gds": "313444d10289d3d711fd4b538aabe2cc652c78135655e27f5464edd1c20492b0",
+ "existing_filter_straight_Manhattan_to_physical_source_um": {
+  "res_sel": 274.385,
+  "weak_src": 239.805,
+  "weak_b_src": 239.01
+ },
+ "source_um": {
+  "res_sel": [
+   99.82,
+   225.26
+  ],
+  "weak_src": [
+   71.575,
+   164.095
+  ],
+  "weak_b_src": [
+   73.18,
+   164.075
+  ]
+ },
+ "total_removed_top_shapes": {
+  "res_sel": 49,
+  "weak": 33,
+  "weak_b": 33
+ },
+ "measured_library_hashes": {
+  "short": "b1e4a47b7b57bf84fa3da065de40157ea4a825514fe6b0865fed680c58c15edc",
+  "rail": "ce56021dc54c0e54e9c8a23747c45ee630c9da2cf13dd98b309ad10df3873923",
+  "three": "6e4194af28461fce91b1c9155c482a73fcf4294e25d714d3c0fa7e67072768f8"
+ },
+ "lower_layer_exclusion_nm": [
+  [
+   64,
+   20,
+   1300
+  ],
+  [
+   65,
+   20,
+   650
+  ],
+  [
+   65,
+   44,
+   550
+  ],
+  [
+   66,
+   20,
+   510
+  ],
+  [
+   66,
+   44,
+   390
+  ],
+  [
+   67,
+   20,
+   190
+  ],
+  [
+   67,
+   44,
+   200
+  ],
+  [
+   68,
+   20,
+   210
+  ],
+  [
+   79,
+   20,
+   1300
+  ],
+  [
+   86,
+   20,
+   1300
+  ]
+ ],
+ "first_landing_clearance_nm": {
+  "M1_M2": [
+   [
+    68,
+    20,
+    390
+   ],
+   [
+    69,
+    20,
+    400
+   ],
+   [
+    68,
+    44,
+    320
+   ]
+  ],
+  "M1_M4": [
+   [
+    68,
+    20,
+    390
+   ],
+   [
+    69,
+    20,
+    400
+   ],
+   [
+    68,
+    44,
+    320
+   ],
+   [
+    70,
+    20,
+    560
+   ],
+   [
+    71,
+    20,
+    560
+   ],
+   [
+    69,
+    44,
+    370
+   ],
+   [
+    70,
+    44,
+    400
+   ],
+   [
+    89,
+    44,
+    1650
+   ]
+  ]
+ },
+ "geometry": {
+  "short_single": {
+   "M1_M2": {
+    "transform": "r270 88705,220510",
+    "bbox_nm": "(82975,219840;94435,221180)",
+    "contact_um": {
+     "res_sel": [
+      94.06,
+      220.51
+     ],
+     "res_filtered": [
+      83.35,
+      220.51
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 10.51
+    }
+   },
+   "M1_M4": {
+    "transform": "r90 105175,206485",
+    "bbox_nm": "(99445,205815;110905,207155)",
+    "contact_um": {
+     "res_sel": [
+      99.82,
+      206.485
+     ],
+     "res_filtered": [
+      110.53,
+      206.485
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 18.775
+    }
+   }
+  },
+  "paired_long": {
+   "M1_M2": {
+    "transform": "r270 40275,205355",
+    "bbox_nm": "(3045,203855;77505,206025)",
+    "contact_um": {
+     "weak_src": [
+      77.13,
+      205.355
+     ],
+     "weak": [
+      3.42,
+      205.355
+     ],
+     "weak_b_src": [
+      77.13,
+      204.525
+     ],
+     "weak_b": [
+      3.42,
+      204.525
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "weak_src": 46.815,
+     "weak_b_src": 44.4
+    }
+   },
+   "M1_M4": {
+    "transform": "r270 40275,205390",
+    "bbox_nm": "(3045,203890;77505,206060)",
+    "contact_um": {
+     "weak_src": [
+      77.13,
+      205.39
+     ],
+     "weak": [
+      3.42,
+      205.39
+     ],
+     "weak_b_src": [
+      77.13,
+      204.56
+     ],
+     "weak_b": [
+      3.42,
+      204.56
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "weak_src": 46.85,
+     "weak_b_src": 44.435
+    }
+   }
+  },
+  "intact_three": {
+   "M1_M2": {
+    "transform": "r270 40275,206185",
+    "bbox_nm": "(3045,203855;77505,206855)",
+    "contact_um": {
+     "weak_src": [
+      77.13,
+      206.185
+     ],
+     "weak": [
+      3.42,
+      206.185
+     ],
+     "weak_b_src": [
+      77.13,
+      205.355
+     ],
+     "weak_b": [
+      3.42,
+      205.355
+     ],
+     "res_sel": [
+      77.13,
+      204.525
+     ],
+     "res_filtered": [
+      66.42,
+      204.525
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 43.425,
+     "weak_src": 47.645,
+     "weak_b_src": 45.23
+    }
+   },
+   "M1_M4": {
+    "transform": "r270 40275,206220",
+    "bbox_nm": "(3045,203890;77505,206890)",
+    "contact_um": {
+     "weak_src": [
+      77.13,
+      206.22
+     ],
+     "weak": [
+      3.42,
+      206.22
+     ],
+     "weak_b_src": [
+      77.13,
+      205.39
+     ],
+     "weak_b": [
+      3.42,
+      205.39
+     ],
+     "res_sel": [
+      77.13,
+      204.56
+     ],
+     "res_filtered": [
+      66.42,
+      204.56
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 43.39,
+     "weak_src": 47.68,
+     "weak_b_src": 45.265
+    }
+   }
+  },
+  "intact_pad_priority": {
+   "M1_M2": {
+    "transform": "r270 62965,206335",
+    "bbox_nm": "(25735,204005;100195,207005)",
+    "contact_um": {
+     "weak_src": [
+      99.82,
+      206.335
+     ],
+     "weak": [
+      26.11,
+      206.335
+     ],
+     "weak_b_src": [
+      99.82,
+      205.505
+     ],
+     "weak_b": [
+      26.11,
+      205.505
+     ],
+     "res_sel": [
+      99.82,
+      204.675
+     ],
+     "res_filtered": [
+      89.11,
+      204.675
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 20.585
+    }
+   },
+   "M1_M4": {
+    "transform": "r270 62965,206335",
+    "bbox_nm": "(25735,204005;100195,207005)",
+    "contact_um": {
+     "weak_src": [
+      99.82,
+      206.335
+     ],
+     "weak": [
+      26.11,
+      206.335
+     ],
+     "weak_b_src": [
+      99.82,
+      205.505
+     ],
+     "weak_b": [
+      26.11,
+      205.505
+     ],
+     "res_sel": [
+      99.82,
+      204.675
+     ],
+     "res_filtered": [
+      89.11,
+      204.675
+     ]
+    },
+    "straight_Manhattan_to_physical_source_um": {
+     "res_sel": 20.585
+    }
+   }
+  }
+ },
+ "separated_site_checks": {
+  "M1_M2": {
+   "overlap_nm2": 0,
+   "minimum_box_gap_um": 14.859
+  },
+  "M1_M4": {
+   "overlap_nm2": 0,
+   "minimum_box_gap_um": 21.94
+  }
+ },
+ "relocated_original_two_gate_cell": {
+  "paired_long": {
+   "control_transform": "r270 50515,81565",
+   "control_bbox_nm": "(50515,76965;54165,81565)",
+   "control_pads_um": {
+    "res_sel": [
+     52.175,
+     79.54
+    ],
+    "six": [
+     52.165,
+     80.385
+    ],
+    "weak": [
+     52.745,
+     78.34
+    ],
+    "weak_b": [
+     52.765,
+     79.945
+    ],
+    "vdd": [
+     53.695,
+     77.615
+    ],
+    "vss": [
+     50.975,
+     77.615
+    ]
+   },
+   "switch_driver_to_resistor_M1_source_lower_bound_um": {
+    "weak": 151.435,
+    "weak_b": 148.98
+   },
+   "actual_upper_conductor_polygons": {
+    "searched_radius_um": 60,
+    "found": true,
+    "bbox_nm": "(86545,203855;91145,207505)",
+    "transform": "r180 91145,207505",
+    "switch_driver_to_resistor_M1_source_lower_bound_um": {
+     "weak": 10.905,
+     "weak_b": 13.09
+    },
+    "reserve_entire_bbox_through_M1": true,
+    "upper_geometry_clearances_nm": [
+     [
+      [
+       68,
+       44
+      ],
+      [
+       68,
+       44
+      ],
+      320
+     ],
+     [
+      [
+       69,
+       20
+      ],
+      [
+       69,
+       20
+      ],
+      400
+     ],
+     [
+      [
+       69,
+       44
+      ],
+      [
+       69,
+       44
+      ],
+      400
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       70,
+       20
+      ],
+      850
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       89,
+       44
+      ],
+      1400
+     ]
+    ]
+   }
+  },
+  "intact_three": {
+   "control_transform": "r270 50515,81565",
+   "control_bbox_nm": "(50515,76965;54165,81565)",
+   "control_pads_um": {
+    "res_sel": [
+     52.175,
+     79.54
+    ],
+    "six": [
+     52.165,
+     80.385
+    ],
+    "weak": [
+     52.745,
+     78.34
+    ],
+    "weak_b": [
+     52.765,
+     79.945
+    ],
+    "vdd": [
+     53.695,
+     77.615
+    ],
+    "vss": [
+     50.975,
+     77.615
+    ]
+   },
+   "switch_driver_to_resistor_M1_source_lower_bound_um": {
+    "weak": 152.265,
+    "weak_b": 149.81
+   },
+   "actual_upper_conductor_polygons": {
+    "searched_radius_um": 60,
+    "found": true,
+    "bbox_nm": "(86545,203990;91145,207640)",
+    "transform": "r180 91145,207640",
+    "switch_driver_to_resistor_M1_source_lower_bound_um": {
+     "weak": 11.6,
+     "weak_b": 12.395
+    },
+    "reserve_entire_bbox_through_M1": true,
+    "upper_geometry_clearances_nm": [
+     [
+      [
+       68,
+       44
+      ],
+      [
+       68,
+       44
+      ],
+      320
+     ],
+     [
+      [
+       69,
+       20
+      ],
+      [
+       69,
+       20
+      ],
+      400
+     ],
+     [
+      [
+       69,
+       44
+      ],
+      [
+       69,
+       44
+      ],
+      400
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       70,
+       20
+      ],
+      850
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       89,
+       44
+      ],
+      1400
+     ]
+    ]
+   }
+  },
+  "intact_pad_priority": {
+   "control_transform": "r180 249095,209825",
+   "control_bbox_nm": "(244495,206175;249095,209825)",
+   "control_pads_um": {
+    "res_sel": [
+     247.07,
+     208.165
+    ],
+    "six": [
+     247.915,
+     208.175
+    ],
+    "weak": [
+     245.87,
+     207.595
+    ],
+    "weak_b": [
+     247.475,
+     207.575
+    ],
+    "vdd": [
+     245.145,
+     206.645
+    ],
+    "vss": [
+     245.145,
+     209.365
+    ]
+   },
+   "switch_driver_to_resistor_M1_source_lower_bound_um": {
+    "weak": 147.31,
+    "weak_b": 149.725
+   },
+   "actual_upper_conductor_polygons": {
+    "searched_radius_um": 60,
+    "found": true,
+    "bbox_nm": "(101490,204015;106090,207665)",
+    "transform": "r180 106090,207665",
+    "switch_driver_to_resistor_M1_source_lower_bound_um": {
+     "weak": 3.945,
+     "weak_b": 4.74
+    },
+    "reserve_entire_bbox_through_M1": true,
+    "upper_geometry_clearances_nm": [
+     [
+      [
+       68,
+       44
+      ],
+      [
+       68,
+       44
+      ],
+      320
+     ],
+     [
+      [
+       69,
+       20
+      ],
+      [
+       69,
+       20
+      ],
+      400
+     ],
+     [
+      [
+       69,
+       44
+      ],
+      [
+       69,
+       44
+      ],
+      400
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       70,
+       20
+      ],
+      850
+     ],
+     [
+      [
+       70,
+       20
+      ],
+      [
+       89,
+       44
+      ],
+      1400
+     ]
+    ]
+   }
+  }
+ },
+ "scope": "Feasibility on the full occupied 1b base with its three superseded control routes removed in memory. The numbers are lower bounds on lengths to actual edge contacts. Candidate polygons and initial landing access are tested; routes, extracted fields, area/antenna rules and electrical performance require a built GDS. The standalone single 40k strip needs a legal URPM realization. The original three-strip bank has a passing leaf DRC/LVS receipt."
+}
