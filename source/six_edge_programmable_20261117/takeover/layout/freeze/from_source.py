@@ -32,7 +32,8 @@ What it does, in order (source/MANIFEST.json, "rebuild", names the lock folder, 
      deck, each with its planted faults: the contact bars once mask generation has grown them (scripts/licon_bars.py: end
      to end at least 0.64 um drawn) and every poly resistor body at least 0.66 um long along the current
      (scripts/res_length.py); and Tiny Tapeout's three n-well rules measured directly (scripts/well_rules.py) and the
-     precision resistors' distances from NMOS held to lock4_r's (scripts/res_near_nmos.py), each with planted faults
+     precision resistors' distances from NMOS held to lock4_r's (scripts/res_near_nmos.py), each with planted faults.
+     The etch-stage antenna check (scripts/antenna_stages.py) checks each gate net with resistor bodies conducting and open.
 """
 from __future__ import annotations
 
@@ -321,8 +322,10 @@ def main():
         # the layout and must find them
         # and (24 Nov) Tiny Tapeout's three n-well rules measured directly, and the precision resistors held to lock4_r's
         # distances from NMOS; each with its planted faults
-        for key, script in (("contact_bars", "licon_bars.py"), ("resistor_length", "res_length.py"), ("well_rules_direct", "well_rules.py"),
-                            ("resistors_near_nmos", "res_near_nmos.py")):
+        physical_checks = {"contact_bars": "licon_bars.py", "resistor_length": "res_length.py",
+                           "well_rules_direct": "well_rules.py", "resistors_near_nmos": "res_near_nmos.py",
+                           "antstage": "antenna_stages.py"}
+        for key, script in physical_checks.items():
             out = LAY / "results" / f"{script[:-3]}_{tag}.json"
             code, secs = run_logged([KPY, "-I", f"scripts/{script}", lock_gds, out], LAY, work_root / "logs" / f"{key}.log", env)
             r = json.loads(out.read_text()) if out.is_file() else {}
@@ -333,7 +336,7 @@ def main():
                                 and (ch["pin_ties"]["result"] or "").startswith("RESULT: all sixteen tied to VGND | no two other pins")
                                 and ch["hvi"]["exit_code"] == 0 and ch["bias_words_ground"]["on_VGND_by_metal"] is True
                                 and all(ch[k]["exit_code"] == 0 and ch[k]["ok"] is True and ch[k]["planted_faults_ok"] is True
-                                        for k in ("contact_bars", "resistor_length", "well_rules_direct", "resistors_near_nmos")))
+                                        for k in physical_checks))
         ok_all &= res["checks_ok"]
     res["ok"] = bool(ok_all)
     res["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")

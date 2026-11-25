@@ -16,6 +16,8 @@
 #   ties        check_ties.sh         rings, wells, substrate and capacitor plates on their rails through metal, against the
 #                                     extraction (exit 0 does not mean pass: read results/ties_netlist_TAG.json)
 #   antenna     magic_flows.py antenna  Magic's antenna check (PDK rules and near-zero limits)
+#   antstage    antenna_stages.py     gate exposure at each occupied etch, with resistor bodies conducting and open
+#                                     (exit 1 on an over-limit net or a failed boundary/diffusion control)
 #   drc         magic_flows.py drc    Magic's full rule deck
 #   lvs         lvs_check.py          layout against NETLIST by the earlier chip's method, with its 25 + 13 planted faults
 #   precheck    tt_precheck.py        top cell renamed and prefixed, LEF, Tiny Tapeout's precheck and its 4 planted faults
@@ -64,6 +66,7 @@ echo "== $TAG: $GDS (sha256 $(sha256sum "$GDS" | cut -c1-16)), netlist $NETLIST 
 step inventory  $KPY -B scripts/gds_inventory.py "$GDS" results/inventory_$TAG.json
 step ties       bash scripts/check_ties.sh "$GDS" $TAG
 step antenna    $PY -I scripts/magic_flows.py antenna "$GDS" build/$TAG
+step antstage   $KPY -I scripts/antenna_stages.py "$GDS" results/antenna_stages_$TAG.json
 step drc        $PY -I scripts/magic_flows.py drc "$GDS" build/$TAG
 step lvs        $PY -I scripts/lvs_check.py "$GDS" "$NETLIST" "$ROOT" $TAG
 step precheck   $PY -I scripts/tt_precheck.py "$GDS" $TAG
@@ -99,5 +102,6 @@ grep -h "^RESULT:" runs/$TAG/wells.log | sed 's/^/    well rules, direct: /'
 grep -h "^RESULT:" runs/$TAG/resnmos.log | sed 's/^/    resistors near NMOS: /'
 grep -h "protected devices" runs/$TAG/newcross.log | sed 's/^/    /'
 grep -h "violations" runs/$TAG/antenna.log | head -1 | sed 's/^/    antenna: /'
+grep -h "^RESULT:" runs/$TAG/antstage.log | sed 's/^/    etch-stage antenna: /'
 $PY -I -c "import json; d=json.load(open('results/ties_netlist_$TAG.json')); print('    ties: ground plates tied by metal:', d['every_ground_plate_tied_by_metal'], '| bias words\' ground on VGND by metal:', d.get('bias_words_ground_on_VGND_by_metal'), '| wells off the supply:', d['wells_off_the_supply_by_the_metal_trace'], '| substrate islands:', d['substrate_islands_by_the_metal_trace'])" 2>/dev/null
 $PY -I -c "import json; d=json.load(open('build/$TAG/drc.json')); print('    Magic DRC errors:', d['total'])" 2>/dev/null

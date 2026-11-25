@@ -24,6 +24,8 @@ Steps (each logged as FOLDER/NN_*.log), as the base flow's filter_reservoir_rebu
                  checked cell file: the REF buffer's zero resistor at L 0.70) -> <stem>_r.gds, then check_die_v4.py
                  against netlist version 5, which is also the extraction's schematic (every check_die_v4.py run also
                  checks the amplifier macros against its netlist version: macro_check.py)
+  with --antenna-patch JSON (on top of lock4_r): four M2 cuts, dual via2 landings, M3 jumpers and scrap removal;
+                 version-5 LVS and DRC, two resistor models at every etch, and Magic on truncated stage copies
   then           antenna (the base flow's signoff.antenna) and extract.py (capacitance-only board model) on the last GDS
 Without --schematic the interim circuit (scripts/variant_schematic.py on the selected layout's circuit) is used.
 """
@@ -44,7 +46,7 @@ def run(folder, i, name, cmd, cwd):
 
 
 def main(folder, w1, l1, w2, l2, schematic=None, expect=None, patch=None, v4=None, wells=None, cellfix_level=1, strap=None,
-         rzero=None):
+         rzero=None, antenna_patch=None):
     if folder.exists() and any(folder.iterdir()):
         raise ValueError('rebuild needs an empty folder')
     folder.mkdir(parents=True, exist_ok=True)
@@ -105,9 +107,25 @@ def main(folder, w1, l1, w2, l2, schematic=None, expect=None, patch=None, v4=Non
         run(folder, i + 1, 'check_die_v4', [PY, '-B', HERE / 'check_die_v4.py', folder / f'{final}_r', '--negative',
                                             '--schematic', v5], HERE)
         final, i, last_schematic = f'{final}_r', i + 2, v5
+    if antenna_patch:
+        if not rzero or hashlib.sha256(last_schematic.read_bytes()).hexdigest() != '399eac539f89319920f6f0921f33a6454fbd4b10d10704f1164dfca0bb13a8c6':
+            raise ValueError('--antenna-patch requires --rzero and the lock4_r version-5 schematic')
+        stem = f'{final}_a'
+        output = folder / f'{stem}.gds'
+        run(folder, i, 'antenna_patch', [KPY, '-B', HERE / 'antenna_patch.py', folder / f'{final}.gds',
+                                         output, folder / 'antenna_patch.json', antenna_patch], HERE)
+        run(folder, i + 1, 'check_die_v4', [PY, '-B', HERE / 'check_die_v4.py', folder / stem, '--negative',
+                                            '--schematic', last_schematic], HERE)
+        run(folder, i + 2, 'etch_antenna', [KPY, '-B', HERE / 'antenna_stage.py', output, folder / 'etch_antenna.json',
+                                            '--nets-gz', folder / 'etch_nets.json.gz'], HERE)
+        run(folder, i + 3, 'magic_etch', [KPY, '-B', HERE / 'antenna_magic.py', output, folder / 'magic_etch',
+                                          folder / 'magic_etch.json'], HERE)
+        final, i = stem, i + 4
     run(folder, i, 'antenna', [PY, '-B', '-c', f"import sys; sys.path.insert(0, {str(lay)!r}); import signoff; signoff.antenna({str(folder / final)!r})"], lay)
     run(folder, i + 1, 'extract', [PY, '-B', lay / 'extract.py', folder / final, '--schematic', last_schematic,
                                '--unit-mim', lay / 'results/quiet_rc_release/mim_unit.spice', '--unit-mim-count', 3], lay)
+    if antenna_patch:
+        run(folder, i + 2, 'release_records', [PY, '-B', HERE / 'antenna_records.py', folder, final], HERE)
     gds = (folder / f'{final}.gds').read_bytes()
     receipt = json.loads((folder / f'{final}_checks/receipt.json').read_text())
     summary = dict(gds_sha256=hashlib.sha256(gds).hexdigest(), schematic_sha256=hashlib.sha256(Path(last_schematic).read_bytes()).hexdigest(),
@@ -138,6 +156,16 @@ def main(folder, w1, l1, w2, l2, schematic=None, expect=None, patch=None, v4=Non
         mc = json.loads((folder / f'{final}_macro_check.json').read_text())
         summary['macro_check'] = dict(differences=len(mc['differences']), instances=len(mc['instances']),
                                       macros={k: v['sha256'] for k, v in mc['macros'].items()}, verdict=mc['verdict'])
+    if antenna_patch:
+        summary['antenna_patch_sha256'] = hashlib.sha256(antenna_patch.read_bytes()).hexdigest()
+        summary['etch_failures'] = json.loads((folder / 'etch_antenna.json').read_text())['failed_net_stage_models']
+        summary['magic_etch_violations'] = json.loads((folder / 'magic_etch.json').read_text())['violations']
+        summary['release_manifest_sha256'] = hashlib.sha256((folder / 'release_records/manifest.json').read_bytes()).hexdigest()
+        if (summary['antenna']['violations'] or summary['Magic_full_DRC']['total'] or
+                receipt['comparisons']['reference']['property_errors'] or
+                receipt['comparisons']['reference']['result'] != 'Circuits match uniquely.' or
+                receipt['comparisons']['reference_bad']['same_name_port_pairs']):
+            raise ValueError('lock5_r final full-die signoff failed')
     (folder / 'summary.json').write_text(json.dumps(summary, indent=1) + '\n')
     print(json.dumps(summary, indent=1))
     if expect and summary['gds_sha256'] != expect:
@@ -157,8 +185,9 @@ if __name__ == '__main__':
                    help='the XPROG ground strap (variant D), applied after the well patch: block file, then strap file')
     p.add_argument('--rzero', type=Path, nargs=2, metavar=('CELL', 'V5'),
                    help="the REF buffer's zero resistor at L 0.70, applied after the strap: cell file, netlist version 5")
+    p.add_argument('--antenna-patch', type=Path, help='apply the lock5_r etch-stage antenna repair after --rzero')
     a = p.parse_args()
     main(a.folder.resolve(), a.w1, a.l1, a.w2, a.l2, a.schematic.resolve() if a.schematic else None, a.expect,
          a.patch.resolve() if a.patch else None, a.v4.resolve() if a.v4 else None, a.wells.resolve() if a.wells else None,
          a.cellfix_level, [f.resolve() for f in a.strap] if a.strap else None,
-         [f.resolve() for f in a.rzero] if a.rzero else None)
+         [f.resolve() for f in a.rzero] if a.rzero else None, a.antenna_patch.resolve() if a.antenna_patch else None)

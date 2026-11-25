@@ -30,12 +30,12 @@ other as they do there. `MANIFEST.json` lists every file of the repository with 
 | File (under `six_edge_programmable_20261117/`) | What it is |
 | --- | --- |
 | `takeover/bias/layout/rzero/variant_reference_v5.spice` | The chip's circuit, the netlist the layout is checked against. In the same folder, `make_variant_v5.py` generates it from `takeover/bias/circuit/variant_reference_v4.spice`. The file `variant_v5_manifest.json` records the changed line and the SHA-256 of both netlists. |
-| `takeover/bias/layout/lock4_r/die.gds.gz` | The submitted layout (GDS SHA-256 `99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1`). The rebuilt layout is compared with it. |
+| `takeover/bias/layout/lock5_r/die.gds.gz` | The submitted layout (GDS SHA-256 `a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d`). The rebuilt layout is compared with it. |
 | `takeover/layout/freeze/from_source.py` | The rebuild: it runs the recorded build stages, makes the netlists from their generators, packages the layout, compares it with `../gds/` and `../lef/`, and runs the checks |
 | `takeover/layout/freeze/traces/` | What the last build stage and the checks read, recorded file by file |
-| `takeover/layout/scripts/check_all.sh` | The layout checks, as one command: rule deck, antenna, layout against circuit with planted faults, ties, Tiny Tapeout's precheck and n-well rules, pin ties, thick-oxide geometry and the count of gate ends crossing its edge over field oxide, resistor contact-bar spacing and body length, direct n-well measurements, MIM capacitors over lower-layer edges, nitride poly cut around contacts and resistor spacing from NMOS transistors |
-| `takeover/bias/layout/scripts/rebuild.py` | The last build stage. It adds the two offset words with their transistors and write logic, H1's offset network, the supply strips, the stored-word cells, the n-well rectangles and the offset words' ground strap to the stored layout of the stage before, and draws the reference buffer's zero resistor. |
-| `takeover/bias/layout/inputs/` | What that stage reads: the supply strips, the n-well rectangles, the ground strap, the placement targets and the reference buffer's resistor cell (`ar4_rzero_l070.gds`) |
+| `takeover/layout/scripts/check_all.sh` | The layout checks, as one command: rule deck, antenna (on the finished layout and at each etch stage), layout against circuit with planted faults, ties, Tiny Tapeout's precheck and n-well rules, pin ties, thick-oxide geometry and the count of gate ends crossing its edge over field oxide, resistor contact-bar spacing and body length, direct n-well measurements, MIM capacitors over lower-layer edges, nitride poly cut around contacts and resistor spacing from NMOS transistors |
+| `takeover/bias/layout/scripts/rebuild.py` | The last build stage. It adds the two offset words with their transistors and write logic, H1's offset network, the supply strips, the stored-word cells, the n-well rectangles and the offset words' ground strap to the stored layout of the stage before, draws the reference buffer's zero resistor, and carries four metal 2 runs over short metal 3 bridges so that no gate is exposed while metal 2 is etched. |
+| `takeover/bias/layout/inputs/` | What that stage reads: the supply strips, the n-well rectangles, the ground strap, the placement targets, the reference buffer's resistor cell (`ar4_rzero_l070.gds`) and the metal 3 bridges (`antenna_patch.json`) |
 | `drawn/ports.py` | The pin map: which pad carries which signal |
 
 The datasheet (`../docs/info.md`) describes the chip from the outside: pins, modes, write and read sequences,
@@ -61,7 +61,7 @@ resistors as mask generation grows them (at least 0.64 um apart end to end as dr
 (no lvtn across a well's edge, hvtp outside the wells only as the standard cells' own strips, no urpm over a well) and
 the precision resistors' distances from NMOS transistors held to this layout's. Result: `from_source.json` in the top folder.
 
-Last rebuild from this snapshot: 2026-11-24T15:37-05:00: the rebuild agrees (see MANIFEST.json, rebuild_from_this_snapshot).
+Last rebuild from this snapshot: 2026-11-24T18:47-05:00: the rebuild agrees (see MANIFEST.json, rebuild_from_this_snapshot).
 
 ## What is not here
 

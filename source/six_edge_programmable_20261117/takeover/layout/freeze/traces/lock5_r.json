@@ -1,9 +1,9 @@
 {
  "what": "the last stage of a locked layout, traced (takeover/layout/freeze/trace_lock.py)",
  "paths_relative_to": "hardware/mesa/xor_sky130",
- "lock": "six_edge_programmable_20261117/takeover/bias/layout/lock4_r",
- "commit": "ac1d09438c28d56b48447ec3fa772d51a6b7d13d",
- "delivery_block": "cd takeover/bias/layout\n$PY -I scripts/rebuild.py EMPTY_FOLDER 0.42 3.2 1 3.5 \\\n    --schematic ../circuit/variant_reference.spice --patch inputs/local_patch.json \\\n    --v4 ../circuit/variant_reference_v4.spice --wells inputs/well_patch_hvi070.json --cellfix-level 3 \\\n    --strap inputs/strap_block_d.json inputs/xprog_strap.json \\\n    --rzero inputs/ar4_rzero_l070.gds rzero/variant_reference_v5.spice \\\n    --expect 99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
+ "lock": "six_edge_programmable_20261117/takeover/bias/layout/lock5_r",
+ "commit": "35fc7beb433bff97389c9f8e6ce7b1ae77324200",
+ "delivery_block": "cd takeover/bias/layout\n$PY -I scripts/rebuild.py EMPTY_FOLDER 0.42 3.2 1 3.5 \\\n    --schematic ../circuit/variant_reference.spice --patch inputs/local_patch.json \\\n    --v4 ../circuit/variant_reference_v4.spice --wells inputs/well_patch_hvi070.json --cellfix-level 3 \\\n    --strap inputs/strap_block_d.json inputs/xprog_strap.json \\\n    --rzero inputs/ar4_rzero_l070.gds rzero/variant_reference_v5.spice \\\n    --antenna-patch inputs/antenna_patch.json \\\n    --expect a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d",
  "cwd": "six_edge_programmable_20261117/takeover/bias/layout",
  "args": [
   "EMPTY_FOLDER",
@@ -27,15 +27,17 @@
   "--rzero",
   "inputs/ar4_rzero_l070.gds",
   "rzero/variant_reference_v5.spice",
+  "--antenna-patch",
+  "inputs/antenna_patch.json",
   "--expect",
-  "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1"
+  "a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d"
  ],
  "env": {},
- "expect_sha256": "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
- "final_stem": "chip_v4_w_s_r",
+ "expect_sha256": "a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d",
+ "final_stem": "chip_v4_w_s_r_a",
  "exit_code": 0,
- "seconds": 174.4,
- "product_sha256": "99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1",
+ "seconds": 350.7,
+ "product_sha256": "a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d",
  "same_as_expected": true,
  "inputs": [
   {
@@ -454,6 +456,11 @@
    "in_git": true
   },
   {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/antenna_patch.json",
+   "sha256": "c5cd7d5f8e497205fa33307e735b8a35bd2932d170834f08aef683f37afbf358",
+   "in_git": true
+  },
+  {
    "path": "six_edge_programmable_20261117/takeover/bias/layout/inputs/ar4_rzero_l070.gds",
    "sha256": "899f730f62119604048d3a520257c58da7cb323c0a4cd9c001352aac3cfaaf6b",
    "in_git": true
@@ -486,6 +493,26 @@
   {
    "path": "six_edge_programmable_20261117/takeover/bias/layout/rzero/variant_reference_v5.spice",
    "sha256": "399eac539f89319920f6f0921f33a6454fbd4b10d10704f1164dfca0bb13a8c6",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/antenna_magic.py",
+   "sha256": "e79f8a01bb87195951ca8eba34d580ed67df0ffac3b26e11954f938710d83a19",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/antenna_patch.py",
+   "sha256": "71f80be8722eefafc3e6d3194b1f835fb4de2ea89a1c3196213e26adcb5c0be8",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/antenna_records.py",
+   "sha256": "dda4d1011c1306f579c89ac24df9d015e736fdebfda03c21a6bce421c8121a22",
+   "in_git": true
+  },
+  {
+   "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/antenna_stage.py",
+   "sha256": "8eeaadc1feafdcf6e0e8d0fd8bb35250729e2ba0682196670274cfd7a29fa54e",
    "in_git": true
   },
   {
@@ -525,7 +552,7 @@
   },
   {
    "path": "six_edge_programmable_20261117/takeover/bias/layout/scripts/rebuild.py",
-   "sha256": "5c091b30325419745993c6a018caeb71184db0bab585f23dbb619459c85143fd",
+   "sha256": "60da4b3deb3619e929c52a393d7d804b8e5cbcc5749b47f2c9556dd777a61c29",
    "in_git": true
   },
   {
@@ -594,5 +621,5 @@
   "{project venv}/bin/python"
  ],
  "worktree_status_after": [],
- "log_tail": "{}\n },\n \"LVS\": {\n  \"reference\": \"Circuits match uniquely.\",\n  \"reference_bad\": \"Top level cell failed pin matching.\"\n },\n \"antenna\": {\n  \"gds_sha256\": \"99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1\",\n  \"violations\": 0,\n  \"planes\": [],\n  \"feedback_entries\": 0\n },\n \"board_spice_sha256\": \"a24a2ff1241e5fce749af97d4669fd3ae2860058b0036b1e2e56e8b353f47c95\",\n \"final_stem\": \"chip_v4_w_s_r\",\n \"supply_patch\": \"{worktree}/hardware/mesa/xor_sky130/six_edge_programmable_20261117/takeover/bias/layout/inputs/local_patch.json\",\n \"lock_checks_schematic_sha256\": \"6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf\",\n \"LVS_with_base_dummy_table\": {\n  \"reference\": {\n   \"result\": \"Circuits match uniquely.\",\n   \"property_errors\": true\n  },\n  \"reference_bad\": {\n   \"result\": \"Top level cell failed pin matching.\",\n   \"property_errors\": false\n  }\n },\n \"LVS_property_errors\": {\n  \"reference\": false,\n  \"reference_bad\": false\n },\n \"v4_dummy_table_sha256\": \"077c6506e98d33fbe898f86df7909dc3460872500861d06b1ef47f03e2dfde28\",\n \"reference_with_v4_dummies_sha256\": \"b69af3fb3a4d26eccfd1c0c014d03b02916d5a2d0dbed35b70a446289b7e1b70\",\n \"well_patch\": {\n  \"file\": \"well_patch_hvi070.json\",\n  \"sha256\": \"dfdd1c4ce2cf4fd48c829d598a86a6a1a71a228a4ca2c3a58a8664c3c336ed87\"\n },\n \"cellfix_output_gds_sha256\": \"842884678b7f2cda12cc971e17247e4134bb71fbe3425a4b312efa2a05f49769\",\n \"strap_patch\": {\n  \"files\": [\n   {\n    \"file\": \"strap_block_d.json\",\n    \"sha256\": \"39f92f58e37dbacc986d309dce97b115b7267bab29110b72c95406df69676d47\",\n    \"role\": \"block\"\n   },\n   {\n    \"file\": \"xprog_strap.json\",\n    \"sha256\": \"a01414b9f854331a3a87db45b87f597be782fe85d7fcbacb78c8eb077f10e88b\",\n    \"role\": \"strap\"\n   }\n  ],\n  \"base\": \"lock2_r\",\n  \"input_gds_sha256\": \"991393f67b6c14d99276e2e22df2c0a89817975409b56680e9ce1b8c809273b1\",\n  \"removed\": 3,\n  \"added\": 35\n },\n \"rzero_patch\": {\n  \"cell\": \"ar4_rzero\",\n  \"cell_file\": {\n   \"file\": \"inputs/ar4_rzero_l070.gds\",\n   \"generator\": \"sky130_fd_pr__res_xhigh_po_1p41\",\n   \"w\": 1.41,\n   \"l\": 0.7,\n   \"given\": \"ar4_rzero_l070.gds\",\n   \"sha256\": \"899f730f62119604048d3a520257c58da7cb323c0a4cd9c001352aac3cfaaf6b\"\n  },\n  \"base\": \"lock3_r\",\n  \"input_gds_sha256\": \"88594fa1019f750dd60a50459e5258d6304578ff0521c266214a11d6b05bce0f\"\n },\n \"reference_v5_sha256\": \"5565877cc0be90ec49ccabbf2f51580ea6a68ee7422d7b46a2d53089f3f889d9\",\n \"macro_check\": {\n  \"differences\": 0,\n  \"instances\": 14,\n  \"macros\": {\n   \"az_ref1\": \"8143eda5f55c397acff20325c2239dff5202bcb0a9f112305f19bd356a177ed6\",\n   \"az_ref4\": \"95948d35e7601c326868ea9c4b5e8a09971d29c12c235bc7ba34b5d72f1f393d\",\n   \"lean_bias\": \"923beac969bb4eb9ab881720a09694a76c6ab1c8633302d3e8839736c17f76c7\",\n   \"lean_act\": \"dbd9f57df37a42794ce0163cc92f621d3f64d38727d7b27c462be8c37ee0a6dc\",\n   \"aj_core1p\": \"8d93f31581e91bbb8c68492bf84f1bbad3ff27ce6b6ff1133ad4fdd8e5244f7e\",\n   \"az_pad\": \"3d47a0fa272a710c3c2a43ab1a23ace2c40ee27fe01303aaf12ea0ad108764f9\"\n  },\n  \"verdict\": true\n }\n}\n"
+ "log_tail": "planes\": [],\n  \"feedback_entries\": 0\n },\n \"board_spice_sha256\": \"141a9b9283a205d5db6612eadf05f431478e29f28a1b915aa094e25c49ffea37\",\n \"final_stem\": \"chip_v4_w_s_r_a\",\n \"supply_patch\": \"{worktree}/hardware/mesa/xor_sky130/six_edge_programmable_20261117/takeover/bias/layout/inputs/local_patch.json\",\n \"lock_checks_schematic_sha256\": \"6a2a42fc3d91af2ce725c2ff8647c76e6124bff3ae3fa3f13d97577ea8dae9cf\",\n \"LVS_with_base_dummy_table\": {\n  \"reference\": {\n   \"result\": \"Circuits match uniquely.\",\n   \"property_errors\": true\n  },\n  \"reference_bad\": {\n   \"result\": \"Top level cell failed pin matching.\",\n   \"property_errors\": false\n  }\n },\n \"LVS_property_errors\": {\n  \"reference\": false,\n  \"reference_bad\": false\n },\n \"v4_dummy_table_sha256\": \"077c6506e98d33fbe898f86df7909dc3460872500861d06b1ef47f03e2dfde28\",\n \"reference_with_v4_dummies_sha256\": \"b69af3fb3a4d26eccfd1c0c014d03b02916d5a2d0dbed35b70a446289b7e1b70\",\n \"well_patch\": {\n  \"file\": \"well_patch_hvi070.json\",\n  \"sha256\": \"dfdd1c4ce2cf4fd48c829d598a86a6a1a71a228a4ca2c3a58a8664c3c336ed87\"\n },\n \"cellfix_output_gds_sha256\": \"842884678b7f2cda12cc971e17247e4134bb71fbe3425a4b312efa2a05f49769\",\n \"strap_patch\": {\n  \"files\": [\n   {\n    \"file\": \"strap_block_d.json\",\n    \"sha256\": \"39f92f58e37dbacc986d309dce97b115b7267bab29110b72c95406df69676d47\",\n    \"role\": \"block\"\n   },\n   {\n    \"file\": \"xprog_strap.json\",\n    \"sha256\": \"a01414b9f854331a3a87db45b87f597be782fe85d7fcbacb78c8eb077f10e88b\",\n    \"role\": \"strap\"\n   }\n  ],\n  \"base\": \"lock2_r\",\n  \"input_gds_sha256\": \"991393f67b6c14d99276e2e22df2c0a89817975409b56680e9ce1b8c809273b1\",\n  \"removed\": 3,\n  \"added\": 35\n },\n \"rzero_patch\": {\n  \"cell\": \"ar4_rzero\",\n  \"cell_file\": {\n   \"file\": \"inputs/ar4_rzero_l070.gds\",\n   \"generator\": \"sky130_fd_pr__res_xhigh_po_1p41\",\n   \"w\": 1.41,\n   \"l\": 0.7,\n   \"given\": \"ar4_rzero_l070.gds\",\n   \"sha256\": \"899f730f62119604048d3a520257c58da7cb323c0a4cd9c001352aac3cfaaf6b\"\n  },\n  \"base\": \"lock3_r\",\n  \"input_gds_sha256\": \"88594fa1019f750dd60a50459e5258d6304578ff0521c266214a11d6b05bce0f\"\n },\n \"reference_v5_sha256\": \"5565877cc0be90ec49ccabbf2f51580ea6a68ee7422d7b46a2d53089f3f889d9\",\n \"macro_check\": {\n  \"differences\": 0,\n  \"instances\": 14,\n  \"macros\": {\n   \"az_ref1\": \"8143eda5f55c397acff20325c2239dff5202bcb0a9f112305f19bd356a177ed6\",\n   \"az_ref4\": \"95948d35e7601c326868ea9c4b5e8a09971d29c12c235bc7ba34b5d72f1f393d\",\n   \"lean_bias\": \"923beac969bb4eb9ab881720a09694a76c6ab1c8633302d3e8839736c17f76c7\",\n   \"lean_act\": \"dbd9f57df37a42794ce0163cc92f621d3f64d38727d7b27c462be8c37ee0a6dc\",\n   \"aj_core1p\": \"8d93f31581e91bbb8c68492bf84f1bbad3ff27ce6b6ff1133ad4fdd8e5244f7e\",\n   \"az_pad\": \"3d47a0fa272a710c3c2a43ab1a23ace2c40ee27fe01303aaf12ea0ad108764f9\"\n  },\n  \"verdict\": true\n },\n \"antenna_patch_sha256\": \"c5cd7d5f8e497205fa33307e735b8a35bd2932d170834f08aef683f37afbf358\",\n \"etch_failures\": 0,\n \"magic_etch_violations\": 0,\n \"release_manifest_sha256\": \"72f57a033067bf6583d8e11544a1ef59ec7ae74778420dc33907f7653c04441c\"\n}\n"
 }

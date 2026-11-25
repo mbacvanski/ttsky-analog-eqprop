@@ -63,7 +63,7 @@ agrees.
 a stored layout of the base design, the stored routing shapes and the scripts. It runs again every stage of the
 recorded build chain that the layout needs, each from the stored layout of the stage before it.
 - Each stage gives, byte for byte, the layout recorded for it (the SHA-256 of every stage's GDS). The last stage gives
-  the submitted layout byte for byte (GDS SHA-256 `99d4968e8f2fe1e137502fbeb3b3280674488797bcfea636f0d883d5e59225d1`).
+  the submitted layout byte for byte (GDS SHA-256 `a824cbba9893dea3b56fac57a8f40094b938535fb2297f5cce189347a2ad665d`).
 - The circuit netlists come out of their generators byte for byte.
 - Packaging the rebuilt layout under the project's name gives this repository's `gds/` record for record (the GDSII
   records apart from their two time stamps; here the bytes are identical too) and its `lef/` byte for byte.
@@ -71,6 +71,8 @@ recorded build chain that the layout needs, each from the stored layout of the s
 The rebuild then runs these checks again on the rebuilt layout:
 - Magic's full SKY130 rule deck: 0 errors;
 - layout against the circuit: a unique match, no property errors, and every applicable planted fault detected;
+- antenna exposure of every gate net at each etch stage, counting only the connections that exist at that stage, with
+  resistor bodies taken both as conducting and as open: no net over its limit, and planted faults found;
 - Tiny Tapeout's precheck: every check passes, and its planted faults are caught;
 - Tiny Tapeout's three n-well rules: 0 violations;
 - the unused output and output-enable pins tied to ground;
@@ -97,7 +99,8 @@ The rebuild recorded in `source/README.md` is made in a sandbox, with the design
 | Check | Result |
 | --- | --- |
 | Magic, full SKY130 rule deck | 0 errors |
-| Antenna rules (Magic) | 0 violations |
+| Antenna rules on the finished layout (Magic) | 0 violations |
+| Antenna exposure at each etch stage (only what is connected when that layer is etched) | no gate net over its limit; the largest metal 2 sidewall ratio without a diffusion on the net is 378 (limit 400) |
 | Layout against circuit (netgen, against `source/six_edge_programmable_20261117/takeover/bias/layout/rzero/variant_reference_v5.spice`) | Circuits match uniquely, with no property errors; 49 of 49 applicable planted faults detected, and the check fails against a wrong netlist |
 | Tiny Tapeout precheck (tt-support-tools `7d2d2ef`) | 17 of 17 checks pass; all 4 planted faults are caught |
 | Tiny Tapeout's n-well rules | 0 violations of each of the three |
